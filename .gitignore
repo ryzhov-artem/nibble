@@ -1,0 +1,16 @@
+# Build artifacts
+/target/
+Cargo.lock
+# Binary and model files
+*.safetensors
+*.bin
+*.gguf
+*.q8k
+*.q4k
+*.q8k_meta
+*.q4k_meta
+*.perm
+*.o
+*.so
+*.dylib
+*.exe

@@ -1,0 +1,25 @@
+cd ~/phi3_quant_standalone
+
+# 1. Compile everything
+cargo build --release 2>&1 | tail -5
+
+# 2. Run unit tests
+cargo test --all 2>&1
+
+# 3. Check for warnings
+cargo clippy 2>&1
+
+# 4. Verify formatting
+cargo fmt -- --check
+
+# 5. Verify all 3 binaries build
+cargo build --release --bin quantize_q8k
+cargo build --release --bin pack_q8k_safetensors
+cargo build --release --bin phi3-mixed-quant
+
+# 6. Smoke-test the help/usage output
+cargo run --release --bin quantize_q8k 2>&1 || true
+# Should print: "Usage: quantize_q8k <input.safetensors | org/model> <output_dir> [--file <name>]"
+
+# 7. (Optional) Test actual HF download — downloads ~7.6 GB
+# cargo run --release --bin quantize_q8k -- microsoft/Phi-3-mini-4k-instruct ./test_quantized
