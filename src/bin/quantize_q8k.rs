@@ -19,6 +19,9 @@ use candle::quantized::k_quants::{matmul, BlockQ4K, BlockQ8K, GgmlType, QK_K};
 use candle::Device;
 use half::{bf16, f16};
 use once_cell::sync::Lazy;
+use phi3_mixed_quant::types::{
+    Q8KHeader, DTYPE_Q4K, DTYPE_Q8K, HEADER_VERSION, MAGIC_PERM, MAGIC_Q4K, MAGIC_Q8K,
+};
 use regex::Regex;
 use safetensors::tensor::{Dtype, SafeTensors};
 use std::collections::HashMap;
@@ -35,24 +38,6 @@ use std::{
 static LAYER_PERM_CACHE: OnceLock<Mutex<LayerPermCache>> = OnceLock::new();
 static ATTN_PROJ_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"^model\.layers\.(\d+)\.self_attn\.(q|k|v|o)_proj\.weight$").unwrap());
-
-// ── shared on-disk header (reused for both Q8K and Q4K files) ─────────────
-#[repr(C)]
-#[derive(Clone, Copy, bytemuck::Zeroable, bytemuck::Pod)]
-struct Q8KHeader {
-    magic: u32,
-    version: u32,
-    out: u32,
-    k: u32,
-    blocks_per_row: u32,
-    dtype: u32,
-}
-
-const MAGIC_Q8K: u32 = 0x4B51_3838;
-const MAGIC_Q4K: u32 = 0x4B51_3834;
-const VERSION: u32 = 1;
-const DTYPE_Q8K: u32 = 0x18;
-const DTYPE_Q4K: u32 = 0x14;
 
 // ── layer routing ──────────────────────────────────────────────────────────
 
@@ -160,7 +145,7 @@ fn quantize_rows_q8k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ8K
 fn write_q8k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K]) -> Result<()> {
     let header = Q8KHeader {
         magic: MAGIC_Q8K,
-        version: VERSION,
+        version: HEADER_VERSION,
         out: rows as u32,
         k: k as u32,
         blocks_per_row: (k / QK_K) as u32,
@@ -217,7 +202,7 @@ fn validate_q4k(original: &[f32], blocks: &[BlockQ4K], rows: usize, k: usize) ->
 fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<()> {
     let header = Q8KHeader {
         magic: MAGIC_Q4K,
-        version: VERSION,
+        version: HEADER_VERSION,
         out: rows as u32,
         k: k as u32,
         blocks_per_row: (k / QK_K) as u32,
@@ -300,7 +285,6 @@ fn write_perm(path_base: &Path, perm: &[usize]) -> Result<()> {
     let mut p = path_base.to_path_buf();
     p.set_extension("perm");
     let mut w = BufWriter::new(fs::File::create(&p)?);
-    const MAGIC_PERM: u32 = 0x4D52_4550;
     w.write_all(&MAGIC_PERM.to_le_bytes())?;
     w.write_all(&(perm.len() as u32).to_le_bytes())?;
     for &u in perm {
@@ -310,42 +294,47 @@ fn write_perm(path_base: &Path, perm: &[usize]) -> Result<()> {
     Ok(())
 }
 
-#[allow(dead_code)]
-fn load_perm(path_base: &Path) -> Result<Option<Vec<usize>>> {
-    let mut p = path_base.to_path_buf();
-    p.set_extension("perm");
-    if !p.exists() {
-        return Ok(None);
-    }
-    let bytes = std::fs::read(&p)?;
-    if bytes.len() < 8 {
-        bail!("perm file too small: {}", p.display());
-    }
-    let magic = u32::from_le_bytes(bytes[0..4].try_into().unwrap());
-    const MAGIC_PERM: u32 = 0x4D52_4550;
-    if magic != MAGIC_PERM {
-        bail!("bad perm magic in {}", p.display());
-    }
-    let k = u32::from_le_bytes(bytes[4..8].try_into().unwrap()) as usize;
-    let expect = 8 + 4 * k;
-    if bytes.len() != expect {
-        bail!("perm size mismatch {} (got {}, expect {})", p.display(), bytes.len(), expect);
-    }
-    let mut perm = Vec::with_capacity(k);
-    for i in 0..k {
-        let off = 8 + 4 * i;
-        perm.push(u32::from_le_bytes(bytes[off..off + 4].try_into().unwrap()) as usize);
-    }
-    Ok(Some(perm))
+#[derive(Debug, Clone, Copy)]
+enum PermStrategy {
+    Block,
+    L2,
+    Svd,
+    Qr,
 }
 
-#[allow(dead_code)]
-fn permute_activation(x: &[f32], perm: &[usize]) -> Vec<f32> {
-    let mut out = vec![0f32; x.len()];
-    for (j, &src) in perm.iter().enumerate() {
-        out[j] = x[src];
+impl PermStrategy {
+    fn from_env() -> Self {
+        match std::env::var("CANDLE_Q8K_PERM_STRATEGY")
+            .ok()
+            .as_deref()
+            .map(str::to_ascii_lowercase)
+            .as_deref()
+        {
+            Some("l2") | Some("column") => Self::L2,
+            Some("svd") | Some("variance") => Self::Svd,
+            Some("qr") | Some("qr-pivot") => Self::Qr,
+            // default = blockwise (matches prior behaviour)
+            _ => Self::Block,
+        }
     }
-    out
+
+    fn name(self) -> &'static str {
+        match self {
+            Self::Block => "blockwise",
+            Self::L2 => "l2-norm",
+            Self::Svd => "svd-importance",
+            Self::Qr => "qr-pivot",
+        }
+    }
+
+    fn build(self, rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize>> {
+        Ok(match self {
+            Self::Block => build_block_wise_permutation(rows, k, data),
+            Self::L2 => build_column_permutation(&column_l2_norms(rows, k, data)),
+            Self::Svd => svd_importance_permutation(rows, k, data)?,
+            Self::Qr => qr_pivot_permutation(rows, k, data)?,
+        })
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -358,24 +347,20 @@ impl LayerPermCache {
         Self { map: HashMap::new() }
     }
 
-    #[allow(dead_code)]
-    fn get_or_compute(&mut self, layer_id: u32, rows: usize, k: usize, data: &[f32]) -> Vec<usize> {
+    fn get_or_compute(
+        &mut self,
+        strategy: PermStrategy,
+        layer_id: u32,
+        rows: usize,
+        k: usize,
+        data: &[f32],
+    ) -> Result<Vec<usize>> {
         if let Some(p) = self.map.get(&layer_id) {
-            return p.clone();
+            return Ok(p.clone());
         }
-        let norms = column_l2_norms(rows, k, data);
-        let perm = build_column_permutation(&norms);
+        let perm = strategy.build(rows, k, data)?;
         self.map.insert(layer_id, perm.clone());
-        perm
-    }
-
-    fn get_or_compute_blockwise(&mut self, layer_id: u32, rows: usize, k: usize, data: &[f32]) -> Vec<usize> {
-        if let Some(p) = self.map.get(&layer_id) {
-            return p.clone();
-        }
-        let perm = build_block_wise_permutation(rows, k, data);
-        self.map.insert(layer_id, perm.clone());
-        perm
+        Ok(perm)
     }
 }
 
@@ -395,7 +380,6 @@ fn parse_attention_proj(name: &str) -> Option<(u32, &'static str)> {
     }
 }
 
-#[allow(dead_code)]
 fn svd_importance_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize>> {
     let mut col_means: Vec<f64> = vec![0.0; k];
     let mut col_vars: Vec<f64> = vec![0.0; k];
@@ -424,7 +408,6 @@ fn svd_importance_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec
     Ok(idx)
 }
 
-#[allow(dead_code)]
 fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize>> {
     let mut perm: Vec<usize> = (0..k).collect();
     let qr_steps = match k {
@@ -479,11 +462,19 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
 /// Check if a string looks like a HF model ID (contains exactly one slash, no path separators)
 fn is_hf_model_id(s: &str) -> bool {
     let parts: Vec<&str> = s.split('/').collect();
-    parts.len() == 2
-        && !s.contains(std::path::MAIN_SEPARATOR)  // not a filesystem path on Windows
-        && !s.starts_with('.')
-        && !s.starts_with('/')
-        && !s.starts_with('~')
+    if parts.len() != 2 {
+        return false;
+    }
+    if s.starts_with('.') || s.starts_with('/') || s.starts_with('~') {
+        return false;
+    }
+    // Reject anything that already exists as a path on disk (so a local
+    // "foo/bar.safetensors" is treated as a file, not an HF model id).
+    if Path::new(s).exists() {
+        return false;
+    }
+    // org/repo: both parts non-empty, no nested slashes, no extension.
+    !parts[0].is_empty() && !parts[1].is_empty() && !parts[1].contains('.')
 }
 
 /// Download model safetensors from Hugging Face Hub, returns paths to downloaded files.
@@ -598,8 +589,18 @@ fn main() -> Result<()> {
         .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
         .unwrap_or(false);
 
-    println!("Output : {}", out_dir.display());
-    println!("Permute: {}", if use_permute { "on" } else { "off" });
+    let perm_strategy = PermStrategy::from_env();
+
+    println!("Output  : {}", out_dir.display());
+    println!(
+        "Permute : {}{}",
+        if use_permute { "on" } else { "off" },
+        if use_permute {
+            format!(" (strategy: {})", perm_strategy.name())
+        } else {
+            String::new()
+        }
+    );
 
     let t0 = Instant::now();
     let mut q8k_count = 0usize;
@@ -658,13 +659,13 @@ fn main() -> Result<()> {
                                 .get_or_init(|| Mutex::new(LayerPermCache::new()))
                                 .lock()
                                 .unwrap();
-                            cache.get_or_compute_blockwise(layer_id, rows, k, &data_f32)
+                            cache.get_or_compute(perm_strategy, layer_id, rows, k, &data_f32)?
                         };
                         let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
                         (permuted, Some(perm))
                     }
                 } else {
-                    let perm = build_block_wise_permutation(rows, k, &data_f32);
+                    let perm = perm_strategy.build(rows, k, &data_f32)?;
                     let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
                     (permuted, Some(perm))
                 }

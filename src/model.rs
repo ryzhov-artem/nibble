@@ -165,16 +165,15 @@ pub struct Phi3 {
 
 impl Phi3 {
     pub fn forward(&self, x: &Tensor, index_pos: usize, cache: &mut Cache) -> candle::Result<Tensor> {
-        let (_b_sz, seq_len) = x.dims2()?;
+        let (b_sz, seq_len) = x.dims2()?;
+        let hidden = self.wte.dim(1)?;
 
-        let token_ids = x.flatten_all()?.to_vec1::<u32>()?;
-        let mut embeddings = Vec::with_capacity(token_ids.len());
-        for &token_id in &token_ids {
-            embeddings.push(self.wte.get(token_id as usize)?);
-        }
-
-        let x = Tensor::stack(&embeddings, 0)?;
-        let mut x = x.unsqueeze(0)?;
+        // Gather embeddings in a single op instead of an N-element python-style loop.
+        let flat_ids = x.flatten_all()?;
+        let mut x = self
+            .wte
+            .index_select(&flat_ids, 0)?
+            .reshape((b_sz, seq_len, hidden))?;
 
         for (block_idx, block) in self.blocks.iter().enumerate() {
             x = block.forward(&x, index_pos, block_idx, cache)?;
@@ -182,6 +181,39 @@ impl Phi3 {
 
         let x = rms_norm(&x, &self.ln_f, 1e-5)?;
         let x = x.i((.., seq_len - 1, ..))?.contiguous()?;
+        let logits = self.lm_head.forward(&x)?;
+        logits.to_dtype(DType::F32)
+    }
+
+    /// Full-sequence forward pass that returns logits for **every** position
+    /// `(b_sz, seq_len, vocab)` instead of just the last one.
+    ///
+    /// Used by the perplexity benchmark to score every target token in a
+    /// chunk with a single transformer pass. The autoregressive REPL path
+    /// keeps using [`Self::forward`] which is cheaper because `lm_head` only
+    /// runs on one row.
+    pub fn forward_full(
+        &self,
+        x: &Tensor,
+        index_pos: usize,
+        cache: &mut Cache,
+    ) -> candle::Result<Tensor> {
+        let (b_sz, seq_len) = x.dims2()?;
+        let hidden = self.wte.dim(1)?;
+
+        let flat_ids = x.flatten_all()?;
+        let mut x = self
+            .wte
+            .index_select(&flat_ids, 0)?
+            .reshape((b_sz, seq_len, hidden))?;
+
+        for (block_idx, block) in self.blocks.iter().enumerate() {
+            x = block.forward(&x, index_pos, block_idx, cache)?;
+        }
+
+        let x = rms_norm(&x, &self.ln_f, 1e-5)?;
+        // QuantLinear::forward already accepts a 3-D input and reshapes
+        // internally, so we do NOT slice the last position here.
         let logits = self.lm_head.forward(&x)?;
         logits.to_dtype(DType::F32)
     }

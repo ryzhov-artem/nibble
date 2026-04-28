@@ -7,26 +7,12 @@
 //!     model-q8k-packed.safetensors
 use anyhow::{bail, Context, Result};
 use candle::quantized::k_quants::{BlockQ8K, GgmlType};
+use phi3_mixed_quant::types::{Q8KHeader, MAGIC_PERM, MAGIC_Q4K, MAGIC_Q8K};
 use safetensors::tensor::{Dtype, SafeTensors, TensorView};
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::Instant;
-
-#[repr(C)]
-#[derive(Clone, Copy, bytemuck::Zeroable, bytemuck::Pod)]
-struct Q8KHeader {
-    magic: u32,
-    version: u32,
-    out: u32,
-    k: u32,
-    blocks_per_row: u32,
-    dtype: u32,
-}
-
-const MAGIC_Q8K: u32 = 0x4B51_3838;
-const MAGIC_Q4K: u32 = 0x4B51_3834;
-const MAGIC_PERM: u32 = 0x4D52_4550;
 
 fn read_q8k_file(path: &Path) -> Result<(Vec<BlockQ8K>, Q8KHeader)> {
     let data = fs::read(path)?;

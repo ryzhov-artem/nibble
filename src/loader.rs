@@ -1,18 +1,83 @@
 use candle::{Device, Tensor};
 use safetensors::tensor::SafeTensors;
-use std::{fs, path::Path};
+use std::{fs::File, path::{Path, PathBuf}};
 use tokenizers::Tokenizer;
 
 use crate::model::{Block, CausalSelfAttention, Mlp, Phi3};
 use crate::quant_linear::{is_packed_format, QuantLinear};
 use crate::types::{tensor_to_f32, Phi3Config};
 
+/// Memory-map a safetensors file read-only.
+///
+/// Saves ~2.6 GB of heap allocation per shard at startup compared to
+/// `fs::read` (the previous approach). The `Mmap` is paged in on demand
+/// and can be released as soon as the loader has copied the blocks it needs
+/// into owned `QuantLinear` storage — see [`build_model`].
+///
+/// # Safety
+/// `unsafe` is inherited from `memmap2::MmapOptions::map`: the file must
+/// not be modified by another process while the mapping is alive. Inference
+/// is read-only and the packed shard is treated as an immutable artefact,
+/// so this is safe in practice.
+fn mmap_file(path: &Path) -> candle::Result<memmap2::Mmap> {
+    let file = File::open(path)
+        .map_err(|e| candle::Error::Msg(format!("open {}: {e}", path.display())))?;
+    // SAFETY: see function docs.
+    let mmap = unsafe { memmap2::MmapOptions::new().map(&file) }
+        .map_err(|e| candle::Error::Msg(format!("mmap {}: {e}", path.display())))?;
+    Ok(mmap)
+}
+
+/// Default HF repo used as a fallback for tokenizer / config.
+pub const DEFAULT_HF_REPO: &str = "microsoft/Phi-3-mini-4k-instruct";
+
+/// Resolve a `config.json` for the requested model.
+///
+/// Lookup order:
+///   1. A `config.json` sitting next to the model file (or in the model dir).
+///   2. `$HF_HOME` / `~/.cache/huggingface` snapshot of `repo`.
+///   3. Fresh download from the HF Hub.
+pub fn load_config(model_path: &Path, repo: &str) -> candle::Result<Phi3Config> {
+    if let Some(parent) = model_path.parent() {
+        let candidate = parent.join("config.json");
+        if candidate.exists() {
+            println!("Using config.json: {}", candidate.display());
+            return Phi3Config::from_json_file(&candidate);
+        }
+    }
+
+    let api = hf_hub::api::sync::Api::new()
+        .map_err(|e| candle::Error::Msg(format!("HF API: {}", e)))?;
+    let path = api
+        .model(repo.to_string())
+        .get("config.json")
+        .map_err(|e| candle::Error::Msg(format!("download config.json from {}: {}", repo, e)))?;
+    println!("Using config.json: {}", path.display());
+    Phi3Config::from_json_file(&path)
+}
+
+/// Collect the EOS token ids from the tokenizer's special-tokens map.
+/// Falls back to the legacy `32000` if nothing matches.
+pub fn eos_token_ids(tokenizer: &Tokenizer) -> Vec<u32> {
+    let candidates = ["<|end|>", "<|endoftext|>", "</s>"];
+    let mut ids: Vec<u32> = candidates
+        .iter()
+        .filter_map(|t| tokenizer.token_to_id(t))
+        .collect();
+    if ids.is_empty() {
+        ids.push(32000);
+    }
+    ids.sort_unstable();
+    ids.dedup();
+    ids
+}
+
 pub fn load_tokenizer() -> candle::Result<Tokenizer> {
     let direct_paths = [
-        std::path::PathBuf::from(shellexpand::tilde(
+        PathBuf::from(shellexpand::tilde(
             "~/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/f39ac1d28e925b323eae81227eaba4464caced4e/tokenizer.json"
         ).as_ref()),
-        std::path::PathBuf::from("./tokenizer.json"),
+        PathBuf::from("./tokenizer.json"),
     ];
 
     for path in &direct_paths {
@@ -25,7 +90,7 @@ pub fn load_tokenizer() -> candle::Result<Tokenizer> {
 
     let api = hf_hub::api::sync::Api::new()
         .map_err(|e| candle::Error::Msg(format!("Failed to create HF API: {}", e)))?;
-    let repo = api.model("microsoft/Phi-3-mini-4k-instruct".to_string());
+    let repo = api.model(DEFAULT_HF_REPO.to_string());
     let tokenizer_path = repo
         .get("tokenizer.json")
         .map_err(|e| candle::Error::Msg(format!("Failed to download tokenizer: {}", e)))?;
@@ -77,8 +142,8 @@ pub fn build_model(
     device: &Device,
     config: &Phi3Config,
 ) -> candle::Result<Phi3> {
-    let bytes = fs::read(safetensors_path)?;
-    let st = SafeTensors::deserialize(&bytes)?;
+    let mmap = mmap_file(safetensors_path)?;
+    let st = SafeTensors::deserialize(&mmap)?;
 
     if !is_packed_format(&st) {
         candle::bail!("Only packed format supported. Run pack_q8k_safetensors first.");
@@ -143,9 +208,9 @@ pub fn build_model_multi_shard(
     println!("  Shard 1: {}", shard1.display());
     println!("  Shard 2: {}", shard2.display());
 
-    let bytes1 = fs::read(shard1)?;
+    let bytes1 = mmap_file(shard1)?;
     let st1 = SafeTensors::deserialize(&bytes1)?;
-    let bytes2 = fs::read(shard2)?;
+    let bytes2 = mmap_file(shard2)?;
     let st2 = SafeTensors::deserialize(&bytes2)?;
 
     if !is_packed_format(&st1) || !is_packed_format(&st2) {

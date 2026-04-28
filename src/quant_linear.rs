@@ -1,9 +1,10 @@
 use candle::quantized::k_quants::{matmul, BlockQ4K, BlockQ8K, GgmlType, QK_K};
-use candle::{DType, Tensor};
+use candle::{CpuStorage, DType, Storage, Tensor};
 use safetensors::tensor::{Dtype, SafeTensors};
 use std::{fs, path::Path};
 
-use crate::types::{Q8KHeader, MAGIC_Q8K, MAGIC_PERM};
+use crate::scratch;
+use crate::types::{Q8KHeader, MAGIC_PERM, MAGIC_Q8K};
 
 #[allow(dead_code)]
 pub fn read_q8k(path: &Path) -> candle::Result<(Vec<BlockQ8K>, Q8KHeader)> {
@@ -221,35 +222,89 @@ impl QuantLinear {
         if k_in != self.k {
             candle::bail!("{}: k mismatch got {} expected {}", self.name, k_in, self.k);
         }
+
+        // Make sure the activation tensor is F32 and contiguous on the CPU.
+        // Both calls are no-ops when the tensor already satisfies them, so this
+        // is essentially free for the hot path (decoder layers always feed us
+        // F32-contiguous activations from the KV cache).
         let x_f32 = x2d.to_dtype(DType::F32)?.contiguous()?;
-        let mut x_vec = x_f32.flatten_all()?.to_vec1::<f32>()?;
-        if let Some(ref perm) = self.perm {
-            x_vec = self.apply_permutation_to_input(&x_vec, b, perm);
-        }
+        let total = b * self.k;
+
+        // Output buffer must remain a fresh `Vec` because `Tensor::from_vec`
+        // takes ownership. It's only `b * out` floats (≈12 KB for batch=1,
+        // out=3072), so the win from pooling it would be marginal.
         let mut out_buf = vec![0f32; b * self.out];
-        match &self.blocks {
-            QuantBlocks::Q8K(blocks) => {
-                matmul::<BlockQ8K>((b, self.k, self.out), &x_vec, blocks, &mut out_buf)?
+
+        // B3: read the activation slice straight out of candle's CPU storage.
+        // No `to_vec1::<f32>()` copy. The `RwLockReadGuard` is held only for
+        // the lifetime of this inner block; rayon-parallel `matmul` runs
+        // inside it (it just reads, doesn't mutate the storage).
+        {
+            let (storage, layout) = x_f32.storage_and_layout();
+            let raw_full: &[f32] = match &*storage {
+                Storage::Cpu(CpuStorage::F32(v)) => v.as_slice(),
+                Storage::Cpu(_) => candle::bail!(
+                    "{}: forward_2d expected F32 CPU storage",
+                    self.name
+                ),
+                _ => candle::bail!(
+                    "{}: forward_2d only supports the CPU device",
+                    self.name
+                ),
+            };
+            let off = layout.start_offset();
+            let raw = &raw_full[off..off + total];
+
+            // B1: route the permuted activation copy through a thread-local
+            // scratch pool. Without pooling we would `vec![0; b*k]` once per
+            // matmul call (~128 calls per token); with it, the same allocation
+            // is recycled for the entire decode loop.
+            let perm_scratch: Option<scratch::Buf> = self.perm.as_ref().map(|perm| {
+                let mut buf = scratch::take_f32(total);
+                apply_permutation_into(raw, b, self.k, perm, buf.as_mut_slice());
+                buf
+            });
+            let x_for_matmul: &[f32] = match &perm_scratch {
+                Some(buf) => buf.as_slice(),
+                None => raw,
+            };
+
+            // B2 note: `candle::quantized::k_quants::matmul` already
+            // parallelises across output columns with rayon
+            // (k_quants.rs ~line 2305). No extra threading needed here.
+            match &self.blocks {
+                QuantBlocks::Q8K(blocks) => matmul::<BlockQ8K>(
+                    (b, self.k, self.out),
+                    x_for_matmul,
+                    blocks,
+                    &mut out_buf,
+                )?,
+                QuantBlocks::Q4K(blocks) => matmul::<BlockQ4K>(
+                    (b, self.k, self.out),
+                    x_for_matmul,
+                    blocks,
+                    &mut out_buf,
+                )?,
             }
-            QuantBlocks::Q4K(blocks) => {
-                matmul::<BlockQ4K>((b, self.k, self.out), &x_vec, blocks, &mut out_buf)?
-            }
+            // `perm_scratch` drops here → buffer returns to the pool.
         }
+
         Tensor::from_vec(out_buf, (b, self.out), x2d.device())
     }
+}
 
-    fn apply_permutation_to_input(&self, x: &[f32], batch_size: usize, perm: &[usize]) -> Vec<f32> {
-        let k = self.k;
-        let mut permuted = vec![0f32; x.len()];
-        unsafe {
-            for b in 0..batch_size {
-                let src_ptr = x.as_ptr().add(b * k);
-                let dst_ptr = permuted.as_mut_ptr().add(b * k);
-                for (dst_idx, &src_idx) in perm.iter().enumerate() {
-                    *dst_ptr.add(dst_idx) = *src_ptr.add(src_idx);
-                }
-            }
+/// Apply a column permutation in place into `dst`. Caller owns both slices;
+/// they must be the same length and `perm.len() == k`.
+#[inline]
+fn apply_permutation_into(src: &[f32], batch: usize, k: usize, perm: &[usize], dst: &mut [f32]) {
+    debug_assert_eq!(perm.len(), k);
+    debug_assert_eq!(src.len(), batch * k);
+    debug_assert_eq!(dst.len(), batch * k);
+    for b in 0..batch {
+        let s = &src[b * k..(b + 1) * k];
+        let d = &mut dst[b * k..(b + 1) * k];
+        for (di, &si) in perm.iter().enumerate() {
+            d[di] = s[si];
         }
-        permuted
     }
 }
