@@ -49,7 +49,15 @@ CANDLE_Q8K_PERMUTE=1 CANDLE_Q8K_PERM_STRATEGY=blockwise ./target/release/quantiz
 | Date | Variant | Permutation | Strategy | Ctx | Chunks | Tokens | PPL | tok/s | Log |
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-04-28 | Mixed Q8K/Q4K | off | n/a | 2048 | 30 | 61 410 | **6.4602** | 17.8 | [`wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log`](./wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log) |
-| 2026-04-28 | Mixed Q8K/Q4K | on (blockwise) | blockwise | 2048 | 30 | 61 410 | _pending_ | _pending_ | _pending — see `pipeline_perm-on_*.log`_ |
+| 2026-04-28 | Mixed Q8K/Q4K | on | blockwise | 2048 | 30 | 61 410 | **6.4606** | 17.8 | [`wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log`](./wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log) |
+
+**Δ (perm − baseline) = +0.0004 PPL** — statistically zero on this corpus, well
+inside run-to-run noise (a single mid-corpus chunk shifts the running PPL by
+more than this). The blockwise permutation neither helps nor hurts quality at
+this sample size; it also has no measurable inference-time cost (3453 s vs
+3454 s wall). Honest negative result — the default-OFF behaviour is correct.
+The `l2`, `svd`, and `qr` strategies (see env table above) remain unevaluated
+and may behave differently; comparative runs are future work.
 
 > The first row's filename retains the historical "perm" tag from when the
 > baseline was first captured; the actual run was permutation-OFF (no
