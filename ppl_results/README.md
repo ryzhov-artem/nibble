@@ -46,23 +46,36 @@ CANDLE_Q8K_PERMUTE=1 CANDLE_Q8K_PERM_STRATEGY=blockwise ./target/release/quantiz
 
 ## Results
 
-| Date | Variant | Permutation | Strategy | Ctx | Chunks | Tokens | PPL | tok/s | Log |
-|---|---|---|---|---|---|---|---|---|---|
-| 2026-04-28 | Mixed Q8K/Q4K | off | n/a | 2048 | 30 | 61 410 | **6.4602** | 17.8 | [`wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log`](./wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log) |
-| 2026-04-28 | Mixed Q8K/Q4K | on | blockwise | 2048 | 30 | 61 410 | **6.4606** | 17.8 | [`wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log`](./wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log) |
+| Date | Variant | Permutation | Strategy | Ctx | Chunks | Tokens | PPL | Δ vs base | tok/s | Log |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-04-28 | Mixed Q8K/Q4K | off | n/a | 2048 | 30 | 61 410 | **6.4602** | — | 17.8 | [`wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log`](./wikitext2_q8k-q4k_perm_ctx2048_chunks30_20260428-182240.log) |
+| 2026-04-28 | Mixed Q8K/Q4K | on | blockwise | 2048 | 30 | 61 410 | **6.4606** | +0.0004 | 17.8 | [`wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log`](./wikitext2_q8k-q4k_perm-on_blockwise_ctx2048_chunks30_20260428-201231.log) |
+| 2026-04-29 | Mixed Q8K/Q4K | on | l2 | 2048 | 30 | 61 410 | **6.4625** | +0.0023 | 17.5 | [`wikitext2_q8k-q4k_perm-on_l2_ctx2048_chunks30_20260429-120122.log`](./wikitext2_q8k-q4k_perm-on_l2_ctx2048_chunks30_20260429-120122.log) |
+| 2026-04-29 | Mixed Q8K/Q4K | on | svd | 2048 | 30 | 61 410 | **6.4666** | +0.0064 | 17.2 | [`wikitext2_q8k-q4k_perm-on_svd_ctx2048_chunks30_20260429-120122.log`](./wikitext2_q8k-q4k_perm-on_svd_ctx2048_chunks30_20260429-120122.log) |
 
-**Δ (perm − baseline) = +0.0004 PPL** — statistically zero on this corpus, well
-inside run-to-run noise (a single mid-corpus chunk shifts the running PPL by
-more than this). The blockwise permutation neither helps nor hurts quality at
-this sample size; it also has no measurable inference-time cost (3453 s vs
-3454 s wall). Honest negative result — the default-OFF behaviour is correct.
-The `l2`, `svd`, and `qr` strategies (see env table above) remain unevaluated
-and may behave differently; comparative runs are future work.
+**Verdict.** Across all three implemented strategies
+(`blockwise` / `l2` / `svd`) the column-permutation path is at best
+neutral (Δ ≤ +0.001 PPL, blockwise) and at worst a small regression
+(Δ ≤ +0.007 PPL, svd). None of them improve on the perm-off baseline.
+The inference-time cost is also non-zero on the sub-blockwise strategies
+(L2 − 0.3 tok/s, SVD − 0.6 tok/s), driven by the per-token gather in
+`apply_permutation_into`. The `qr` strategy remains unevaluated but is not
+expected to change the conclusion.
 
-> The first row's filename retains the historical "perm" tag from when the
-> baseline was first captured; the actual run was permutation-OFF (no
-> `.perm` files were produced by the quantizer pre-run). Future logs use the
-> explicit `perm-on` / `perm-off` naming.
+**Action.** As of commit `<perm-feature-gate>`, the permutation code path
+is behind a non-default Cargo feature (`experimental-perm`). The default
+build no longer compiles it in; existing packed files containing `.perm`
+tensors are loaded but the indices are ignored (a one-line warning is
+emitted). To re-enable it for further experimentation:
+
+```bash
+cargo build --release --features experimental-perm
+```
+
+> The 2026-04-28 perm-off filename retains the historical `perm` tag from
+> when the baseline was first captured; the actual run was permutation-OFF
+> (no `.perm` files were produced by the quantizer pre-run). Later logs use
+> the explicit `perm-on` / `perm-off` naming.
 
 ## Reference numbers
 

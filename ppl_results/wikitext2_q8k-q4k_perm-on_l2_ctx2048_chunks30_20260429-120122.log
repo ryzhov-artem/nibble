@@ -1,0 +1,46 @@
+Using config.json: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/config.json
+Loading from 2 shards...
+  Shard 1: ./packed-shard1-l2.safetensors
+  Shard 2: ./packed-shard2-l2.safetensors
+Corpus: /tmp/wt2.txt (1290547 bytes)
+Tokens: 335645
+Eval : ctx=2048 stride=2048 max_chunks=Some(30)
+  chunk 1 | tokens scored 2047 | running PPL = 4.7765 | NLL = 1.5637
+  chunk 2 | tokens scored 4094 | running PPL = 5.6775 | NLL = 1.7365
+  chunk 3 | tokens scored 6141 | running PPL = 6.5739 | NLL = 1.8831
+  chunk 4 | tokens scored 8188 | running PPL = 6.6318 | NLL = 1.8919
+  chunk 5 | tokens scored 10235 | running PPL = 6.3267 | NLL = 1.8448
+  chunk 6 | tokens scored 12282 | running PPL = 6.2025 | NLL = 1.8250
+  chunk 7 | tokens scored 14329 | running PPL = 5.8261 | NLL = 1.7624
+  chunk 8 | tokens scored 16376 | running PPL = 5.5686 | NLL = 1.7172
+  chunk 9 | tokens scored 18423 | running PPL = 5.5632 | NLL = 1.7162
+  chunk 10 | tokens scored 20470 | running PPL = 5.6323 | NLL = 1.7285
+  chunk 11 | tokens scored 22517 | running PPL = 5.7862 | NLL = 1.7555
+  chunk 12 | tokens scored 24564 | running PPL = 5.8561 | NLL = 1.7675
+  chunk 13 | tokens scored 26611 | running PPL = 5.8282 | NLL = 1.7627
+  chunk 14 | tokens scored 28658 | running PPL = 5.9108 | NLL = 1.7768
+  chunk 15 | tokens scored 30705 | running PPL = 6.0059 | NLL = 1.7927
+  chunk 16 | tokens scored 32752 | running PPL = 6.1035 | NLL = 1.8089
+  chunk 17 | tokens scored 34799 | running PPL = 6.2037 | NLL = 1.8251
+  chunk 18 | tokens scored 36846 | running PPL = 6.3260 | NLL = 1.8447
+  chunk 19 | tokens scored 38893 | running PPL = 6.4148 | NLL = 1.8586
+  chunk 20 | tokens scored 40940 | running PPL = 6.4795 | NLL = 1.8687
+  chunk 21 | tokens scored 42987 | running PPL = 6.4786 | NLL = 1.8685
+  chunk 22 | tokens scored 45034 | running PPL = 6.3925 | NLL = 1.8551
+  chunk 23 | tokens scored 47081 | running PPL = 6.3618 | NLL = 1.8503
+  chunk 24 | tokens scored 49128 | running PPL = 6.3919 | NLL = 1.8550
+  chunk 25 | tokens scored 51175 | running PPL = 6.3660 | NLL = 1.8510
+  chunk 26 | tokens scored 53222 | running PPL = 6.3961 | NLL = 1.8557
+  chunk 27 | tokens scored 55269 | running PPL = 6.3860 | NLL = 1.8541
+  chunk 28 | tokens scored 57316 | running PPL = 6.4137 | NLL = 1.8584
+  chunk 29 | tokens scored 59363 | running PPL = 6.3935 | NLL = 1.8553
+  chunk 30 | tokens scored 61410 | running PPL = 6.4625 | NLL = 1.8660
+Reached PHI3_PPL_MAX_CHUNKS=30, stopping.
+
+Result:
+  chunks scored : 30
+  tokens scored : 61410
+  mean NLL      : 1.866022
+  perplexity    : 6.4625
+  wall time     : 3503.89 s
+  throughput    : 17.5 tok/s

@@ -1,0 +1,2488 @@
+=== L2 STRATEGY ===
+Output  : ./quantized-l2
+Permute : on (strategy: l2-norm)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+  Tensors: 128
+quantizing Q8K model.layers.17.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.048036e-4
+  MSE (direct): 7.480339e-5
+  RMSE: 2.513438e-4, Max Err: 2.319336e-3, Rel Err: 3.164789e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.30000190e-4
+quantizing Q4K model.layers.10.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.939676e-3, Max Err: 4.795837e-2, Rel Err: 9.555630e-1
+    WARNING: High Q4K quantization error for model.layers.10.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.16.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.481924e-4
+  MSE (direct): 9.359829e-5
+  RMSE: 2.861797e-4, Max Err: 3.967285e-3, Rel Err: 3.152745e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.54594134e-4
+quantizing Q4K model.layers.15.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.000672e-3, Max Err: 3.522015e-2, Rel Err: 1.187949e0
+    WARNING: High Q4K quantization error for model.layers.15.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.13.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.491288e-4
+  MSE (direct): 5.934321e-5
+  RMSE: 2.320349e-4, Max Err: 1.293945e-2, Rel Err: 3.239218e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.97855934e-5
+quantizing Q4K model.layers.11.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.948161e-3, Max Err: 5.017757e-2, Rel Err: 8.686841e-1
+    WARNING: High Q4K quantization error for model.layers.11.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.15.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.533966e-4
+  MSE (direct): 9.336654e-5
+  RMSE: 2.850953e-4, Max Err: 2.990723e-3, Rel Err: 3.144644e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.60030031e-4
+quantizing Q8K model.layers.3.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.573170e-4
+  MSE (direct): 9.603870e-5
+  RMSE: 3.394653e-4, Max Err: 8.544922e-3, Rel Err: 3.263659e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.61278328e-4
+quantizing Q8K model.layers.4.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.150032e-4
+  MSE (direct): 9.508392e-5
+  RMSE: 3.216041e-4, Max Err: 9.521484e-3, Rel Err: 3.207889e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.19919297e-4
+quantizing Q8K model.layers.10.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.672468e-4
+  MSE (direct): 9.423817e-5
+  RMSE: 2.905471e-4, Max Err: 4.150391e-3, Rel Err: 3.146880e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.73008622e-4
+quantizing Q8K model.layers.3.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.400109e-4
+  MSE (direct): 5.194626e-5
+  RMSE: 2.157358e-4, Max Err: 2.990723e-3, Rel Err: 3.132370e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.80645966e-5
+quantizing Q8K model.layers.6.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.273410e-4
+  MSE (direct): 8.588012e-5
+  RMSE: 2.735756e-4, Max Err: 2.990723e-3, Rel Err: 3.112600e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41460856e-4
+quantizing Q4K model.layers.3.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.898587e-3, Max Err: 3.662586e-2, Rel Err: 9.226945e-1
+    WARNING: High Q4K quantization error for model.layers.3.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.4.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.269042e-4
+  MSE (direct): 4.820043e-5
+  RMSE: 2.076462e-4, Max Err: 3.112793e-3, Rel Err: 3.171116e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 7.87037570e-5
+quantizing Q4K model.layers.16.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.018199e-3, Max Err: 3.890419e-2, Rel Err: 1.176728e0
+    WARNING: High Q4K quantization error for model.layers.16.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.5.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.907230e-3, Max Err: 5.643940e-2, Rel Err: 8.555824e-1
+    WARNING: High Q4K quantization error for model.layers.5.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.6.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.062132e-4
+  MSE (direct): 9.815585e-5
+  RMSE: 3.140095e-4, Max Err: 7.568359e-3, Rel Err: 3.179183e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.08057318e-4
+quantizing Q8K model.layers.15.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.262760e-4
+  MSE (direct): 8.467603e-5
+  RMSE: 2.708953e-4, Max Err: 3.051758e-3, Rel Err: 3.114207e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41599972e-4
+quantizing Q8K model.layers.17.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.274273e-4
+  MSE (direct): 8.626631e-5
+  RMSE: 2.725037e-4, Max Err: 6.103516e-3, Rel Err: 3.110817e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41160941e-4
+quantizing Q8K model.layers.4.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.280100e-4
+  MSE (direct): 8.506142e-5
+  RMSE: 2.708361e-4, Max Err: 5.554199e-3, Rel Err: 3.112927e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.42948615e-4
+quantizing Q8K model.layers.7.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.329241e-4
+  MSE (direct): 8.875219e-5
+  RMSE: 2.753361e-4, Max Err: 5.126953e-3, Rel Err: 3.118569e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44171907e-4
+quantizing Q4K model.layers.12.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.956532e-3, Max Err: 4.191399e-2, Rel Err: 1.073553e0
+    WARNING: High Q4K quantization error for model.layers.12.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.0.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 7.072178e-5
+  MSE (direct): 2.779688e-5
+  RMSE: 1.563042e-4, Max Err: 3.601074e-3, Rel Err: 4.140035e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 4.29248903e-5
+quantizing Q8K model.layers.19.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.033543e-4
+  MSE (direct): 7.600580e-5
+  RMSE: 2.565884e-4, Max Err: 2.624512e-3, Rel Err: 3.160749e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.27348525e-4
+quantizing Q8K model.layers.13.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.229629e-4
+  MSE (direct): 8.476113e-5
+  RMSE: 2.712368e-4, Max Err: 5.371094e-3, Rel Err: 3.114229e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.38201722e-4
+quantizing Q8K model.layers.11.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.238784e-4
+  MSE (direct): 8.315586e-5
+  RMSE: 2.716372e-4, Max Err: 2.563477e-3, Rel Err: 3.118726e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.40722521e-4
+quantizing Q4K model.layers.6.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.891750e-3, Max Err: 4.507351e-2, Rel Err: 7.942196e-1
+    WARNING: High Q4K quantization error for model.layers.6.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.15.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.657972e-4
+  MSE (direct): 6.327414e-5
+  RMSE: 2.337623e-4, Max Err: 2.990723e-3, Rel Err: 3.179790e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.02523067e-4
+quantizing Q4K model.layers.20.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.063921e-3, Max Err: 4.547882e-2, Rel Err: 1.097138e0
+    WARNING: High Q4K quantization error for model.layers.20.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.0.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 1.529015e-4
+  MSE (direct): 5.274683e-5
+  RMSE: 2.221682e-4, Max Err: 2.960205e-3, Rel Err: 3.090531e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.00154692e-4
+quantizing Q8K model.layers.14.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.645929e-4
+  MSE (direct): 9.694781e-5
+  RMSE: 2.926211e-4, Max Err: 4.394531e-3, Rel Err: 3.146405e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.67645063e-4
+quantizing Q8K model.layers.17.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.453147e-4
+  MSE (direct): 9.114043e-5
+  RMSE: 2.809917e-4, Max Err: 3.540039e-3, Rel Err: 3.151959e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.54174268e-4
+quantizing Q8K model.layers.5.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.388802e-4
+  MSE (direct): 5.285162e-5
+  RMSE: 2.150653e-4, Max Err: 3.417969e-3, Rel Err: 3.175501e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.60285654e-5
+quantizing Q8K model.layers.12.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.687710e-4
+  MSE (direct): 9.468059e-5
+  RMSE: 2.934925e-4, Max Err: 4.486084e-3, Rel Err: 3.156560e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.74090412e-4
+quantizing Q8K model.layers.14.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.286013e-4
+  MSE (direct): 8.491548e-5
+  RMSE: 2.712312e-4, Max Err: 4.150391e-3, Rel Err: 3.115690e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43685815e-4
+quantizing Q8K model.layers.2.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.213228e-4
+  MSE (direct): 7.680958e-5
+  RMSE: 3.226127e-4, Max Err: 4.974365e-3, Rel Err: 3.230330e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.44513212e-4
+quantizing Q8K model.layers.12.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.244039e-4
+  MSE (direct): 8.510494e-5
+  RMSE: 2.701771e-4, Max Err: 3.341675e-3, Rel Err: 3.115867e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.39298936e-4
+quantizing Q8K model.layers.11.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.702708e-4
+  MSE (direct): 1.015462e-4
+  RMSE: 2.990118e-4, Max Err: 3.784187e-3, Rel Err: 3.153135e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.68724568e-4
+quantizing Q8K model.layers.9.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.487007e-4
+  MSE (direct): 5.350137e-5
+  RMSE: 2.173403e-4, Max Err: 2.685547e-3, Rel Err: 3.223816e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.51993425e-5
+quantizing Q4K model.layers.1.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.855773e-3, Max Err: 5.115509e-2, Rel Err: 1.161092e0
+    WARNING: High Q4K quantization error for model.layers.1.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.8.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.325958e-4
+  MSE (direct): 8.777119e-5
+  RMSE: 2.743947e-4, Max Err: 3.906250e-3, Rel Err: 3.115458e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44824560e-4
+quantizing Q8K model.layers.10.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.412984e-4
+  MSE (direct): 5.148603e-5
+  RMSE: 2.157856e-4, Max Err: 2.746582e-3, Rel Err: 3.245120e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.98124126e-5
+quantizing Q8K model.layers.8.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.375866e-4
+  MSE (direct): 5.206428e-5
+  RMSE: 2.138941e-4, Max Err: 2.868660e-3, Rel Err: 3.226438e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.55222752e-5
+quantizing Q8K model.layers.18.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.054552e-4
+  MSE (direct): 8.318576e-5
+  RMSE: 2.622882e-4, Max Err: 2.548218e-3, Rel Err: 3.231035e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.22269426e-4
+quantizing Q8K model.layers.3.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.218338e-4
+  MSE (direct): 8.432726e-5
+  RMSE: 2.689580e-4, Max Err: 5.493164e-3, Rel Err: 3.107582e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.37506562e-4
+quantizing Q4K model.layers.18.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.045541e-3, Max Err: 4.131317e-2, Rel Err: 1.298815e0
+    WARNING: High Q4K quantization error for model.layers.18.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.5.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.238752e-4
+  MSE (direct): 1.046872e-4
+  RMSE: 3.236924e-4, Max Err: 8.117676e-3, Rel Err: 3.189273e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.19187961e-4
+quantizing Q8K model.layers.0.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 1.359836e-4
+  MSE (direct): 1.624181e-5
+  RMSE: 2.176662e-4, Max Err: 8.605957e-3, Rel Err: 3.426613e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.19741824e-4
+quantizing Q4K model.layers.17.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.026695e-3, Max Err: 3.495407e-2, Rel Err: 9.815534e-1
+    WARNING: High Q4K quantization error for model.layers.17.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.18.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.408829e-4
+  MSE (direct): 8.951395e-5
+  RMSE: 2.806615e-4, Max Err: 3.463715e-3, Rel Err: 3.146803e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.51368935e-4
+quantizing Q8K model.layers.20.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.332552e-4
+  MSE (direct): 8.477115e-5
+  RMSE: 2.757633e-4, Max Err: 3.295898e-3, Rel Err: 3.148302e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.48484018e-4
+quantizing Q8K model.layers.11.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.459390e-4
+  MSE (direct): 5.574529e-5
+  RMSE: 2.150050e-4, Max Err: 2.441406e-3, Rel Err: 3.186099e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.01937601e-5
+quantizing Q8K model.layers.7.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 3.002611e-4
+  MSE (direct): 1.027548e-4
+  RMSE: 3.123513e-4, Max Err: 6.591797e-3, Rel Err: 3.181024e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.97506335e-4
+quantizing Q8K model.layers.2.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.150667e-4
+  MSE (direct): 8.051874e-5
+  RMSE: 2.652190e-4, Max Err: 5.859375e-3, Rel Err: 3.110382e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.34547910e-4
+quantizing Q4K model.layers.14.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.991589e-3, Max Err: 6.229782e-2, Rel Err: 1.166792e0
+    WARNING: High Q4K quantization error for model.layers.14.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.18.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.328855e-4
+  MSE (direct): 8.687915e-5
+  RMSE: 2.742531e-4, Max Err: 3.540039e-3, Rel Err: 3.113938e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46006380e-4
+quantizing Q8K model.layers.20.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.291355e-4
+  MSE (direct): 8.497601e-5
+  RMSE: 2.741230e-4, Max Err: 2.166748e-3, Rel Err: 3.105896e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44159465e-4
+quantizing Q8K model.layers.14.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.639132e-4
+  MSE (direct): 6.233197e-5
+  RMSE: 2.319188e-4, Max Err: 2.777100e-3, Rel Err: 3.166304e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.01581194e-4
+quantizing Q4K model.layers.2.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887099e-3, Max Err: 7.779503e-2, Rel Err: 1.006156e0
+    WARNING: High Q4K quantization error for model.layers.2.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.6.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.342920e-4
+  MSE (direct): 4.836155e-5
+  RMSE: 2.149932e-4, Max Err: 3.417969e-3, Rel Err: 3.195951e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.59304128e-5
+quantizing Q4K model.layers.7.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887725e-3, Max Err: 1.070614e-1, Rel Err: 9.548812e-1
+    WARNING: High Q4K quantization error for model.layers.7.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.7.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.421966e-4
+  MSE (direct): 5.110374e-5
+  RMSE: 2.122334e-4, Max Err: 5.065918e-3, Rel Err: 3.227859e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.10928211e-5
+quantizing Q8K model.layers.13.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.637173e-4
+  MSE (direct): 9.219910e-5
+  RMSE: 2.871193e-4, Max Err: 3.234863e-3, Rel Err: 3.156231e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.71518157e-4
+quantizing Q4K model.layers.19.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.062103e-3, Max Err: 4.260445e-2, Rel Err: 8.682119e-1
+    WARNING: High Q4K quantization error for model.layers.19.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.9.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.935273e-3, Max Err: 3.994179e-2, Rel Err: 8.096288e-1
+    WARNING: High Q4K quantization error for model.layers.9.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.19.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.344573e-4
+  MSE (direct): 8.780882e-5
+  RMSE: 2.742117e-4, Max Err: 4.028320e-3, Rel Err: 3.109314e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46648454e-4
+quantizing Q8K model.layers.12.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.577974e-4
+  MSE (direct): 5.700928e-5
+  RMSE: 2.232300e-4, Max Err: 2.807617e-3, Rel Err: 3.159744e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.00788078e-4
+quantizing Q8K model.layers.1.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 1.980863e-4
+  MSE (direct): 3.867749e-5
+  RMSE: 2.572781e-4, Max Err: 5.371094e-3, Rel Err: 3.265287e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.59408839e-4
+quantizing Q8K model.layers.16.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.791678e-4
+  MSE (direct): 6.795134e-5
+  RMSE: 2.402627e-4, Max Err: 2.563477e-3, Rel Err: 3.190072e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.11216483e-4
+quantizing Q8K model.layers.20.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.282186e-4
+  MSE (direct): 8.727132e-5
+  RMSE: 2.704252e-4, Max Err: 4.180908e-3, Rel Err: 3.180754e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.40947232e-4
+quantizing Q8K model.layers.16.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.256116e-4
+  MSE (direct): 8.367473e-5
+  RMSE: 2.708653e-4, Max Err: 3.204346e-3, Rel Err: 3.115544e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41936893e-4
+quantizing Q8K model.layers.9.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.347315e-4
+  MSE (direct): 8.826290e-5
+  RMSE: 2.738863e-4, Max Err: 4.272461e-3, Rel Err: 3.117394e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46468577e-4
+quantizing Q4K model.layers.8.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.892069e-3, Max Err: 5.076790e-2, Rel Err: 9.826426e-1
+    WARNING: High Q4K quantization error for model.layers.8.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.1.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.039178e-4
+  MSE (direct): 7.678836e-5
+  RMSE: 2.570880e-4, Max Err: 4.394531e-3, Rel Err: 3.110547e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.27129431e-4
+quantizing Q4K model.layers.13.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.986203e-3, Max Err: 8.589363e-2, Rel Err: 9.585068e-1
+    WARNING: High Q4K quantization error for model.layers.13.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.1.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.033509e-4
+  MSE (direct): 3.661899e-5
+  RMSE: 1.903772e-4, Max Err: 3.036499e-3, Rel Err: 3.872539e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 6.67319109e-5
+quantizing Q4K model.layers.4.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.901435e-3, Max Err: 7.563782e-2, Rel Err: 1.466032e0
+    WARNING: High Q4K quantization error for model.layers.4.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.8.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.857073e-4
+  MSE (direct): 9.789597e-5
+  RMSE: 3.033270e-4, Max Err: 6.958008e-3, Rel Err: 3.165292e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.87811296e-4
+quantizing Q8K model.layers.5.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.290768e-4
+  MSE (direct): 8.484837e-5
+  RMSE: 2.714927e-4, Max Err: 2.593994e-3, Rel Err: 3.113727e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44228427e-4
+quantizing Q8K model.layers.10.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.304207e-4
+  MSE (direct): 8.587744e-5
+  RMSE: 2.720170e-4, Max Err: 2.777100e-3, Rel Err: 3.118006e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44543301e-4
+quantizing Q4K model.layers.0.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.697852e-3, Max Err: 4.861355e-2, Rel Err: 1.027632e0
+    WARNING: High Q4K quantization error for model.layers.0.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.21.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.293216e-4
+  MSE (direct): 9.019078e-5
+  RMSE: 2.749942e-4, Max Err: 1.983643e-3, Rel Err: 3.192078e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.39130774e-4
+quantizing Q8K model.layers.19.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.367502e-4
+  MSE (direct): 8.457618e-5
+  RMSE: 2.765477e-4, Max Err: 3.082275e-3, Rel Err: 3.145553e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.52174005e-4
+quantizing Q8K model.layers.9.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.815060e-4
+  MSE (direct): 9.939465e-5
+  RMSE: 3.054124e-4, Max Err: 5.554199e-3, Rel Err: 3.147376e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.82111398e-4
+quantizing Q8K model.layers.2.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.180058e-4
+  MSE (direct): 4.618693e-5
+  RMSE: 1.980457e-4, Max Err: 4.882812e-3, Rel Err: 3.275245e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 7.18188821e-5
+Done in 21.52s. Q8K: 64, Q4K: 21, skipped: 43
+Output  : ./quantized-l2
+Permute : on (strategy: l2-norm)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+  Tensors: 67
+quantizing Q8K model.layers.23.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.300516e-4
+  MSE (direct): 8.305252e-5
+  RMSE: 2.734956e-4, Max Err: 3.707886e-3, Rel Err: 3.154627e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46999053e-4
+quantizing Q4K model.layers.23.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.122330e-3, Max Err: 5.363655e-2, Rel Err: 8.286905e-1
+    WARNING: High Q4K quantization error for model.layers.23.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.25.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.379875e-4
+  MSE (direct): 8.997345e-5
+  RMSE: 2.775797e-4, Max Err: 2.441406e-3, Rel Err: 3.105593e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.48014049e-4
+quantizing Q4K model.layers.31.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.114314e-3, Max Err: 7.800102e-2, Rel Err: 8.100213e-1
+    WARNING: High Q4K quantization error for model.layers.31.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.25.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.806414e-4
+  MSE (direct): 1.009615e-4
+  RMSE: 3.028922e-4, Max Err: 4.760742e-3, Rel Err: 3.181941e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.79679948e-4
+quantizing Q4K model.layers.21.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.086084e-3, Max Err: 3.879452e-2, Rel Err: 1.694872e0
+    WARNING: High Q4K quantization error for model.layers.21.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.29.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.160609e-3, Max Err: 9.101868e-2, Rel Err: 7.940610e-1
+    WARNING: High Q4K quantization error for model.layers.29.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.31.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.458017e-4
+  MSE (direct): 1.280845e-4
+  RMSE: 3.377056e-4, Max Err: 7.446288e-3, Rel Err: 3.219192e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.17717170e-4
+quantizing Q4K model.layers.24.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.139270e-3, Max Err: 3.493404e-2, Rel Err: 1.072581e0
+    WARNING: High Q4K quantization error for model.layers.24.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.24.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.370513e-4
+  MSE (direct): 8.738765e-5
+  RMSE: 2.769192e-4, Max Err: 2.044678e-3, Rel Err: 3.106278e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.49663625e-4
+quantizing Q8K model.layers.31.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.357285e-4
+  MSE (direct): 8.301249e-5
+  RMSE: 2.746922e-4, Max Err: 5.004883e-3, Rel Err: 3.153415e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.52715991e-4
+quantizing Q4K model.layers.28.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.174860e-3, Max Err: 4.390144e-2, Rel Err: 8.903726e-1
+    WARNING: High Q4K quantization error for model.layers.28.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.24.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.658587e-4
+  MSE (direct): 9.692903e-5
+  RMSE: 2.919901e-4, Max Err: 3.540039e-3, Rel Err: 3.158490e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.68929633e-4
+quantizing Q8K model.layers.21.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.326491e-4
+  MSE (direct): 8.643602e-5
+  RMSE: 2.749204e-4, Max Err: 2.532959e-3, Rel Err: 3.109646e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46213060e-4
+quantizing Q8K model.layers.22.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.554824e-4
+  MSE (direct): 9.103292e-5
+  RMSE: 2.821471e-4, Max Err: 2.380371e-3, Rel Err: 3.159456e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.64449448e-4
+quantizing Q8K model.layers.23.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.326550e-4
+  MSE (direct): 8.687586e-5
+  RMSE: 2.762798e-4, Max Err: 2.380371e-3, Rel Err: 3.106607e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.45779166e-4
+quantizing Q8K model.layers.26.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.325655e-4
+  MSE (direct): 8.443932e-5
+  RMSE: 2.743509e-4, Max Err: 3.479000e-3, Rel Err: 3.146582e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.48126201e-4
+quantizing Q8K model.layers.27.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.351513e-4
+  MSE (direct): 8.244158e-5
+  RMSE: 2.746163e-4, Max Err: 3.448494e-3, Rel Err: 3.158599e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.52709748e-4
+quantizing Q8K model.layers.29.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.429558e-4
+  MSE (direct): 1.267899e-4
+  RMSE: 3.353461e-4, Max Err: 3.051758e-3, Rel Err: 3.162257e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.16165921e-4
+quantizing Q4K model.layers.22.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.105530e-3, Max Err: 4.111481e-2, Rel Err: 1.709410e0
+    WARNING: High Q4K quantization error for model.layers.22.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.26.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.372287e-4
+  MSE (direct): 8.936715e-5
+  RMSE: 2.782475e-4, Max Err: 3.585815e-3, Rel Err: 3.103039e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47861516e-4
+quantizing Q8K lm_head.weight (32064 x 3072)
+  MSE (matmul): 3.225441e-4
+  MSE (direct): 1.123406e-4
+  RMSE: 3.231870e-4, Max Err: 2.426147e-3, Rel Err: 3.049107e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.10203492e-4
+quantizing Q8K model.layers.27.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.038837e-4
+  MSE (direct): 1.136919e-4
+  RMSE: 3.126403e-4, Max Err: 3.112793e-3, Rel Err: 3.166414e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.90191844e-4
+quantizing Q4K model.layers.25.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.151126e-3, Max Err: 4.666519e-2, Rel Err: 7.981006e-1
+    WARNING: High Q4K quantization error for model.layers.25.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.27.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.403215e-4
+  MSE (direct): 8.941948e-5
+  RMSE: 2.792717e-4, Max Err: 4.638672e-3, Rel Err: 3.104493e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.50901993e-4
+quantizing Q8K model.layers.28.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.407650e-4
+  MSE (direct): 9.017041e-5
+  RMSE: 2.799316e-4, Max Err: 4.425049e-3, Rel Err: 3.108124e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.50594569e-4
+quantizing Q8K model.layers.28.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.345665e-4
+  MSE (direct): 1.300254e-4
+  RMSE: 3.281134e-4, Max Err: 2.868652e-3, Rel Err: 3.169601e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.04541109e-4
+quantizing Q8K model.layers.23.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.637104e-4
+  MSE (direct): 9.780796e-5
+  RMSE: 2.936672e-4, Max Err: 2.288818e-3, Rel Err: 3.175871e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.65902486e-4
+quantizing Q8K model.layers.30.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.599630e-4
+  MSE (direct): 1.396050e-4
+  RMSE: 3.438297e-4, Max Err: 4.211426e-3, Rel Err: 3.235851e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.20358037e-4
+quantizing Q8K model.layers.30.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.315833e-4
+  MSE (direct): 8.421792e-5
+  RMSE: 2.764729e-4, Max Err: 3.051758e-3, Rel Err: 3.153731e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47365383e-4
+quantizing Q8K model.layers.22.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.292528e-4
+  MSE (direct): 8.260374e-5
+  RMSE: 2.745575e-4, Max Err: 3.662106e-3, Rel Err: 3.154735e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46649109e-4
+quantizing Q8K model.layers.31.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.585221e-4
+  MSE (direct): 9.479753e-5
+  RMSE: 2.912632e-4, Max Err: 4.882812e-3, Rel Err: 3.123005e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.63724573e-4
+quantizing Q8K model.layers.25.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.319631e-4
+  MSE (direct): 8.289361e-5
+  RMSE: 2.740783e-4, Max Err: 5.187988e-3, Rel Err: 3.154606e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.49069529e-4
+quantizing Q8K model.layers.30.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.498060e-4
+  MSE (direct): 9.397214e-5
+  RMSE: 2.843463e-4, Max Err: 3.784187e-3, Rel Err: 3.114874e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.55833870e-4
+quantizing Q8K model.layers.26.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.723541e-4
+  MSE (direct): 1.065273e-4
+  RMSE: 3.004917e-4, Max Err: 2.807617e-3, Rel Err: 3.139918e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.65826787e-4
+quantizing Q8K model.layers.29.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.352285e-4
+  MSE (direct): 8.432118e-5
+  RMSE: 2.769033e-4, Max Err: 3.295913e-3, Rel Err: 3.151506e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.50907348e-4
+quantizing Q8K model.layers.22.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.349274e-4
+  MSE (direct): 8.717726e-5
+  RMSE: 2.754847e-4, Max Err: 2.410889e-3, Rel Err: 3.107330e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47750165e-4
+quantizing Q8K model.layers.29.mlp.gate_up_proj.weight (16384 x 3072)
+  MSE (matmul): 2.477712e-4
+  MSE (direct): 9.101633e-5
+  RMSE: 2.830473e-4, Max Err: 7.324278e-3, Rel Err: 3.112001e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.56754890e-4
+quantizing Q8K model.layers.24.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.317498e-4
+  MSE (direct): 8.522757e-5
+  RMSE: 2.750270e-4, Max Err: 3.723159e-3, Rel Err: 3.153721e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46522216e-4
+quantizing Q4K model.layers.27.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.177549e-3, Max Err: 4.800797e-2, Rel Err: 1.046567e0
+    WARNING: High Q4K quantization error for model.layers.27.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.28.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.398960e-4
+  MSE (direct): 8.539334e-5
+  RMSE: 2.785154e-4, Max Err: 4.455566e-3, Rel Err: 3.154669e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.54502632e-4
+quantizing Q4K model.layers.30.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.119244e-3, Max Err: 6.088066e-2, Rel Err: 9.633663e-1
+    WARNING: High Q4K quantization error for model.layers.30.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.26.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.164911e-3, Max Err: 4.077530e-2, Rel Err: 1.041114e0
+    WARNING: High Q4K quantization error for model.layers.26.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.21.self_attn.qkv_proj.weight (9216 x 3072)
+  MSE (matmul): 2.319366e-4
+  MSE (direct): 8.529347e-5
+  RMSE: 2.747460e-4, Max Err: 3.173828e-3, Rel Err: 3.146106e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46643142e-4
+Done in 11.15s. Q8K: 33, Q4K: 11, skipped: 23
+Packing Q8K/Q4K model into single SafeTensors file
+===================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+Q8K Dir: ./quantized-l2
+Output : ./packed-shard1-l2.safetensors
+
+WARNING: No final layer norm found in original model!
+         Expected one of: model.norm.weight, model.final_layernorm.weight, norm.weight
+         Available norms:
+           - model.layers.8.input_layernorm.weight
+           - model.layers.14.post_attention_layernorm.weight
+           - model.layers.1.input_layernorm.weight
+           - model.layers.15.input_layernorm.weight
+           - model.layers.7.input_layernorm.weight
+           - model.layers.17.post_attention_layernorm.weight
+           - model.layers.4.post_attention_layernorm.weight
+           - model.layers.15.post_attention_layernorm.weight
+           - model.layers.0.input_layernorm.weight
+           - model.layers.19.post_attention_layernorm.weight
+           - model.layers.3.post_attention_layernorm.weight
+           - model.layers.19.input_layernorm.weight
+           - model.layers.6.post_attention_layernorm.weight
+           - model.layers.3.input_layernorm.weight
+           - model.layers.10.post_attention_layernorm.weight
+           - model.layers.0.post_attention_layernorm.weight
+           - model.layers.2.input_layernorm.weight
+           - model.layers.16.post_attention_layernorm.weight
+           - model.layers.1.post_attention_layernorm.weight
+           - model.layers.18.post_attention_layernorm.weight
+           - model.layers.12.input_layernorm.weight
+           - model.layers.2.post_attention_layernorm.weight
+           - model.layers.9.post_attention_layernorm.weight
+           - model.layers.20.input_layernorm.weight
+           - model.layers.11.input_layernorm.weight
+           - model.layers.10.input_layernorm.weight
+           - model.layers.18.input_layernorm.weight
+           - model.layers.5.input_layernorm.weight
+           - model.layers.6.input_layernorm.weight
+           - model.layers.17.input_layernorm.weight
+           - model.layers.5.post_attention_layernorm.weight
+           - model.layers.8.post_attention_layernorm.weight
+           - model.layers.12.post_attention_layernorm.weight
+           - model.layers.7.post_attention_layernorm.weight
+           - model.layers.4.input_layernorm.weight
+           - model.layers.9.input_layernorm.weight
+           - model.layers.13.input_layernorm.weight
+           - model.layers.20.post_attention_layernorm.weight
+           - model.layers.11.post_attention_layernorm.weight
+           - model.layers.16.input_layernorm.weight
+           - model.layers.13.post_attention_layernorm.weight
+           - model.layers.14.input_layernorm.weight
+         The model may not work correctly without a final norm.
+
+Q8K packed: model.layers.4.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.17.self_attn.qkv_proj.weight
+Q8K packed: model.layers.17.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.14.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.14.self_attn.qkv_proj.weight
+Q8K packed: model.layers.14.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.20.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.14.mlp.gate_up_proj.weight
+Q8K packed: model.layers.14.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.8.input_layernorm.weight [3072]
+Q8K packed: model.layers.9.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.16.self_attn.qkv_proj.weight
+Q8K packed: model.layers.16.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.10.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.11.self_attn.qkv_proj.weight
+Q8K packed: model.layers.11.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.14.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.2.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.1.input_layernorm.weight [3072]
+Preserved: model.layers.15.input_layernorm.weight [3072]
+  Packed permutation for model.layers.7.self_attn.qkv_proj.weight
+Q8K packed: model.layers.7.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.7.input_layernorm.weight [3072]
+Q8K packed: model.layers.15.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.17.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.5.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.0.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.7.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.1.mlp.gate_up_proj.weight
+Q8K packed: model.layers.1.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.7.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.0.self_attn.qkv_proj.weight
+Q8K packed: model.layers.0.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.4.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.5.self_attn.qkv_proj.weight
+Q8K packed: model.layers.5.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.16.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.17.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.15.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.12.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.20.mlp.gate_up_proj.weight
+Q8K packed: model.layers.20.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.0.input_layernorm.weight [3072]
+  Packed permutation for model.layers.16.mlp.gate_up_proj.weight
+Q8K packed: model.layers.16.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.19.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.13.mlp.gate_up_proj.weight
+Q8K packed: model.layers.13.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.3.post_attention_layernorm.weight [3072]
+Preserved: model.layers.19.input_layernorm.weight [3072]
+Q4K packed: model.layers.1.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.6.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.15.mlp.gate_up_proj.weight
+Q8K packed: model.layers.15.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.20.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.19.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.19.mlp.gate_up_proj.weight
+Q8K packed: model.layers.19.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.1.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.6.self_attn.qkv_proj.weight
+Q8K packed: model.layers.6.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.18.self_attn.qkv_proj.weight
+Q8K packed: model.layers.18.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.3.input_layernorm.weight [3072]
+Preserved: model.layers.10.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.5.mlp.gate_up_proj.weight
+Q8K packed: model.layers.5.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.13.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.0.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.1.self_attn.qkv_proj.weight
+Q8K packed: model.layers.1.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.12.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.14.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.19.self_attn.qkv_proj.weight
+Q8K packed: model.layers.19.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.2.input_layernorm.weight [3072]
+Preserved: model.layers.16.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.11.mlp.gate_up_proj.weight
+Q8K packed: model.layers.11.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.17.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.15.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.9.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.1.post_attention_layernorm.weight [3072]
+Preserved: model.layers.18.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.8.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.8.self_attn.qkv_proj.weight
+Q8K packed: model.layers.8.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.10.self_attn.qkv_proj.weight
+Q8K packed: model.layers.10.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.18.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.12.input_layernorm.weight [3072]
+Preserved: model.embed_tokens.weight [32064, 3072]
+Preserved: model.layers.2.post_attention_layernorm.weight [3072]
+Preserved: model.layers.9.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.0.mlp.gate_up_proj.weight
+Q8K packed: model.layers.0.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.20.input_layernorm.weight [3072]
+Q8K packed: model.layers.2.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.11.input_layernorm.weight [3072]
+Q4K packed: model.layers.3.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.10.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.11.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.8.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.10.mlp.gate_up_proj.weight
+Q8K packed: model.layers.10.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.18.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.4.mlp.gate_up_proj.weight
+Q8K packed: model.layers.4.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.0.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.13.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.10.input_layernorm.weight [3072]
+  Packed permutation for model.layers.17.mlp.gate_up_proj.weight
+Q8K packed: model.layers.17.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.18.input_layernorm.weight [3072]
+  Packed permutation for model.layers.12.self_attn.qkv_proj.weight
+Q8K packed: model.layers.12.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.13.self_attn.qkv_proj.weight
+Q8K packed: model.layers.13.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.6.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.5.input_layernorm.weight [3072]
+Preserved: model.layers.6.input_layernorm.weight [3072]
+Preserved: model.layers.17.input_layernorm.weight [3072]
+  Packed permutation for model.layers.8.mlp.gate_up_proj.weight
+Q8K packed: model.layers.8.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.6.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.18.mlp.gate_up_proj.weight
+Q8K packed: model.layers.18.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.4.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.2.mlp.gate_up_proj.weight
+Q8K packed: model.layers.2.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.5.post_attention_layernorm.weight [3072]
+Preserved: model.layers.8.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.3.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.3.self_attn.qkv_proj.weight
+Q8K packed: model.layers.3.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.9.mlp.gate_up_proj.weight
+Q8K packed: model.layers.9.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.7.mlp.gate_up_proj.weight
+Q8K packed: model.layers.7.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.2.self_attn.qkv_proj.weight
+Q8K packed: model.layers.2.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.12.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.3.mlp.gate_up_proj.weight
+Q8K packed: model.layers.3.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.6.mlp.gate_up_proj.weight
+Q8K packed: model.layers.6.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.4.self_attn.qkv_proj.weight
+Q8K packed: model.layers.4.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.21.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.7.post_attention_layernorm.weight [3072]
+Preserved: model.layers.4.input_layernorm.weight [3072]
+Preserved: model.layers.9.input_layernorm.weight [3072]
+  Packed permutation for model.layers.9.self_attn.qkv_proj.weight
+Q8K packed: model.layers.9.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.13.input_layernorm.weight [3072]
+Preserved: model.layers.20.post_attention_layernorm.weight [3072]
+Preserved: model.layers.11.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.16.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.20.self_attn.qkv_proj.weight
+Q8K packed: model.layers.20.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.5.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.16.input_layernorm.weight [3072]
+Q4K packed: model.layers.11.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.12.mlp.gate_up_proj.weight
+Q8K packed: model.layers.12.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.13.post_attention_layernorm.weight [3072]
+Preserved: model.layers.14.input_layernorm.weight [3072]
+  Packed permutation for model.layers.15.self_attn.qkv_proj.weight
+Q8K packed: model.layers.15.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.19.self_attn.o_proj.weight [3072 x 3072]
+
+ERROR: Final layer norm not included in packed model!
+       The model will likely fail during inference.
+
+
+Writing packed model...
+
+Done in 4.79s
+Statistics:
+   - Quantized weights : 85
+   - Permutation files : 42
+   - Preserved tensors : 43
+   - Total tensors     : 255
+   - Output size       : 2494.47 MB
+
+Permutation files included — loader will detect and apply them automatically.
+Packing Q8K/Q4K model into single SafeTensors file
+===================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+Q8K Dir: ./quantized-l2
+Output : ./packed-shard2-l2.safetensors
+
+  Packed permutation for model.layers.29.self_attn.qkv_proj.weight
+Q8K packed: model.layers.29.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.25.self_attn.qkv_proj.weight
+Q8K packed: model.layers.25.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.23.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.25.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.28.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.26.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.21.input_layernorm.weight [3072]
+Preserved: model.layers.26.post_attention_layernorm.weight [3072]
+Preserved: model.layers.27.post_attention_layernorm.weight [3072]
+Preserved: model.layers.23.input_layernorm.weight [3072]
+  Packed permutation for model.layers.28.mlp.gate_up_proj.weight
+Q8K packed: model.layers.28.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for lm_head.weight
+Q8K packed: lm_head.weight [32064 x 3072]
+  Packed permutation for model.layers.29.mlp.gate_up_proj.weight
+Q8K packed: model.layers.29.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.norm.weight [3072]
+Q4K packed: model.layers.22.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.27.input_layernorm.weight [3072]
+Q8K packed: model.layers.30.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.23.self_attn.qkv_proj.weight
+Q8K packed: model.layers.23.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.22.input_layernorm.weight [3072]
+Q4K packed: model.layers.21.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.26.input_layernorm.weight [3072]
+  Packed permutation for model.layers.26.self_attn.qkv_proj.weight
+Q8K packed: model.layers.26.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.30.mlp.gate_up_proj.weight
+Q8K packed: model.layers.30.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.31.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.23.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.21.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.25.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.29.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.31.mlp.gate_up_proj.weight
+Q8K packed: model.layers.31.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.31.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.28.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.31.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.24.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.24.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.27.mlp.gate_up_proj.weight
+Q8K packed: model.layers.27.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.21.self_attn.qkv_proj.weight
+Q8K packed: model.layers.21.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.30.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.31.input_layernorm.weight [3072]
+  Packed permutation for model.layers.25.mlp.gate_up_proj.weight
+Q8K packed: model.layers.25.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.25.post_attention_layernorm.weight [3072]
+Preserved: model.layers.30.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.30.self_attn.qkv_proj.weight
+Q8K packed: model.layers.30.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.23.mlp.gate_up_proj.weight
+Q8K packed: model.layers.23.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.26.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.29.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.24.post_attention_layernorm.weight [3072]
+Preserved: model.layers.29.input_layernorm.weight [3072]
+Q8K packed: model.layers.27.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.22.mlp.gate_up_proj.weight
+Q8K packed: model.layers.22.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.29.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.22.self_attn.qkv_proj.weight
+Q8K packed: model.layers.22.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.28.self_attn.qkv_proj.weight
+Q8K packed: model.layers.28.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.24.input_layernorm.weight [3072]
+  Packed permutation for model.layers.21.mlp.gate_up_proj.weight
+Q8K packed: model.layers.21.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.22.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.25.input_layernorm.weight [3072]
+  Packed permutation for model.layers.27.self_attn.qkv_proj.weight
+Q8K packed: model.layers.27.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.28.input_layernorm.weight [3072]
+  Packed permutation for model.layers.24.mlp.gate_up_proj.weight
+Q8K packed: model.layers.24.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.26.mlp.gate_up_proj.weight
+Q8K packed: model.layers.26.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.28.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.24.self_attn.qkv_proj.weight
+Q8K packed: model.layers.24.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.30.input_layernorm.weight [3072]
+Q4K packed: model.layers.27.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.22.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.23.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.31.self_attn.qkv_proj.weight
+Q8K packed: model.layers.31.self_attn.qkv_proj.weight [9216 x 3072]
+
+Writing packed model...
+
+Done in 1.92s
+Statistics:
+   - Quantized weights : 44
+   - Permutation files : 23
+   - Preserved tensors : 23
+   - Total tensors     : 134
+   - Output size       : 1299.74 MB
+
+Permutation files included — loader will detect and apply them automatically.
+Using config.json: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/config.json
+Loading from 2 shards...
+  Shard 1: ./packed-shard1-l2.safetensors
+  Shard 2: ./packed-shard2-l2.safetensors
+Corpus: /tmp/wt2.txt (1290547 bytes)
+Tokens: 335645
+Eval : ctx=2048 stride=2048 max_chunks=Some(30)
+  chunk 1 | tokens scored 2047 | running PPL = 4.7765 | NLL = 1.5637
+  chunk 2 | tokens scored 4094 | running PPL = 5.6775 | NLL = 1.7365
+  chunk 3 | tokens scored 6141 | running PPL = 6.5739 | NLL = 1.8831
+  chunk 4 | tokens scored 8188 | running PPL = 6.6318 | NLL = 1.8919
+  chunk 5 | tokens scored 10235 | running PPL = 6.3267 | NLL = 1.8448
+  chunk 6 | tokens scored 12282 | running PPL = 6.2025 | NLL = 1.8250
+  chunk 7 | tokens scored 14329 | running PPL = 5.8261 | NLL = 1.7624
+  chunk 8 | tokens scored 16376 | running PPL = 5.5686 | NLL = 1.7172
+  chunk 9 | tokens scored 18423 | running PPL = 5.5632 | NLL = 1.7162
+  chunk 10 | tokens scored 20470 | running PPL = 5.6323 | NLL = 1.7285
+  chunk 11 | tokens scored 22517 | running PPL = 5.7862 | NLL = 1.7555
+  chunk 12 | tokens scored 24564 | running PPL = 5.8561 | NLL = 1.7675
+  chunk 13 | tokens scored 26611 | running PPL = 5.8282 | NLL = 1.7627
+  chunk 14 | tokens scored 28658 | running PPL = 5.9108 | NLL = 1.7768
+  chunk 15 | tokens scored 30705 | running PPL = 6.0059 | NLL = 1.7927
+  chunk 16 | tokens scored 32752 | running PPL = 6.1035 | NLL = 1.8089
+  chunk 17 | tokens scored 34799 | running PPL = 6.2037 | NLL = 1.8251
+  chunk 18 | tokens scored 36846 | running PPL = 6.3260 | NLL = 1.8447
+  chunk 19 | tokens scored 38893 | running PPL = 6.4148 | NLL = 1.8586
+  chunk 20 | tokens scored 40940 | running PPL = 6.4795 | NLL = 1.8687
+  chunk 21 | tokens scored 42987 | running PPL = 6.4786 | NLL = 1.8685
+  chunk 22 | tokens scored 45034 | running PPL = 6.3925 | NLL = 1.8551
+  chunk 23 | tokens scored 47081 | running PPL = 6.3618 | NLL = 1.8503
+  chunk 24 | tokens scored 49128 | running PPL = 6.3919 | NLL = 1.8550
+  chunk 25 | tokens scored 51175 | running PPL = 6.3660 | NLL = 1.8510
+  chunk 26 | tokens scored 53222 | running PPL = 6.3961 | NLL = 1.8557
+  chunk 27 | tokens scored 55269 | running PPL = 6.3860 | NLL = 1.8541
+  chunk 28 | tokens scored 57316 | running PPL = 6.4137 | NLL = 1.8584
+  chunk 29 | tokens scored 59363 | running PPL = 6.3935 | NLL = 1.8553
+  chunk 30 | tokens scored 61410 | running PPL = 6.4625 | NLL = 1.8660
+Reached PHI3_PPL_MAX_CHUNKS=30, stopping.
+
+Result:
+  chunks scored : 30
+  tokens scored : 61410
+  mean NLL      : 1.866022
+  perplexity    : 6.4625
+  wall time     : 3503.89 s
+  throughput    : 17.5 tok/s
+=== SVD STRATEGY ===
+Output  : ./quantized-svd
+Permute : on (strategy: svd-importance)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+  Tensors: 128
+quantizing Q4K model.layers.18.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.045541e-3, Max Err: 4.131317e-2, Rel Err: 1.298815e0
+    WARNING: High Q4K quantization error for model.layers.18.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.10.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.412984e-4
+  MSE (direct): 5.148603e-5
+  RMSE: 2.157856e-4, Max Err: 2.746582e-3, Rel Err: 3.245120e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.98124126e-5
+quantizing Q8K model.layers.0.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 1.358894e-4
+  MSE (direct): 1.654089e-5
+  RMSE: 2.176625e-4, Max Err: 8.605957e-3, Rel Err: 3.426589e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.19348486e-4
+quantizing Q4K model.layers.14.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.991589e-3, Max Err: 6.229782e-2, Rel Err: 1.166792e0
+    WARNING: High Q4K quantization error for model.layers.14.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.4.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.269042e-4
+  MSE (direct): 4.820043e-5
+  RMSE: 2.076462e-4, Max Err: 3.112793e-3, Rel Err: 3.171116e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 7.87037570e-5
+quantizing Q8K model.layers.0.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 7.072178e-5
+  MSE (direct): 2.779688e-5
+  RMSE: 1.563042e-4, Max Err: 3.601074e-3, Rel Err: 4.140035e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 4.29248903e-5
+quantizing Q4K model.layers.2.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887099e-3, Max Err: 7.779503e-2, Rel Err: 1.006156e0
+    WARNING: High Q4K quantization error for model.layers.2.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.8.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.317612e-4
+  MSE (direct): 8.791713e-5
+  RMSE: 2.744249e-4, Max Err: 3.906250e-3, Rel Err: 3.115676e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43844081e-4
+quantizing Q8K model.layers.12.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.663683e-4
+  MSE (direct): 9.474224e-5
+  RMSE: 2.935280e-4, Max Err: 4.486084e-3, Rel Err: 3.157197e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.71626059e-4
+quantizing Q4K model.layers.13.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.986203e-3, Max Err: 8.589363e-2, Rel Err: 9.585068e-1
+    WARNING: High Q4K quantization error for model.layers.13.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.14.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.308632e-4
+  MSE (direct): 8.600196e-5
+  RMSE: 2.712557e-4, Max Err: 4.150391e-3, Rel Err: 3.115653e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44861202e-4
+quantizing Q4K model.layers.11.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.948161e-3, Max Err: 5.017757e-2, Rel Err: 8.686841e-1
+    WARNING: High Q4K quantization error for model.layers.11.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.16.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.018199e-3, Max Err: 3.890419e-2, Rel Err: 1.176728e0
+    WARNING: High Q4K quantization error for model.layers.16.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.18.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.274007e-4
+  MSE (direct): 8.454447e-5
+  RMSE: 2.742474e-4, Max Err: 3.540039e-3, Rel Err: 3.113873e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.42856210e-4
+quantizing Q8K model.layers.6.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.342920e-4
+  MSE (direct): 4.836155e-5
+  RMSE: 2.149932e-4, Max Err: 3.417969e-3, Rel Err: 3.195951e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.59304128e-5
+quantizing Q8K model.layers.20.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.289983e-4
+  MSE (direct): 8.562335e-5
+  RMSE: 2.740822e-4, Max Err: 2.166748e-3, Rel Err: 3.105751e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43374928e-4
+quantizing Q8K model.layers.17.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.260345e-4
+  MSE (direct): 8.584760e-5
+  RMSE: 2.724791e-4, Max Err: 6.103516e-3, Rel Err: 3.110486e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.40186865e-4
+quantizing Q8K model.layers.19.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.371346e-4
+  MSE (direct): 8.536055e-5
+  RMSE: 2.765250e-4, Max Err: 3.082275e-3, Rel Err: 3.145356e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.51774031e-4
+quantizing Q8K model.layers.14.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.630290e-4
+  MSE (direct): 9.552955e-5
+  RMSE: 2.926060e-4, Max Err: 4.394531e-3, Rel Err: 3.146358e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.67499500e-4
+quantizing Q8K model.layers.13.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.198914e-4
+  MSE (direct): 8.376010e-5
+  RMSE: 2.711962e-4, Max Err: 5.371094e-3, Rel Err: 3.113488e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.36131261e-4
+quantizing Q8K model.layers.1.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.004713e-4
+  MSE (direct): 7.619863e-5
+  RMSE: 2.571045e-4, Max Err: 4.394531e-3, Rel Err: 3.110861e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.24272701e-4
+quantizing Q8K model.layers.15.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.657972e-4
+  MSE (direct): 6.327414e-5
+  RMSE: 2.337623e-4, Max Err: 2.990723e-3, Rel Err: 3.179790e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.02523067e-4
+quantizing Q4K model.layers.5.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.907230e-3, Max Err: 5.643940e-2, Rel Err: 8.555824e-1
+    WARNING: High Q4K quantization error for model.layers.5.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.8.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.836541e-4
+  MSE (direct): 9.749647e-5
+  RMSE: 3.032983e-4, Max Err: 6.958008e-3, Rel Err: 3.165106e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.86157587e-4
+quantizing Q8K model.layers.13.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.491288e-4
+  MSE (direct): 5.934321e-5
+  RMSE: 2.320349e-4, Max Err: 1.293945e-2, Rel Err: 3.239218e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.97855934e-5
+quantizing Q8K model.layers.19.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.288951e-4
+  MSE (direct): 8.535457e-5
+  RMSE: 2.742393e-4, Max Err: 4.028320e-3, Rel Err: 3.109434e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43540499e-4
+quantizing Q8K model.layers.17.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.048036e-4
+  MSE (direct): 7.480339e-5
+  RMSE: 2.513438e-4, Max Err: 2.319336e-3, Rel Err: 3.164789e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.30000190e-4
+quantizing Q8K model.layers.4.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.154041e-4
+  MSE (direct): 9.460968e-5
+  RMSE: 3.216076e-4, Max Err: 9.521484e-3, Rel Err: 3.207729e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.20794464e-4
+quantizing Q8K model.layers.12.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.577974e-4
+  MSE (direct): 5.700928e-5
+  RMSE: 2.232300e-4, Max Err: 2.807617e-3, Rel Err: 3.159744e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.00788078e-4
+quantizing Q4K model.layers.0.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.697852e-3, Max Err: 4.861355e-2, Rel Err: 1.027632e0
+    WARNING: High Q4K quantization error for model.layers.0.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.7.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.349822e-4
+  MSE (direct): 8.974957e-5
+  RMSE: 2.752687e-4, Max Err: 5.126953e-3, Rel Err: 3.118591e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.45232596e-4
+quantizing Q4K model.layers.9.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.935273e-3, Max Err: 3.994179e-2, Rel Err: 8.096288e-1
+    WARNING: High Q4K quantization error for model.layers.9.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.13.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.630736e-4
+  MSE (direct): 9.315029e-5
+  RMSE: 2.871148e-4, Max Err: 3.234863e-3, Rel Err: 3.156419e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.69923282e-4
+quantizing Q4K model.layers.1.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.855773e-3, Max Err: 5.115509e-2, Rel Err: 1.161092e0
+    WARNING: High Q4K quantization error for model.layers.1.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.10.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.242997e-4
+  MSE (direct): 8.281902e-5
+  RMSE: 2.720493e-4, Max Err: 2.777100e-3, Rel Err: 3.118087e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41480661e-4
+quantizing Q8K model.layers.18.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.396704e-4
+  MSE (direct): 8.967979e-5
+  RMSE: 2.806738e-4, Max Err: 3.463715e-3, Rel Err: 3.146733e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.49990621e-4
+quantizing Q4K model.layers.7.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887725e-3, Max Err: 1.070614e-1, Rel Err: 9.548812e-1
+    WARNING: High Q4K quantization error for model.layers.7.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.21.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.293216e-4
+  MSE (direct): 9.019078e-5
+  RMSE: 2.749942e-4, Max Err: 1.983643e-3, Rel Err: 3.192078e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.39130774e-4
+quantizing Q8K model.layers.16.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.791678e-4
+  MSE (direct): 6.795134e-5
+  RMSE: 2.402627e-4, Max Err: 2.563477e-3, Rel Err: 3.190072e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.11216483e-4
+quantizing Q8K model.layers.3.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.246549e-4
+  MSE (direct): 8.465333e-5
+  RMSE: 2.689390e-4, Max Err: 5.493164e-3, Rel Err: 3.106643e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.40001590e-4
+quantizing Q4K model.layers.15.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.000672e-3, Max Err: 3.522015e-2, Rel Err: 1.187949e0
+    WARNING: High Q4K quantization error for model.layers.15.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.16.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.486468e-4
+  MSE (direct): 9.267536e-5
+  RMSE: 2.862031e-4, Max Err: 3.967285e-3, Rel Err: 3.152899e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.55971444e-4
+quantizing Q8K model.layers.5.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.290621e-4
+  MSE (direct): 1.069799e-4
+  RMSE: 3.237059e-4, Max Err: 8.117676e-3, Rel Err: 3.189327e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.22082192e-4
+quantizing Q8K model.layers.12.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.233357e-4
+  MSE (direct): 8.542885e-5
+  RMSE: 2.701510e-4, Max Err: 3.341675e-3, Rel Err: 3.115970e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.37906813e-4
+quantizing Q4K model.layers.17.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.026695e-3, Max Err: 3.495407e-2, Rel Err: 9.815534e-1
+    WARNING: High Q4K quantization error for model.layers.17.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.3.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.578454e-4
+  MSE (direct): 9.695382e-5
+  RMSE: 3.394622e-4, Max Err: 8.544922e-3, Rel Err: 3.263670e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.60891626e-4
+quantizing Q8K model.layers.18.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.054552e-4
+  MSE (direct): 8.318576e-5
+  RMSE: 2.622882e-4, Max Err: 2.548218e-3, Rel Err: 3.231035e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.22269426e-4
+quantizing Q4K model.layers.3.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.898587e-3, Max Err: 3.662586e-2, Rel Err: 9.226945e-1
+    WARNING: High Q4K quantization error for model.layers.3.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.7.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.421966e-4
+  MSE (direct): 5.110374e-5
+  RMSE: 2.122334e-4, Max Err: 5.065918e-3, Rel Err: 3.227859e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.10928211e-5
+quantizing Q8K model.layers.9.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.273264e-4
+  MSE (direct): 8.602419e-5
+  RMSE: 2.738814e-4, Max Err: 4.272461e-3, Rel Err: 3.117643e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41302211e-4
+quantizing Q8K model.layers.4.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.246514e-4
+  MSE (direct): 8.482804e-5
+  RMSE: 2.709056e-4, Max Err: 5.554199e-3, Rel Err: 3.113151e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.39823329e-4
+quantizing Q8K model.layers.2.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.160182e-4
+  MSE (direct): 8.125990e-5
+  RMSE: 2.652283e-4, Max Err: 5.859375e-3, Rel Err: 3.110173e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.34758360e-4
+quantizing Q8K model.layers.5.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.285215e-4
+  MSE (direct): 8.503604e-5
+  RMSE: 2.714756e-4, Max Err: 2.593994e-3, Rel Err: 3.113401e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43485493e-4
+quantizing Q8K model.layers.5.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.388802e-4
+  MSE (direct): 5.285162e-5
+  RMSE: 2.150653e-4, Max Err: 3.417969e-3, Rel Err: 3.175501e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.60285654e-5
+quantizing Q8K model.layers.14.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.639132e-4
+  MSE (direct): 6.233197e-5
+  RMSE: 2.319188e-4, Max Err: 2.777100e-3, Rel Err: 3.166304e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.01581194e-4
+quantizing Q8K model.layers.6.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.044985e-4
+  MSE (direct): 9.721147e-5
+  RMSE: 3.140007e-4, Max Err: 7.568359e-3, Rel Err: 3.179087e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.07287056e-4
+quantizing Q8K model.layers.9.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.487007e-4
+  MSE (direct): 5.350137e-5
+  RMSE: 2.173403e-4, Max Err: 2.685547e-3, Rel Err: 3.223816e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.51993425e-5
+quantizing Q4K model.layers.20.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.063921e-3, Max Err: 4.547882e-2, Rel Err: 1.097138e0
+    WARNING: High Q4K quantization error for model.layers.20.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.0.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 1.537849e-4
+  MSE (direct): 5.342044e-5
+  RMSE: 2.221519e-4, Max Err: 2.960205e-3, Rel Err: 3.090556e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.00364443e-4
+quantizing Q8K model.layers.11.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.693326e-4
+  MSE (direct): 1.015254e-4
+  RMSE: 2.990284e-4, Max Err: 3.784179e-3, Rel Err: 3.153033e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.67807157e-4
+quantizing Q8K model.layers.16.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.250364e-4
+  MSE (direct): 8.301780e-5
+  RMSE: 2.708703e-4, Max Err: 3.204346e-3, Rel Err: 3.115422e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.42018602e-4
+quantizing Q8K model.layers.9.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.799894e-4
+  MSE (direct): 1.007003e-4
+  RMSE: 3.054280e-4, Max Err: 5.554199e-3, Rel Err: 3.147520e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.79289200e-4
+quantizing Q8K model.layers.10.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.679167e-4
+  MSE (direct): 9.444859e-5
+  RMSE: 2.905337e-4, Max Err: 4.150391e-3, Rel Err: 3.146671e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.73468143e-4
+quantizing Q8K model.layers.15.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.265381e-4
+  MSE (direct): 8.539869e-5
+  RMSE: 2.708600e-4, Max Err: 3.051758e-3, Rel Err: 3.113850e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.41139404e-4
+quantizing Q8K model.layers.11.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.459390e-4
+  MSE (direct): 5.574529e-5
+  RMSE: 2.150050e-4, Max Err: 2.441406e-3, Rel Err: 3.186099e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 9.01937601e-5
+quantizing Q8K model.layers.20.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.349542e-4
+  MSE (direct): 8.387209e-5
+  RMSE: 2.757798e-4, Max Err: 3.295898e-3, Rel Err: 3.148482e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.51082073e-4
+quantizing Q4K model.layers.4.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.901435e-3, Max Err: 7.563782e-2, Rel Err: 1.466032e0
+    WARNING: High Q4K quantization error for model.layers.4.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.2.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.180058e-4
+  MSE (direct): 4.618693e-5
+  RMSE: 1.980457e-4, Max Err: 4.882812e-3, Rel Err: 3.275245e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 7.18188821e-5
+quantizing Q8K model.layers.17.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.437368e-4
+  MSE (direct): 9.032487e-5
+  RMSE: 2.810013e-4, Max Err: 3.540039e-3, Rel Err: 3.151839e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.53411907e-4
+quantizing Q8K model.layers.19.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.033543e-4
+  MSE (direct): 7.600580e-5
+  RMSE: 2.565884e-4, Max Err: 2.624512e-3, Rel Err: 3.160749e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.27348525e-4
+quantizing Q8K model.layers.20.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.282186e-4
+  MSE (direct): 8.727132e-5
+  RMSE: 2.704252e-4, Max Err: 4.180908e-3, Rel Err: 3.180754e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.40947232e-4
+quantizing Q8K model.layers.6.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.327961e-4
+  MSE (direct): 8.840753e-5
+  RMSE: 2.735546e-4, Max Err: 2.990723e-3, Rel Err: 3.112851e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.44388570e-4
+quantizing Q8K model.layers.3.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.400109e-4
+  MSE (direct): 5.194626e-5
+  RMSE: 2.157358e-4, Max Err: 2.990723e-3, Rel Err: 3.132370e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.80645966e-5
+quantizing Q8K model.layers.15.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.519040e-4
+  MSE (direct): 9.259066e-5
+  RMSE: 2.850978e-4, Max Err: 2.990723e-3, Rel Err: 3.144775e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.59313349e-4
+quantizing Q8K model.layers.2.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.233814e-4
+  MSE (direct): 7.779575e-5
+  RMSE: 3.226046e-4, Max Err: 4.974365e-3, Rel Err: 3.230316e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.45585630e-4
+quantizing Q8K model.layers.11.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.269550e-4
+  MSE (direct): 8.734751e-5
+  RMSE: 2.716237e-4, Max Err: 2.563477e-3, Rel Err: 3.118328e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.39607524e-4
+quantizing Q4K model.layers.8.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.892069e-3, Max Err: 5.076790e-2, Rel Err: 9.826426e-1
+    WARNING: High Q4K quantization error for model.layers.8.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.12.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.956532e-3, Max Err: 4.191399e-2, Rel Err: 1.073553e0
+    WARNING: High Q4K quantization error for model.layers.12.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.10.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.939676e-3, Max Err: 4.795837e-2, Rel Err: 9.555630e-1
+    WARNING: High Q4K quantization error for model.layers.10.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.1.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.033509e-4
+  MSE (direct): 3.661899e-5
+  RMSE: 1.903772e-4, Max Err: 3.036499e-3, Rel Err: 3.872539e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 6.67319109e-5
+quantizing Q4K model.layers.6.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.891750e-3, Max Err: 4.507351e-2, Rel Err: 7.942196e-1
+    WARNING: High Q4K quantization error for model.layers.6.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.7.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.009447e-4
+  MSE (direct): 1.016146e-4
+  RMSE: 3.121909e-4, Max Err: 6.591797e-3, Rel Err: 3.179990e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.99330112e-4
+quantizing Q4K model.layers.19.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.062103e-3, Max Err: 4.260445e-2, Rel Err: 8.682119e-1
+    WARNING: High Q4K quantization error for model.layers.19.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.1.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 1.979133e-4
+  MSE (direct): 3.838128e-5
+  RMSE: 2.572739e-4, Max Err: 5.371094e-3, Rel Err: 3.265175e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.59531977e-4
+quantizing Q8K model.layers.8.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 1.375866e-4
+  MSE (direct): 5.206428e-5
+  RMSE: 2.138941e-4, Max Err: 2.868660e-3, Rel Err: 3.226438e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 8.55222752e-5
+Done in 21.31s. Q8K: 64, Q4K: 21, skipped: 43
+Output  : ./quantized-svd
+Permute : on (strategy: svd-importance)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+  Tensors: 67
+quantizing Q8K model.layers.21.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.351644e-4
+  MSE (direct): 8.505959e-5
+  RMSE: 2.747708e-4, Max Err: 3.173828e-3, Rel Err: 3.146279e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.50104781e-4
+quantizing Q8K model.layers.23.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.318825e-4
+  MSE (direct): 8.672076e-5
+  RMSE: 2.763484e-4, Max Err: 2.380371e-3, Rel Err: 3.107422e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.45161699e-4
+quantizing Q8K model.layers.23.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.637104e-4
+  MSE (direct): 9.780796e-5
+  RMSE: 2.936672e-4, Max Err: 2.288818e-3, Rel Err: 3.175871e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.65902486e-4
+quantizing Q4K model.layers.30.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.119244e-3, Max Err: 6.088066e-2, Rel Err: 9.633663e-1
+    WARNING: High Q4K quantization error for model.layers.30.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.30.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.441662e-4
+  MSE (direct): 9.074702e-5
+  RMSE: 2.843577e-4, Max Err: 3.814697e-3, Rel Err: 3.114958e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.53419183e-4
+quantizing Q8K model.layers.25.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.295109e-4
+  MSE (direct): 8.188135e-5
+  RMSE: 2.741156e-4, Max Err: 5.187988e-3, Rel Err: 3.155075e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47629558e-4
+quantizing Q8K model.layers.25.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.806414e-4
+  MSE (direct): 1.009615e-4
+  RMSE: 3.028922e-4, Max Err: 4.760742e-3, Rel Err: 3.181941e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.79679948e-4
+quantizing Q8K model.layers.31.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.607046e-4
+  MSE (direct): 9.464787e-5
+  RMSE: 2.912055e-4, Max Err: 4.882812e-3, Rel Err: 3.122465e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.66056736e-4
+quantizing Q4K model.layers.21.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.086084e-3, Max Err: 3.879452e-2, Rel Err: 1.694872e0
+    WARNING: High Q4K quantization error for model.layers.21.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.29.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.444315e-4
+  MSE (direct): 9.010811e-5
+  RMSE: 2.830490e-4, Max Err: 7.324278e-3, Rel Err: 3.111935e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.54323410e-4
+quantizing Q8K model.layers.27.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.361514e-4
+  MSE (direct): 8.788469e-5
+  RMSE: 2.792575e-4, Max Err: 4.638672e-3, Rel Err: 3.104304e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.48266685e-4
+quantizing Q8K model.layers.28.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.345665e-4
+  MSE (direct): 1.300254e-4
+  RMSE: 3.281134e-4, Max Err: 2.868652e-3, Rel Err: 3.169601e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.04541109e-4
+quantizing Q8K model.layers.27.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.353216e-4
+  MSE (direct): 8.327717e-5
+  RMSE: 2.746310e-4, Max Err: 3.448494e-3, Rel Err: 3.158412e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.52044464e-4
+quantizing Q8K model.layers.31.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.352886e-4
+  MSE (direct): 8.184270e-5
+  RMSE: 2.746883e-4, Max Err: 5.004883e-3, Rel Err: 3.153265e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.53445930e-4
+quantizing Q4K model.layers.27.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.177549e-3, Max Err: 4.800797e-2, Rel Err: 1.046567e0
+    WARNING: High Q4K quantization error for model.layers.27.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.23.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.122330e-3, Max Err: 5.363655e-2, Rel Err: 8.286905e-1
+    WARNING: High Q4K quantization error for model.layers.23.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K lm_head.weight (32064 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 3.214311e-4
+  MSE (direct): 1.148164e-4
+  RMSE: 3.243507e-4, Max Err: 2.288818e-3, Rel Err: 3.072762e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.06614728e-4
+quantizing Q4K model.layers.22.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.105530e-3, Max Err: 4.111481e-2, Rel Err: 1.709410e0
+    WARNING: High Q4K quantization error for model.layers.22.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.22.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.554824e-4
+  MSE (direct): 9.103292e-5
+  RMSE: 2.821471e-4, Max Err: 2.380371e-3, Rel Err: 3.159456e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.64449448e-4
+quantizing Q8K model.layers.24.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.359032e-4
+  MSE (direct): 8.844992e-5
+  RMSE: 2.768469e-4, Max Err: 2.044678e-3, Rel Err: 3.105519e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47453247e-4
+quantizing Q8K model.layers.23.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.302258e-4
+  MSE (direct): 8.285898e-5
+  RMSE: 2.735145e-4, Max Err: 3.707886e-3, Rel Err: 3.154639e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.47366780e-4
+quantizing Q8K model.layers.24.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.658587e-4
+  MSE (direct): 9.692903e-5
+  RMSE: 2.919901e-4, Max Err: 3.540039e-3, Rel Err: 3.158490e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.68929633e-4
+quantizing Q8K model.layers.28.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.386061e-4
+  MSE (direct): 8.487304e-5
+  RMSE: 2.785681e-4, Max Err: 4.455566e-3, Rel Err: 3.155122e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.53733039e-4
+quantizing Q8K model.layers.27.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.038837e-4
+  MSE (direct): 1.136919e-4
+  RMSE: 3.126403e-4, Max Err: 3.112793e-3, Rel Err: 3.166414e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.90191844e-4
+quantizing Q8K model.layers.29.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.429558e-4
+  MSE (direct): 1.267899e-4
+  RMSE: 3.353461e-4, Max Err: 3.051758e-3, Rel Err: 3.162257e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.16165921e-4
+quantizing Q8K model.layers.29.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.346753e-4
+  MSE (direct): 8.421879e-5
+  RMSE: 2.769053e-4, Max Err: 3.295913e-3, Rel Err: 3.151668e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.50456472e-4
+quantizing Q8K model.layers.24.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.316417e-4
+  MSE (direct): 8.469407e-5
+  RMSE: 2.749913e-4, Max Err: 3.723159e-3, Rel Err: 3.153400e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46947597e-4
+quantizing Q8K model.layers.22.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.295296e-4
+  MSE (direct): 8.357780e-5
+  RMSE: 2.745697e-4, Max Err: 3.662106e-3, Rel Err: 3.154894e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.45951839e-4
+quantizing Q4K model.layers.24.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.139270e-3, Max Err: 3.493404e-2, Rel Err: 1.072581e0
+    WARNING: High Q4K quantization error for model.layers.24.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.26.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.303253e-4
+  MSE (direct): 8.342798e-5
+  RMSE: 2.743241e-4, Max Err: 3.479008e-3, Rel Err: 3.146266e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.46897335e-4
+quantizing Q4K model.layers.26.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.164911e-3, Max Err: 4.077530e-2, Rel Err: 1.041114e0
+    WARNING: High Q4K quantization error for model.layers.26.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.30.self_attn.qkv_proj.weight (9216 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.342201e-4
+  MSE (direct): 8.305050e-5
+  RMSE: 2.764624e-4, Max Err: 3.051758e-3, Rel Err: 3.153618e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.51169646e-4
+quantizing Q8K model.layers.22.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.313075e-4
+  MSE (direct): 8.613282e-5
+  RMSE: 2.755024e-4, Max Err: 2.410889e-3, Rel Err: 3.107920e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.45174708e-4
+quantizing Q4K model.layers.29.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.160609e-3, Max Err: 9.101868e-2, Rel Err: 7.940610e-1
+    WARNING: High Q4K quantization error for model.layers.29.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.30.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.599630e-4
+  MSE (direct): 1.396050e-4
+  RMSE: 3.438297e-4, Max Err: 4.211426e-3, Rel Err: 3.235851e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.20358037e-4
+quantizing Q4K model.layers.31.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.114314e-3, Max Err: 7.800102e-2, Rel Err: 8.100213e-1
+    WARNING: High Q4K quantization error for model.layers.31.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.25.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.151126e-3, Max Err: 4.666519e-2, Rel Err: 7.981006e-1
+    WARNING: High Q4K quantization error for model.layers.25.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.28.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.174860e-3, Max Err: 4.390144e-2, Rel Err: 8.903726e-1
+    WARNING: High Q4K quantization error for model.layers.28.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q8K model.layers.26.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.373564e-4
+  MSE (direct): 8.791439e-5
+  RMSE: 2.782398e-4, Max Err: 3.585815e-3, Rel Err: 3.103019e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.49441999e-4
+quantizing Q8K model.layers.25.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.412682e-4
+  MSE (direct): 9.013169e-5
+  RMSE: 2.775642e-4, Max Err: 2.441406e-3, Rel Err: 3.105694e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.51136541e-4
+quantizing Q8K model.layers.31.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 3.458017e-4
+  MSE (direct): 1.280845e-4
+  RMSE: 3.377056e-4, Max Err: 7.446288e-3, Rel Err: 3.219192e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 2.17717170e-4
+quantizing Q8K model.layers.21.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.303297e-4
+  MSE (direct): 8.682305e-5
+  RMSE: 2.748980e-4, Max Err: 2.532959e-3, Rel Err: 3.109847e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.43506681e-4
+quantizing Q8K model.layers.26.self_attn.o_proj.weight (3072 x 3072)
+  MSE (matmul): 2.723541e-4
+  MSE (direct): 1.065273e-4
+  RMSE: 3.004917e-4, Max Err: 2.807617e-3, Rel Err: 3.139918e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.65826787e-4
+quantizing Q8K model.layers.28.mlp.gate_up_proj.weight (16384 x 3072)
+    SVD-importance: sorted by column variance
+  MSE (matmul): 2.434344e-4
+  MSE (direct): 9.132524e-5
+  RMSE: 2.799289e-4, Max Err: 4.425049e-3, Rel Err: 3.108369e-2
+    WARNING: High quantization error detected!
+       Consider using block-wise permutation or reducing compression
+    [INFO] Validation methods differ by 1.52109191e-4
+Done in 12.21s. Q8K: 33, Q4K: 11, skipped: 23
+Packing Q8K/Q4K model into single SafeTensors file
+===================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+Q8K Dir: ./quantized-svd
+Output : ./packed-shard1-svd.safetensors
+
+WARNING: No final layer norm found in original model!
+         Expected one of: model.norm.weight, model.final_layernorm.weight, norm.weight
+         Available norms:
+           - model.layers.2.post_attention_layernorm.weight
+           - model.layers.14.input_layernorm.weight
+           - model.layers.7.post_attention_layernorm.weight
+           - model.layers.16.input_layernorm.weight
+           - model.layers.6.post_attention_layernorm.weight
+           - model.layers.13.post_attention_layernorm.weight
+           - model.layers.7.input_layernorm.weight
+           - model.layers.8.post_attention_layernorm.weight
+           - model.layers.0.post_attention_layernorm.weight
+           - model.layers.18.input_layernorm.weight
+           - model.layers.10.post_attention_layernorm.weight
+           - model.layers.19.post_attention_layernorm.weight
+           - model.layers.3.input_layernorm.weight
+           - model.layers.6.input_layernorm.weight
+           - model.layers.16.post_attention_layernorm.weight
+           - model.layers.4.post_attention_layernorm.weight
+           - model.layers.8.input_layernorm.weight
+           - model.layers.20.post_attention_layernorm.weight
+           - model.layers.19.input_layernorm.weight
+           - model.layers.11.input_layernorm.weight
+           - model.layers.11.post_attention_layernorm.weight
+           - model.layers.10.input_layernorm.weight
+           - model.layers.1.post_attention_layernorm.weight
+           - model.layers.12.post_attention_layernorm.weight
+           - model.layers.0.input_layernorm.weight
+           - model.layers.12.input_layernorm.weight
+           - model.layers.20.input_layernorm.weight
+           - model.layers.1.input_layernorm.weight
+           - model.layers.15.post_attention_layernorm.weight
+           - model.layers.17.input_layernorm.weight
+           - model.layers.2.input_layernorm.weight
+           - model.layers.4.input_layernorm.weight
+           - model.layers.15.input_layernorm.weight
+           - model.layers.9.input_layernorm.weight
+           - model.layers.9.post_attention_layernorm.weight
+           - model.layers.18.post_attention_layernorm.weight
+           - model.layers.14.post_attention_layernorm.weight
+           - model.layers.5.input_layernorm.weight
+           - model.layers.5.post_attention_layernorm.weight
+           - model.layers.3.post_attention_layernorm.weight
+           - model.layers.17.post_attention_layernorm.weight
+           - model.layers.13.input_layernorm.weight
+         The model may not work correctly without a final norm.
+
+  Packed permutation for model.layers.17.self_attn.qkv_proj.weight
+Q8K packed: model.layers.17.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.2.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.18.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.14.input_layernorm.weight [3072]
+Q8K packed: model.layers.4.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.1.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.6.self_attn.qkv_proj.weight
+Q8K packed: model.layers.6.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.9.mlp.gate_up_proj.weight
+Q8K packed: model.layers.9.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.7.post_attention_layernorm.weight [3072]
+Preserved: model.layers.16.input_layernorm.weight [3072]
+  Packed permutation for model.layers.2.self_attn.qkv_proj.weight
+Q8K packed: model.layers.2.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.6.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.14.mlp.gate_up_proj.weight
+Q8K packed: model.layers.14.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.2.mlp.gate_up_proj.weight
+Q8K packed: model.layers.2.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.8.self_attn.qkv_proj.weight
+Q8K packed: model.layers.8.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.14.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.11.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.13.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.19.self_attn.qkv_proj.weight
+Q8K packed: model.layers.19.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.8.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.6.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.19.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.3.self_attn.qkv_proj.weight
+Q8K packed: model.layers.3.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.0.mlp.gate_up_proj.weight
+Q8K packed: model.layers.0.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.1.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.7.input_layernorm.weight [3072]
+  Packed permutation for model.layers.19.mlp.gate_up_proj.weight
+Q8K packed: model.layers.19.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.13.self_attn.qkv_proj.weight
+Q8K packed: model.layers.13.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.11.self_attn.qkv_proj.weight
+Q8K packed: model.layers.11.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.5.mlp.gate_up_proj.weight
+Q8K packed: model.layers.5.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.7.mlp.gate_up_proj.weight
+Q8K packed: model.layers.7.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.12.self_attn.qkv_proj.weight
+Q8K packed: model.layers.12.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.8.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.13.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.19.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.3.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.18.self_attn.qkv_proj.weight
+Q8K packed: model.layers.18.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.4.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.4.mlp.gate_up_proj.weight
+Q8K packed: model.layers.4.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.15.mlp.gate_up_proj.weight
+Q8K packed: model.layers.15.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.8.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.15.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.0.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.20.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.9.self_attn.qkv_proj.weight
+Q8K packed: model.layers.9.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.9.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.12.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.0.post_attention_layernorm.weight [3072]
+Preserved: model.layers.18.input_layernorm.weight [3072]
+Q4K packed: model.layers.17.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.10.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.14.self_attn.qkv_proj.weight
+Q8K packed: model.layers.14.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.21.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.10.post_attention_layernorm.weight [3072]
+Preserved: model.layers.19.post_attention_layernorm.weight [3072]
+Preserved: model.layers.3.input_layernorm.weight [3072]
+  Packed permutation for model.layers.10.mlp.gate_up_proj.weight
+Q8K packed: model.layers.10.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.16.self_attn.qkv_proj.weight
+Q8K packed: model.layers.16.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.4.self_attn.qkv_proj.weight
+Q8K packed: model.layers.4.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.6.input_layernorm.weight [3072]
+Preserved: model.layers.16.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.10.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.4.post_attention_layernorm.weight [3072]
+Preserved: model.layers.8.input_layernorm.weight [3072]
+Preserved: model.layers.20.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.6.mlp.gate_up_proj.weight
+Q8K packed: model.layers.6.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.embed_tokens.weight [32064, 3072]
+Q4K packed: model.layers.0.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.19.input_layernorm.weight [3072]
+Preserved: model.layers.11.input_layernorm.weight [3072]
+Preserved: model.layers.11.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.13.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.7.self_attn.qkv_proj.weight
+Q8K packed: model.layers.7.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.10.input_layernorm.weight [3072]
+  Packed permutation for model.layers.20.self_attn.qkv_proj.weight
+Q8K packed: model.layers.20.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.1.post_attention_layernorm.weight [3072]
+Preserved: model.layers.12.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.6.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.0.input_layernorm.weight [3072]
+  Packed permutation for model.layers.1.mlp.gate_up_proj.weight
+Q8K packed: model.layers.1.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.5.self_attn.qkv_proj.weight
+Q8K packed: model.layers.5.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.9.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.7.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.12.input_layernorm.weight [3072]
+Q4K packed: model.layers.2.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.17.mlp.gate_up_proj.weight
+Q8K packed: model.layers.17.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.16.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.20.input_layernorm.weight [3072]
+Q8K packed: model.layers.15.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.1.input_layernorm.weight [3072]
+Preserved: model.layers.15.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.15.self_attn.qkv_proj.weight
+Q8K packed: model.layers.15.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.12.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.10.self_attn.qkv_proj.weight
+Q8K packed: model.layers.10.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.17.input_layernorm.weight [3072]
+Preserved: model.layers.2.input_layernorm.weight [3072]
+Q8K packed: model.layers.20.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.1.self_attn.qkv_proj.weight
+Q8K packed: model.layers.1.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.11.mlp.gate_up_proj.weight
+Q8K packed: model.layers.11.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.18.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.20.mlp.gate_up_proj.weight
+Q8K packed: model.layers.20.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.4.input_layernorm.weight [3072]
+Q4K packed: model.layers.5.mlp.down_proj.weight [3072 x 8192]
+Q8K packed: model.layers.14.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.17.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.15.input_layernorm.weight [3072]
+Preserved: model.layers.9.input_layernorm.weight [3072]
+  Packed permutation for model.layers.16.mlp.gate_up_proj.weight
+Q8K packed: model.layers.16.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.0.self_attn.qkv_proj.weight
+Q8K packed: model.layers.0.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.5.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.12.mlp.gate_up_proj.weight
+Q8K packed: model.layers.12.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.11.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.3.mlp.gate_up_proj.weight
+Q8K packed: model.layers.3.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.9.post_attention_layernorm.weight [3072]
+Preserved: model.layers.18.post_attention_layernorm.weight [3072]
+Preserved: model.layers.14.post_attention_layernorm.weight [3072]
+Preserved: model.layers.5.input_layernorm.weight [3072]
+Q8K packed: model.layers.7.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.5.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.2.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.3.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.3.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.17.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.16.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.8.mlp.gate_up_proj.weight
+Q8K packed: model.layers.8.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.13.mlp.gate_up_proj.weight
+Q8K packed: model.layers.13.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.18.mlp.gate_up_proj.weight
+Q8K packed: model.layers.18.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.13.input_layernorm.weight [3072]
+
+ERROR: Final layer norm not included in packed model!
+       The model will likely fail during inference.
+
+
+Writing packed model...
+
+Done in 5.36s
+Statistics:
+   - Quantized weights : 85
+   - Permutation files : 42
+   - Preserved tensors : 43
+   - Total tensors     : 255
+   - Output size       : 2494.47 MB
+
+Permutation files included — loader will detect and apply them automatically.
+Packing Q8K/Q4K model into single SafeTensors file
+===================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+Q8K Dir: ./quantized-svd
+Output : ./packed-shard2-svd.safetensors
+
+Q8K packed: model.layers.25.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.26.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.29.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.25.input_layernorm.weight [3072]
+  Packed permutation for model.layers.28.self_attn.qkv_proj.weight
+Q8K packed: model.layers.28.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.31.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.21.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.25.mlp.gate_up_proj.weight
+Q8K packed: model.layers.25.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.31.self_attn.qkv_proj.weight
+Q8K packed: model.layers.31.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.21.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.22.mlp.gate_up_proj.weight
+Q8K packed: model.layers.22.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.25.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.27.self_attn.qkv_proj.weight
+Q8K packed: model.layers.27.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.21.mlp.gate_up_proj.weight
+Q8K packed: model.layers.21.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.27.input_layernorm.weight [3072]
+Preserved: model.layers.24.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.23.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.22.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.23.input_layernorm.weight [3072]
+Preserved: model.layers.26.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.29.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.22.input_layernorm.weight [3072]
+Q4K packed: model.layers.27.mlp.down_proj.weight [3072 x 8192]
+  Packed permutation for model.layers.24.self_attn.qkv_proj.weight
+Q8K packed: model.layers.24.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.23.self_attn.qkv_proj.weight
+Q8K packed: model.layers.23.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.27.post_attention_layernorm.weight [3072]
+Preserved: model.layers.22.post_attention_layernorm.weight [3072]
+Q8K packed: model.layers.23.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.28.mlp.gate_up_proj.weight
+Q8K packed: model.layers.28.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.24.input_layernorm.weight [3072]
+Q8K packed: model.layers.30.self_attn.o_proj.weight [3072 x 3072]
+Q8K packed: model.layers.22.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.29.mlp.gate_up_proj.weight
+Q8K packed: model.layers.29.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for lm_head.weight
+Q8K packed: lm_head.weight [32064 x 3072]
+Preserved: model.layers.25.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.26.self_attn.qkv_proj.weight
+Q8K packed: model.layers.26.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.28.input_layernorm.weight [3072]
+  Packed permutation for model.layers.25.self_attn.qkv_proj.weight
+Q8K packed: model.layers.25.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.24.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.29.self_attn.qkv_proj.weight
+Q8K packed: model.layers.29.self_attn.qkv_proj.weight [9216 x 3072]
+  Packed permutation for model.layers.23.mlp.gate_up_proj.weight
+Q8K packed: model.layers.23.mlp.gate_up_proj.weight [16384 x 3072]
+Q8K packed: model.layers.27.self_attn.o_proj.weight [3072 x 3072]
+  Packed permutation for model.layers.30.mlp.gate_up_proj.weight
+Q8K packed: model.layers.30.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.21.self_attn.qkv_proj.weight
+Q8K packed: model.layers.21.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.28.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.30.input_layernorm.weight [3072]
+  Packed permutation for model.layers.27.mlp.gate_up_proj.weight
+Q8K packed: model.layers.27.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.30.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.30.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.31.mlp.gate_up_proj.weight
+Q8K packed: model.layers.31.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.22.self_attn.qkv_proj.weight
+Q8K packed: model.layers.22.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.28.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.31.input_layernorm.weight [3072]
+Q4K packed: model.layers.31.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.26.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.29.input_layernorm.weight [3072]
+Preserved: model.layers.21.input_layernorm.weight [3072]
+Preserved: model.layers.28.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.24.mlp.gate_up_proj.weight
+Q8K packed: model.layers.24.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.26.input_layernorm.weight [3072]
+Preserved: model.layers.23.post_attention_layernorm.weight [3072]
+  Packed permutation for model.layers.26.mlp.gate_up_proj.weight
+Q8K packed: model.layers.26.mlp.gate_up_proj.weight [16384 x 3072]
+  Packed permutation for model.layers.30.self_attn.qkv_proj.weight
+Q8K packed: model.layers.30.self_attn.qkv_proj.weight [9216 x 3072]
+Q8K packed: model.layers.31.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.29.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.24.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.norm.weight [3072]
+
+Writing packed model...
+
+Done in 2.18s
+Statistics:
+   - Quantized weights : 44
+   - Permutation files : 23
+   - Preserved tensors : 23
+   - Total tensors     : 134
+   - Output size       : 1299.74 MB
+
+Permutation files included — loader will detect and apply them automatically.
+Using config.json: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/config.json
+Loading from 2 shards...
+  Shard 1: ./packed-shard1-svd.safetensors
+  Shard 2: ./packed-shard2-svd.safetensors
+Corpus: /tmp/wt2.txt (1290547 bytes)
+Tokens: 335645
+Eval : ctx=2048 stride=2048 max_chunks=Some(30)
+  chunk 1 | tokens scored 2047 | running PPL = 4.7719 | NLL = 1.5627
+  chunk 2 | tokens scored 4094 | running PPL = 5.6618 | NLL = 1.7337
+  chunk 3 | tokens scored 6141 | running PPL = 6.5585 | NLL = 1.8808
+  chunk 4 | tokens scored 8188 | running PPL = 6.6227 | NLL = 1.8905
+  chunk 5 | tokens scored 10235 | running PPL = 6.3204 | NLL = 1.8438
+  chunk 6 | tokens scored 12282 | running PPL = 6.1980 | NLL = 1.8242
+  chunk 7 | tokens scored 14329 | running PPL = 5.8239 | NLL = 1.7620
+  chunk 8 | tokens scored 16376 | running PPL = 5.5647 | NLL = 1.7164
+  chunk 9 | tokens scored 18423 | running PPL = 5.5619 | NLL = 1.7159
+  chunk 10 | tokens scored 20470 | running PPL = 5.6317 | NLL = 1.7284
+  chunk 11 | tokens scored 22517 | running PPL = 5.7870 | NLL = 1.7556
+  chunk 12 | tokens scored 24564 | running PPL = 5.8570 | NLL = 1.7676
+  chunk 13 | tokens scored 26611 | running PPL = 5.8272 | NLL = 1.7625
+  chunk 14 | tokens scored 28658 | running PPL = 5.9109 | NLL = 1.7768
+  chunk 15 | tokens scored 30705 | running PPL = 6.0050 | NLL = 1.7926
+  chunk 16 | tokens scored 32752 | running PPL = 6.1036 | NLL = 1.8089
+  chunk 17 | tokens scored 34799 | running PPL = 6.2046 | NLL = 1.8253
+  chunk 18 | tokens scored 36846 | running PPL = 6.3269 | NLL = 1.8448
+  chunk 19 | tokens scored 38893 | running PPL = 6.4175 | NLL = 1.8590
+  chunk 20 | tokens scored 40940 | running PPL = 6.4821 | NLL = 1.8690
+  chunk 21 | tokens scored 42987 | running PPL = 6.4814 | NLL = 1.8689
+  chunk 22 | tokens scored 45034 | running PPL = 6.3944 | NLL = 1.8554
+  chunk 23 | tokens scored 47081 | running PPL = 6.3640 | NLL = 1.8507
+  chunk 24 | tokens scored 49128 | running PPL = 6.3938 | NLL = 1.8553
+  chunk 25 | tokens scored 51175 | running PPL = 6.3676 | NLL = 1.8512
+  chunk 26 | tokens scored 53222 | running PPL = 6.3974 | NLL = 1.8559
+  chunk 27 | tokens scored 55269 | running PPL = 6.3887 | NLL = 1.8545
+  chunk 28 | tokens scored 57316 | running PPL = 6.4171 | NLL = 1.8590
+  chunk 29 | tokens scored 59363 | running PPL = 6.3970 | NLL = 1.8558
+  chunk 30 | tokens scored 61410 | running PPL = 6.4666 | NLL = 1.8666
+Reached PHI3_PPL_MAX_CHUNKS=30, stopping.
+
+Result:
+  chunks scored : 30
+  tokens scored : 61410
+  mean NLL      : 1.866645
+  perplexity    : 6.4666
+  wall time     : 3568.08 s
+  throughput    : 17.2 tok/s
+=== DONE @ Wed Apr 29 14:21:59 CEST 2026 ===
