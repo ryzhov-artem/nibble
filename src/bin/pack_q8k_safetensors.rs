@@ -7,7 +7,9 @@
 //!     model-q8k-packed.safetensors
 use anyhow::{bail, Context, Result};
 use candle::quantized::k_quants::{BlockQ8K, GgmlType};
-use phi3_mixed_quant::types::{Q8KHeader, MAGIC_PERM, MAGIC_Q4K, MAGIC_Q8K};
+use phi3_mixed_quant::types::{Q8KHeader, MAGIC_Q4K, MAGIC_Q8K};
+#[cfg(feature = "experimental-perm")]
+use phi3_mixed_quant::types::MAGIC_PERM;
 use safetensors::tensor::{Dtype, SafeTensors, TensorView};
 use std::collections::HashMap;
 use std::fs;
@@ -90,7 +92,10 @@ fn main() -> Result<()> {
     let mut tensors_to_save: HashMap<String, (Vec<u8>, Vec<usize>, Dtype)> = HashMap::new();
     let mut quantized_count = 0usize;
     let mut preserved_count = 0usize;
+    #[cfg(feature = "experimental-perm")]
     let mut perm_count = 0usize;
+    #[cfg(not(feature = "experimental-perm"))]
+    let mut perm_skipped = 0usize;
 
     let has_final_norm = st.names().iter().any(|n| {
         *n == "model.norm.weight" || *n == "model.final_layernorm.weight" || *n == "norm.weight"
@@ -155,6 +160,7 @@ fn main() -> Result<()> {
                     (metadata_bytes, vec![3], Dtype::I32),
                 );
                 let perm_path = q8k_path.with_extension("perm");
+                #[cfg(feature = "experimental-perm")]
                 if perm_path.exists() {
                     let perm_bytes = fs::read(&perm_path)?;
                     if perm_bytes.len() < 8 {
@@ -178,6 +184,10 @@ fn main() -> Result<()> {
                     );
                     perm_count += 1;
                     println!("  Packed permutation for {}", name);
+                }
+                #[cfg(not(feature = "experimental-perm"))]
+                if perm_path.exists() {
+                    perm_skipped += 1;
                 }
                 quantized_count += 1;
                 println!("Q8K packed: {} [{} x {}]", name, hdr.out, hdr.k);
@@ -229,14 +239,25 @@ fn main() -> Result<()> {
     println!("Done in {:.2}s", t0.elapsed().as_secs_f32());
     println!("Statistics:");
     println!("   - Quantized weights : {}", quantized_count);
+    #[cfg(feature = "experimental-perm")]
     println!("   - Permutation files : {}", perm_count);
     println!("   - Preserved tensors : {}", preserved_count);
     println!("   - Total tensors     : {}", tensors_to_save.len());
     let output_size = fs::metadata(&output)?.len();
     println!("   - Output size       : {:.2} MB", output_size as f64 / 1_048_576.0);
+    #[cfg(feature = "experimental-perm")]
     if perm_count > 0 {
         println!();
         println!("Permutation files included — loader will detect and apply them automatically.");
+    }
+    #[cfg(not(feature = "experimental-perm"))]
+    if perm_skipped > 0 {
+        println!();
+        println!(
+            "note: {} `.perm` file(s) on disk were skipped — \
+             rebuild with `--features experimental-perm` to include them.",
+            perm_skipped
+        );
     }
     Ok(())
 }

@@ -24,9 +24,28 @@ Three-stage pipeline that takes a full-precision Phi-3 model, quantizes it with 
 
 Result: BF16 model (~7.6 GB) compresses to roughly 2 GB packed SafeTensors while retaining high output quality on attention-critical paths.
 
-## Optional Column Permutation
+## Optional Column Permutation (experimental, opt-in)
 
-Setting `CANDLE_Q8K_PERMUTE=1` before quantization enables column-wise reordering by L2-norm magnitude prior to block quantization. Permutation vectors are stored alongside quantized blocks and applied at inference time inside `QuantLinear::forward()`. This can reduce quantization error for layers with high variance across columns.
+The pipeline includes an experimental column-permutation path that reorders Q8K weight columns by importance prior to block quantization. Three strategies are implemented (`blockwise`, `l2`, `svd`); permutation vectors are persisted alongside the quantized blocks and re-applied to activations at inference inside `QuantLinear::forward()`.
+
+Measured on WikiText-2 test (30 × 2048 ctx, 61 410 tokens) the path is at best neutral and at worst a small regression vs the perm-off baseline of **PPL 6.4602**:
+
+| Strategy | PPL | Δ vs baseline | tok/s |
+|---|---|---|---|
+| blockwise | 6.4606 | +0.0004 | 17.8 |
+| l2 | 6.4625 | +0.0023 | 17.5 |
+| svd | 6.4666 | +0.0064 | 17.2 |
+
+Full logs and a longer write-up live in [`ppl_results/`](./ppl_results/README.md).
+
+Because no strategy beats the baseline, the permutation code path is **not compiled into the default build**. To opt in for further experimentation:
+
+```bash
+cargo build --release --features experimental-perm
+CANDLE_Q8K_PERMUTE=1 CANDLE_Q8K_PERM_STRATEGY=blockwise ./target/release/quantize_q8k ...
+```
+
+The default build will still load packed files that contain `.perm` tensors — it just ignores the indices and emits a one-line warning per layer.
 
 ## Usage
 

@@ -4,7 +4,9 @@ use safetensors::tensor::{Dtype, SafeTensors};
 use std::{fs, path::Path};
 
 use crate::scratch;
-use crate::types::{Q8KHeader, MAGIC_PERM, MAGIC_Q8K};
+use crate::types::{Q8KHeader, MAGIC_Q8K};
+#[cfg(feature = "experimental-perm")]
+use crate::types::MAGIC_PERM;
 
 #[allow(dead_code)]
 pub fn read_q8k(path: &Path) -> candle::Result<(Vec<BlockQ8K>, Q8KHeader)> {
@@ -177,6 +179,13 @@ impl QuantLinear {
     }
 
     /// Shared permutation loader used by both Q8K and Q4K constructors.
+    ///
+    /// Behind the non-default `experimental-perm` Cargo feature: returns the
+    /// parsed permutation indices when a `<name>.perm` tensor is present.
+    /// In the default build: returns `Ok(None)`, but emits a one-line warning
+    /// per layer if the packed file *does* contain a `.perm` tensor so the
+    /// user knows it's being ignored.
+    #[cfg(feature = "experimental-perm")]
     fn load_perm(st: &SafeTensors, name: &str) -> candle::Result<Option<Vec<usize>>> {
         let perm_name = format!("{}.perm", name);
         if let Ok(perm_tensor) = st.tensor(&perm_name) {
@@ -203,6 +212,19 @@ impl QuantLinear {
         } else {
             Ok(None)
         }
+    }
+
+    #[cfg(not(feature = "experimental-perm"))]
+    fn load_perm(st: &SafeTensors, name: &str) -> candle::Result<Option<Vec<usize>>> {
+        let perm_name = format!("{}.perm", name);
+        if st.tensor(&perm_name).is_ok() {
+            eprintln!(
+                "warning: ignoring permutation tensor `{}` — \
+                 rebuild with `--features experimental-perm` to enable",
+                perm_name
+            );
+        }
+        Ok(None)
     }
 
     pub fn forward(&self, x: &Tensor) -> candle::Result<Tensor> {

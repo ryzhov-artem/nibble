@@ -8,7 +8,8 @@
 //!   mlp.down_proj  → Q4K  (50% smaller blocks, less sensitivity)
 //!   everything else → Q8K
 //!
-//! Permutation toggle:
+//! Permutation toggle (requires the `experimental-perm` Cargo feature):
+//!   cargo build --release --features experimental-perm
 //!   CANDLE_Q8K_PERMUTE=1  cargo run ...
 //!
 //! Output files per layer:
@@ -18,14 +19,19 @@ use anyhow::{bail, Context, Result};
 use candle::quantized::k_quants::{matmul, BlockQ4K, BlockQ8K, GgmlType, QK_K};
 use candle::Device;
 use half::{bf16, f16};
+#[cfg(feature = "experimental-perm")]
 use once_cell::sync::Lazy;
-use phi3_mixed_quant::types::{
-    Q8KHeader, DTYPE_Q4K, DTYPE_Q8K, HEADER_VERSION, MAGIC_PERM, MAGIC_Q4K, MAGIC_Q8K,
-};
+use phi3_mixed_quant::types::{Q8KHeader, DTYPE_Q4K, DTYPE_Q8K, HEADER_VERSION, MAGIC_Q4K, MAGIC_Q8K};
+#[cfg(feature = "experimental-perm")]
+use phi3_mixed_quant::types::MAGIC_PERM;
+#[cfg(feature = "experimental-perm")]
 use regex::Regex;
 use safetensors::tensor::{Dtype, SafeTensors};
+#[cfg(feature = "experimental-perm")]
 use std::collections::HashMap;
+#[cfg(feature = "experimental-perm")]
 use std::sync::Mutex;
+#[cfg(feature = "experimental-perm")]
 use std::sync::OnceLock;
 use std::{
     fs,
@@ -35,7 +41,9 @@ use std::{
     time::Instant,
 };
 
+#[cfg(feature = "experimental-perm")]
 static LAYER_PERM_CACHE: OnceLock<Mutex<LayerPermCache>> = OnceLock::new();
+#[cfg(feature = "experimental-perm")]
 static ATTN_PROJ_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"^model\.layers\.(\d+)\.self_attn\.(q|k|v|o)_proj\.weight$").unwrap());
 
@@ -218,7 +226,10 @@ fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<
     Ok(())
 }
 
-// ── permutation helpers ────────────────────────────────────────────────────
+// ── shared dtype conversion + permutation helpers ─────────────────────────
+//
+// `tensor_to_f32` is used by the main loop unconditionally; everything else
+// in this section is only compiled with `--features experimental-perm`.
 
 fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
     Ok(match dtype {
@@ -229,6 +240,7 @@ fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
     })
 }
 
+#[cfg(feature = "experimental-perm")]
 fn column_l2_norms(rows: usize, k: usize, data: &[f32]) -> Vec<f32> {
     let mut sums: Vec<f64> = vec![0.0; k];
     for r in 0..rows {
@@ -241,12 +253,14 @@ fn column_l2_norms(rows: usize, k: usize, data: &[f32]) -> Vec<f32> {
     sums.into_iter().map(|s| s.sqrt() as f32).collect()
 }
 
+#[cfg(feature = "experimental-perm")]
 fn build_column_permutation(norms: &[f32]) -> Vec<usize> {
     let mut idx: Vec<usize> = (0..norms.len()).collect();
     idx.sort_by(|&a, &b| norms[b].partial_cmp(&norms[a]).unwrap_or(std::cmp::Ordering::Equal));
     idx
 }
 
+#[cfg(feature = "experimental-perm")]
 fn build_block_wise_permutation(rows: usize, k: usize, data: &[f32]) -> Vec<usize> {
     const BLOCK_SIZE: usize = 64;
     let num_blocks = k / BLOCK_SIZE;
@@ -269,6 +283,7 @@ fn build_block_wise_permutation(rows: usize, k: usize, data: &[f32]) -> Vec<usiz
     global_perm
 }
 
+#[cfg(feature = "experimental-perm")]
 fn apply_column_permutation(rows: usize, k: usize, data: &[f32], perm: &[usize]) -> Vec<f32> {
     let mut out = vec![0f32; rows * k];
     for r in 0..rows {
@@ -281,6 +296,7 @@ fn apply_column_permutation(rows: usize, k: usize, data: &[f32], perm: &[usize])
     out
 }
 
+#[cfg(feature = "experimental-perm")]
 fn write_perm(path_base: &Path, perm: &[usize]) -> Result<()> {
     let mut p = path_base.to_path_buf();
     p.set_extension("perm");
@@ -294,6 +310,7 @@ fn write_perm(path_base: &Path, perm: &[usize]) -> Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "experimental-perm")]
 #[derive(Debug, Clone, Copy)]
 enum PermStrategy {
     Block,
@@ -302,6 +319,7 @@ enum PermStrategy {
     Qr,
 }
 
+#[cfg(feature = "experimental-perm")]
 impl PermStrategy {
     fn from_env() -> Self {
         match std::env::var("CANDLE_Q8K_PERM_STRATEGY")
@@ -337,11 +355,13 @@ impl PermStrategy {
     }
 }
 
+#[cfg(feature = "experimental-perm")]
 #[derive(Debug, Clone)]
 struct LayerPermCache {
     map: HashMap<u32, Vec<usize>>,
 }
 
+#[cfg(feature = "experimental-perm")]
 impl LayerPermCache {
     fn new() -> Self {
         Self { map: HashMap::new() }
@@ -364,6 +384,7 @@ impl LayerPermCache {
     }
 }
 
+#[cfg(feature = "experimental-perm")]
 fn parse_attention_proj(name: &str) -> Option<(u32, &'static str)> {
     if let Some(caps) = ATTN_PROJ_RE.captures(name) {
         let layer_id: u32 = caps[1].parse().ok()?;
@@ -380,6 +401,7 @@ fn parse_attention_proj(name: &str) -> Option<(u32, &'static str)> {
     }
 }
 
+#[cfg(feature = "experimental-perm")]
 fn svd_importance_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize>> {
     let mut col_means: Vec<f64> = vec![0.0; k];
     let mut col_vars: Vec<f64> = vec![0.0; k];
@@ -408,6 +430,7 @@ fn svd_importance_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec
     Ok(idx)
 }
 
+#[cfg(feature = "experimental-perm")]
 fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize>> {
     let mut perm: Vec<usize> = (0..k).collect();
     let qr_steps = match k {
@@ -584,14 +607,27 @@ fn main() -> Result<()> {
 
     fs::create_dir_all(&out_dir)?;
 
+    #[cfg(feature = "experimental-perm")]
     let use_permute = std::env::var("CANDLE_Q8K_PERMUTE")
         .ok()
         .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
         .unwrap_or(false);
 
+    #[cfg(not(feature = "experimental-perm"))]
+    {
+        if std::env::var("CANDLE_Q8K_PERMUTE").ok().as_deref() == Some("1") {
+            eprintln!(
+                "warning: CANDLE_Q8K_PERMUTE=1 ignored — \
+                 rebuild with `--features experimental-perm` to enable."
+            );
+        }
+    }
+
+    #[cfg(feature = "experimental-perm")]
     let perm_strategy = PermStrategy::from_env();
 
     println!("Output  : {}", out_dir.display());
+    #[cfg(feature = "experimental-perm")]
     println!(
         "Permute : {}{}",
         if use_permute { "on" } else { "off" },
@@ -601,6 +637,8 @@ fn main() -> Result<()> {
             String::new()
         }
     );
+    #[cfg(not(feature = "experimental-perm"))]
+    println!("Permute : disabled (build without --features experimental-perm)");
 
     let t0 = Instant::now();
     let mut q8k_count = 0usize;
@@ -649,6 +687,7 @@ fn main() -> Result<()> {
             // ── Q8K path (with optional permutation) ─────────────
             println!("quantizing Q8K {name} ({rows} x {k})");
 
+            #[cfg(feature = "experimental-perm")]
             let (data_for_quant, maybe_perm): (Vec<f32>, Option<Vec<usize>>) = if use_permute {
                 if let Some((layer_id, kind)) = parse_attention_proj(name) {
                     if kind == "o" {
@@ -672,6 +711,9 @@ fn main() -> Result<()> {
             } else {
                 (data_f32, None)
             };
+
+            #[cfg(not(feature = "experimental-perm"))]
+            let (data_for_quant, maybe_perm): (Vec<f32>, Option<Vec<usize>>) = (data_f32, None);
 
             let blocks = quantize_rows_q8k(rows, k, &data_for_quant)?;
 
@@ -697,9 +739,12 @@ fn main() -> Result<()> {
 
             let out_path = out_dir.join(format!("{name}.q8k"));
             write_q8k(&out_path, rows, k, &blocks)?;
+            #[cfg(feature = "experimental-perm")]
             if let Some(perm) = &maybe_perm {
                 write_perm(&out_path, perm)?;
             }
+            #[cfg(not(feature = "experimental-perm"))]
+            let _ = &maybe_perm;
             q8k_count += 1;
         }
     }

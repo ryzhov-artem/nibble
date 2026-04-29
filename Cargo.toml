@@ -5,6 +5,15 @@ edition = "2021"
 description = "Mixed Q8K/Q4K quantized inference for Phi-3 Mini 3.8B"
 license = "MIT OR Apache-2.0"
 
+[features]
+# Default build: permutation code path is NOT compiled in.
+# Empirical results (see ppl_results/README.md) show no PPL gain across
+# the implemented strategies (blockwise / l2 / svd) and a small throughput
+# cost on l2 / svd. Opt in with `--features experimental-perm` to keep
+# experimenting with new strategies.
+default = []
+experimental-perm = []
+
 [dependencies]
 candle = { git = "https://github.com/huggingface/candle", package = "candle-core", rev = "3b39794c1" }
 candle-nn = { git = "https://github.com/huggingface/candle", rev = "3b39794c1" }
