@@ -74,11 +74,7 @@ fn main() -> candle::Result<()> {
 
     let corpus = std::fs::read_to_string(&args.corpus)
         .map_err(|e| candle::Error::Msg(format!("read {}: {e}", args.corpus.display())))?;
-    println!(
-        "Corpus: {} ({} bytes)",
-        args.corpus.display(),
-        corpus.len()
-    );
+    println!("Corpus: {} ({} bytes)", args.corpus.display(), corpus.len());
 
     let encoded = tokenizer
         .encode(corpus, false)
@@ -96,7 +92,10 @@ fn main() -> candle::Result<()> {
         candle::bail!("PHI3_PPL_STRIDE must be > 0");
     }
     if tokens.len() < 2 {
-        candle::bail!("Corpus is too short ({} tokens) for perplexity", tokens.len());
+        candle::bail!(
+            "Corpus is too short ({} tokens) for perplexity",
+            tokens.len()
+        );
     }
 
     println!(

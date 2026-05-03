@@ -1,6 +1,9 @@
 use candle::{Device, Tensor};
 use safetensors::tensor::SafeTensors;
-use std::{fs::File, path::{Path, PathBuf}};
+use std::{
+    fs::File,
+    path::{Path, PathBuf},
+};
 use tokenizers::Tokenizer;
 
 use crate::model::{Block, CausalSelfAttention, Mlp, Phi3};
@@ -46,8 +49,8 @@ pub fn load_config(model_path: &Path, repo: &str) -> candle::Result<Phi3Config> 
         }
     }
 
-    let api = hf_hub::api::sync::Api::new()
-        .map_err(|e| candle::Error::Msg(format!("HF API: {}", e)))?;
+    let api =
+        hf_hub::api::sync::Api::new().map_err(|e| candle::Error::Msg(format!("HF API: {}", e)))?;
     let path = api
         .model(repo.to_string())
         .get("config.json")
@@ -83,7 +86,11 @@ pub fn load_tokenizer() -> candle::Result<Tokenizer> {
     for path in &direct_paths {
         if path.exists() {
             return Tokenizer::from_file(path).map_err(|e| {
-                candle::Error::Msg(format!("Failed to load tokenizer from {}: {}", path.display(), e))
+                candle::Error::Msg(format!(
+                    "Failed to load tokenizer from {}: {}",
+                    path.display(),
+                    e
+                ))
             });
         }
     }
@@ -112,14 +119,17 @@ fn load_blocks(
             device,
         )?;
         let rms_2 = Tensor::from_vec(
-            load_tensor(&format!("model.layers.{}.post_attention_layernorm.weight", i))?,
+            load_tensor(&format!(
+                "model.layers.{}.post_attention_layernorm.weight",
+                i
+            ))?,
             (config.hidden_size,),
             device,
         )?;
         let qkv_proj = load_quant(&format!("model.layers.{}.self_attn.qkv_proj.weight", i))?;
-        let o_proj   = load_quant(&format!("model.layers.{}.self_attn.o_proj.weight", i))?;
-        let gate_up  = load_quant(&format!("model.layers.{}.mlp.gate_up_proj.weight", i))?;
-        let down     = load_quant(&format!("model.layers.{}.mlp.down_proj.weight", i))?;
+        let o_proj = load_quant(&format!("model.layers.{}.self_attn.o_proj.weight", i))?;
+        let gate_up = load_quant(&format!("model.layers.{}.mlp.gate_up_proj.weight", i))?;
+        let down = load_quant(&format!("model.layers.{}.mlp.down_proj.weight", i))?;
 
         blocks.push(Block {
             rms_1,
@@ -131,7 +141,11 @@ fn load_blocks(
                 head_dim: config.hidden_size / config.num_attention_heads,
             },
             rms_2,
-            mlp: Mlp { gate_up_proj: gate_up, down_proj: down, hidden_size: config.intermediate_size },
+            mlp: Mlp {
+                gate_up_proj: gate_up,
+                down_proj: down,
+                hidden_size: config.intermediate_size,
+            },
         });
     }
     Ok(blocks)
@@ -158,14 +172,20 @@ pub fn build_model(
 
     let norm_name = if st.names().iter().any(|n| *n == "model.norm.weight") {
         "model.norm.weight"
-    } else if st.names().iter().any(|n| *n == "model.final_layernorm.weight") {
+    } else if st
+        .names()
+        .iter()
+        .any(|n| *n == "model.final_layernorm.weight")
+    {
         "model.final_layernorm.weight"
     } else if st.names().iter().any(|n| *n == "norm.weight") {
         "norm.weight"
     } else {
         println!("Available norm tensors:");
         for name in st.names() {
-            if name.contains("norm") { println!("  - {}", name); }
+            if name.contains("norm") {
+                println!("  - {}", name);
+            }
         }
         candle::bail!(
             "Could not find final layer norm. Expected one of: \
@@ -185,17 +205,33 @@ pub fn build_model(
         tensor_to_f32(v.data(), v.dtype())
     };
     let load_q = |name: &str| -> candle::Result<QuantLinear> {
-    let q4k_meta = format!("{}.q4k_meta", name);
-    if st.names().iter().any(|n| **n == q4k_meta) {
-        return QuantLinear::load_q4k_from_packed_safetensors(&st, name);
-    }
-    QuantLinear::load_from_packed_safetensors(&st, name)
-};
+        #[cfg(feature = "experimental-q8k128")]
+        {
+            let q8k128_meta = format!("{}.q8k128_meta", name);
+            if st.names().iter().any(|n| **n == q8k128_meta) {
+                return QuantLinear::load_q8k128_from_packed_safetensors(&st, name);
+            }
+        }
+        let q6k_meta = format!("{}.q6k_meta", name);
+        let q4k_meta = format!("{}.q4k_meta", name);
+        if st.names().iter().any(|n| **n == q6k_meta) {
+            return QuantLinear::load_q6k_from_packed_safetensors(&st, name);
+        }
+        if st.names().iter().any(|n| **n == q4k_meta) {
+            return QuantLinear::load_q4k_from_packed_safetensors(&st, name);
+        }
+        QuantLinear::load_from_packed_safetensors(&st, name)
+    };
 
     let blocks = load_blocks(&load_t, &load_q, config, device)?;
-    let lm_head = QuantLinear::load_from_packed_safetensors(&st, "lm_head.weight")?;
+    let lm_head = load_q("lm_head.weight")?;
 
-    Ok(Phi3 { wte, blocks, ln_f, lm_head })
+    Ok(Phi3 {
+        wte,
+        blocks,
+        ln_f,
+        lm_head,
+    })
 }
 
 pub fn build_model_multi_shard(
@@ -218,29 +254,51 @@ pub fn build_model_multi_shard(
     }
 
     let load_t = |name: &str| -> candle::Result<Vec<f32>> {
-        if let Ok(v) = st1.tensor(name) { return tensor_to_f32(v.data(), v.dtype()); }
-        if let Ok(v) = st2.tensor(name) { return tensor_to_f32(v.data(), v.dtype()); }
+        if let Ok(v) = st1.tensor(name) {
+            return tensor_to_f32(v.data(), v.dtype());
+        }
+        if let Ok(v) = st2.tensor(name) {
+            return tensor_to_f32(v.data(), v.dtype());
+        }
         candle::bail!("Tensor {} not found in either shard", name)
     };
     let load_q = |name: &str| -> candle::Result<QuantLinear> {
-    let q4k_meta = format!("{}.q4k_meta", name);
-    let q8k_meta = format!("{}.q8k_meta", name);
-    if st1.names().iter().any(|n| **n == q4k_meta) {
-        return QuantLinear::load_q4k_from_packed_safetensors(&st1, name);
-    }
-    if st2.names().iter().any(|n| **n == q4k_meta) {
-        return QuantLinear::load_q4k_from_packed_safetensors(&st2, name);
-    }
-    if st1.names().iter().any(|n| **n == q8k_meta) {
-        return QuantLinear::load_from_packed_safetensors(&st1, name);
-    }
-    if st2.names().iter().any(|n| **n == q8k_meta) {
-        return QuantLinear::load_from_packed_safetensors(&st2, name);
-    }
-    candle::bail!("Quantized tensor {} not found in either shard", name)
-};
+        #[cfg(feature = "experimental-q8k128")]
+        {
+            let q8k128_meta = format!("{}.q8k128_meta", name);
+            if st1.names().iter().any(|n| **n == q8k128_meta) {
+                return QuantLinear::load_q8k128_from_packed_safetensors(&st1, name);
+            }
+            if st2.names().iter().any(|n| **n == q8k128_meta) {
+                return QuantLinear::load_q8k128_from_packed_safetensors(&st2, name);
+            }
+        }
+        let q6k_meta = format!("{}.q6k_meta", name);
+        let q4k_meta = format!("{}.q4k_meta", name);
+        let q8k_meta = format!("{}.q8k_meta", name);
+        if st1.names().iter().any(|n| **n == q6k_meta) {
+            return QuantLinear::load_q6k_from_packed_safetensors(&st1, name);
+        }
+        if st2.names().iter().any(|n| **n == q6k_meta) {
+            return QuantLinear::load_q6k_from_packed_safetensors(&st2, name);
+        }
+        if st1.names().iter().any(|n| **n == q4k_meta) {
+            return QuantLinear::load_q4k_from_packed_safetensors(&st1, name);
+        }
+        if st2.names().iter().any(|n| **n == q4k_meta) {
+            return QuantLinear::load_q4k_from_packed_safetensors(&st2, name);
+        }
+        if st1.names().iter().any(|n| **n == q8k_meta) {
+            return QuantLinear::load_from_packed_safetensors(&st1, name);
+        }
+        if st2.names().iter().any(|n| **n == q8k_meta) {
+            return QuantLinear::load_from_packed_safetensors(&st2, name);
+        }
+        candle::bail!("Quantized tensor {} not found in either shard", name)
+    };
 
-    let embed_view = st1.tensor("model.embed_tokens.weight")
+    let embed_view = st1
+        .tensor("model.embed_tokens.weight")
         .or_else(|_| st2.tensor("model.embed_tokens.weight"))?;
     let wte = Tensor::from_vec(
         tensor_to_f32(embed_view.data(), embed_view.dtype())?,
@@ -251,11 +309,18 @@ pub fn build_model_multi_shard(
     let norm_data = load_t("model.norm.weight")
         .or_else(|_| load_t("model.final_layernorm.weight"))
         .or_else(|_| load_t("norm.weight"))
-        .map_err(|_| candle::Error::Msg("Could not find final layer norm in either shard".into()))?;
+        .map_err(|_| {
+            candle::Error::Msg("Could not find final layer norm in either shard".into())
+        })?;
     let ln_f = Tensor::from_vec(norm_data, (config.hidden_size,), device)?;
 
     let blocks = load_blocks(&load_t, &load_q, config, device)?;
     let lm_head = load_q("lm_head.weight")?;
 
-    Ok(Phi3 { wte, blocks, ln_f, lm_head })
+    Ok(Phi3 {
+        wte,
+        blocks,
+        ln_f,
+        lm_head,
+    })
 }

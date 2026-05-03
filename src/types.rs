@@ -17,6 +17,9 @@ pub struct Q8KHeader {
 
 pub const MAGIC_Q8K: u32 = 0x4B51_3838;
 pub const MAGIC_Q4K: u32 = 0x4B51_3834;
+pub const MAGIC_Q6K: u32 = 0x4B51_3836;
+#[cfg(feature = "experimental-q8k128")]
+pub const MAGIC_Q8K_128: u32 = 0x4B51_3831;
 pub const MAGIC_PERM: u32 = 0x4D52_4550;
 
 /// Header version stamped into freshly-quantized .q8k / .q4k files.
@@ -25,6 +28,12 @@ pub const HEADER_VERSION: u32 = 1;
 /// dtype tags carried in `Q8KHeader::dtype` (mirrors GGML).
 pub const DTYPE_Q8K: u32 = 0x18;
 pub const DTYPE_Q4K: u32 = 0x14;
+pub const DTYPE_Q6K: u32 = 0x16;
+#[cfg(feature = "experimental-q8k128")]
+pub const DTYPE_Q8K_128: u32 = 0x28;
+
+#[cfg(feature = "experimental-q8k128")]
+pub const QK_Q8K_128: usize = 128;
 
 #[derive(Debug, Clone)]
 pub struct Phi3Config {

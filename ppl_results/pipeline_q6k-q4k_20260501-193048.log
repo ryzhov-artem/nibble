@@ -1,0 +1,804 @@
+Output  : ./quantized-q6k
+Q6K     : policy q8k
+Permute : disabled (build without --features experimental-perm)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+  Tensors: 128
+quantizing Q6K model.layers.16.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.175386e-4, Max Err: 1.196289e-2, Rel Err: 7.049184e-2
+    WARNING: High Q6K quantization error for model.layers.16.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.19.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.062103e-3, Max Err: 4.260445e-2, Rel Err: 8.682119e-1
+    WARNING: High Q4K quantization error for model.layers.19.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.4.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.954970e-4, Max Err: 3.295898e-2, Rel Err: 7.133545e-2
+    WARNING: High Q6K quantization error for model.layers.4.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.20.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.271177e-4, Max Err: 8.666992e-3, Rel Err: 7.033711e-2
+    WARNING: High Q6K quantization error for model.layers.20.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.16.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.231164e-4, Max Err: 8.911133e-3, Rel Err: 7.026538e-2
+    WARNING: High Q6K quantization error for model.layers.16.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.3.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.898587e-3, Max Err: 3.662586e-2, Rel Err: 9.226945e-1
+    WARNING: High Q4K quantization error for model.layers.3.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.13.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.183454e-4, Max Err: 2.075195e-2, Rel Err: 7.043477e-2
+    WARNING: High Q6K quantization error for model.layers.13.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.14.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.050740e-4, Max Err: 1.060486e-2, Rel Err: 7.035672e-2
+    WARNING: High Q6K quantization error for model.layers.14.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.0.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 3.448035e-4, Max Err: 1.446533e-2, Rel Err: 7.589148e-2
+    WARNING: High Q6K quantization error for model.layers.0.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.7.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.467639e-4, Max Err: 1.516724e-2, Rel Err: 7.066877e-2
+    WARNING: High Q6K quantization error for model.layers.7.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.7.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887725e-3, Max Err: 1.070614e-1, Rel Err: 9.548812e-1
+    WARNING: High Q4K quantization error for model.layers.7.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.12.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.155662e-4, Max Err: 1.300049e-2, Rel Err: 7.048224e-2
+    WARNING: High Q6K quantization error for model.layers.12.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.8.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.506883e-4, Max Err: 1.141357e-2, Rel Err: 7.044018e-2
+    WARNING: High Q6K quantization error for model.layers.8.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.17.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.568606e-4, Max Err: 8.636475e-3, Rel Err: 7.035381e-2
+    WARNING: High Q6K quantization error for model.layers.17.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.5.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.197142e-4, Max Err: 3.247070e-2, Rel Err: 7.123672e-2
+    WARNING: High Q6K quantization error for model.layers.5.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.20.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.063921e-3, Max Err: 4.547882e-2, Rel Err: 1.097138e0
+    WARNING: High Q4K quantization error for model.layers.20.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.7.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.011560e-4, Max Err: 2.478027e-2, Rel Err: 7.103421e-2
+    WARNING: High Q6K quantization error for model.layers.7.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.17.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.398448e-4, Max Err: 1.290894e-2, Rel Err: 7.097822e-2
+    WARNING: High Q6K quantization error for model.layers.17.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.1.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.855773e-3, Max Err: 5.115509e-2, Rel Err: 1.161092e0
+    WARNING: High Q4K quantization error for model.layers.1.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.15.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.078079e-4, Max Err: 1.042175e-2, Rel Err: 7.041308e-2
+    WARNING: High Q6K quantization error for model.layers.15.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.15.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.535855e-4, Max Err: 1.147461e-2, Rel Err: 7.097706e-2
+    WARNING: High Q6K quantization error for model.layers.15.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.10.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.652773e-4, Max Err: 1.635742e-2, Rel Err: 7.094916e-2
+    WARNING: High Q6K quantization error for model.layers.10.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.2.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.887099e-3, Max Err: 7.779503e-2, Rel Err: 1.006156e0
+    WARNING: High Q4K quantization error for model.layers.2.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.2.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.028609e-4, Max Err: 2.343750e-2, Rel Err: 7.044673e-2
+    WARNING: High Q6K quantization error for model.layers.2.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.6.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.553339e-4, Max Err: 1.304626e-2, Rel Err: 7.034761e-2
+    WARNING: High Q6K quantization error for model.layers.6.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.8.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.888381e-4, Max Err: 2.758789e-2, Rel Err: 7.100406e-2
+    WARNING: High Q6K quantization error for model.layers.8.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.6.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.891750e-3, Max Err: 4.507351e-2, Rel Err: 7.942196e-1
+    WARNING: High Q4K quantization error for model.layers.6.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.15.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.176590e-4, Max Err: 1.132202e-2, Rel Err: 7.045923e-2
+    WARNING: High Q6K quantization error for model.layers.15.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.13.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.884692e-4, Max Err: 2.562189e-2, Rel Err: 7.036438e-2
+    WARNING: High Q6K quantization error for model.layers.13.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.19.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.268528e-4, Max Err: 1.538086e-2, Rel Err: 7.038896e-2
+    WARNING: High Q6K quantization error for model.layers.19.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.11.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.871638e-4, Max Err: 1.477051e-2, Rel Err: 7.100178e-2
+    WARNING: High Q6K quantization error for model.layers.11.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.2.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.487608e-4, Max Err: 1.782227e-2, Rel Err: 7.527755e-2
+    WARNING: High Q6K quantization error for model.layers.2.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.19.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.283360e-4, Max Err: 1.220703e-2, Rel Err: 7.089821e-2
+    WARNING: High Q6K quantization error for model.layers.19.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.15.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.000672e-3, Max Err: 3.522015e-2, Rel Err: 1.187949e0
+    WARNING: High Q4K quantization error for model.layers.15.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.7.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.287283e-4, Max Err: 2.062988e-2, Rel Err: 7.053693e-2
+    WARNING: High Q6K quantization error for model.layers.7.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.1.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.123884e-4, Max Err: 2.124023e-2, Rel Err: 8.416720e-2
+    WARNING: High Q6K quantization error for model.layers.1.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.8.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.268152e-4, Max Err: 1.562500e-2, Rel Err: 7.045331e-2
+    WARNING: High Q6K quantization error for model.layers.8.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.11.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.583658e-4, Max Err: 9.567261e-3, Rel Err: 7.038164e-2
+    WARNING: High Q6K quantization error for model.layers.11.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.4.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.177662e-4, Max Err: 2.099609e-2, Rel Err: 7.048426e-2
+    WARNING: High Q6K quantization error for model.layers.4.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.18.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.045541e-3, Max Err: 4.131317e-2, Rel Err: 1.298815e0
+    WARNING: High Q4K quantization error for model.layers.18.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.9.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.935273e-3, Max Err: 3.994179e-2, Rel Err: 8.096288e-1
+    WARNING: High Q4K quantization error for model.layers.9.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.1.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 6.815428e-4, Max Err: 1.733398e-2, Rel Err: 7.048117e-2
+    WARNING: High Q6K quantization error for model.layers.1.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.10.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.204912e-4, Max Err: 1.037598e-2, Rel Err: 7.050275e-2
+    WARNING: High Q6K quantization error for model.layers.10.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.20.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.252514e-4, Max Err: 1.184082e-2, Rel Err: 7.090178e-2
+    WARNING: High Q6K quantization error for model.layers.20.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.20.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.002841e-4, Max Err: 1.123047e-2, Rel Err: 7.018033e-2
+    WARNING: High Q6K quantization error for model.layers.20.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.18.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.408678e-4, Max Err: 1.345825e-2, Rel Err: 7.095475e-2
+    WARNING: High Q6K quantization error for model.layers.18.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.4.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.901435e-3, Max Err: 7.563782e-2, Rel Err: 1.466032e0
+    WARNING: High Q4K quantization error for model.layers.4.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.5.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.907230e-3, Max Err: 5.643940e-2, Rel Err: 8.555824e-1
+    WARNING: High Q4K quantization error for model.layers.5.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.17.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.218487e-4, Max Err: 2.294922e-2, Rel Err: 7.041694e-2
+    WARNING: High Q6K quantization error for model.layers.17.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.8.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.892069e-3, Max Err: 5.076790e-2, Rel Err: 9.826426e-1
+    WARNING: High Q4K quantization error for model.layers.8.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.12.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.698693e-4, Max Err: 1.458740e-2, Rel Err: 7.099789e-2
+    WARNING: High Q6K quantization error for model.layers.12.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.13.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.986203e-3, Max Err: 8.589363e-2, Rel Err: 9.585068e-1
+    WARNING: High Q4K quantization error for model.layers.13.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.5.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.190138e-4, Max Err: 9.704590e-3, Rel Err: 7.041136e-2
+    WARNING: High Q6K quantization error for model.layers.5.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.3.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.630604e-4, Max Err: 1.153564e-2, Rel Err: 7.038189e-2
+    WARNING: High Q6K quantization error for model.layers.3.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.16.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.545189e-4, Max Err: 1.538086e-2, Rel Err: 7.101116e-2
+    WARNING: High Q6K quantization error for model.layers.16.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.3.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.168064e-4, Max Err: 3.466797e-2, Rel Err: 7.223866e-2
+    WARNING: High Q6K quantization error for model.layers.3.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.9.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.024617e-4, Max Err: 2.185059e-2, Rel Err: 7.094600e-2
+    WARNING: High Q6K quantization error for model.layers.9.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.4.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.370775e-4, Max Err: 1.171875e-2, Rel Err: 7.048209e-2
+    WARNING: High Q6K quantization error for model.layers.4.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.10.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.531067e-4, Max Err: 1.046753e-2, Rel Err: 7.049845e-2
+    WARNING: High Q6K quantization error for model.layers.10.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.21.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.108629e-4, Max Err: 7.751465e-3, Rel Err: 7.029295e-2
+    WARNING: High Q6K quantization error for model.layers.21.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.11.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.948161e-3, Max Err: 5.017757e-2, Rel Err: 8.686841e-1
+    WARNING: High Q4K quantization error for model.layers.11.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.1.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 4.489736e-4, Max Err: 1.171875e-2, Rel Err: 7.308179e-2
+    WARNING: High Q6K quantization error for model.layers.1.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.11.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.192192e-4, Max Err: 1.000977e-2, Rel Err: 7.047508e-2
+    WARNING: High Q6K quantization error for model.layers.11.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.18.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.263182e-4, Max Err: 1.141357e-2, Rel Err: 7.043252e-2
+    WARNING: High Q6K quantization error for model.layers.18.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.9.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.250455e-4, Max Err: 1.708984e-2, Rel Err: 7.047846e-2
+    WARNING: High Q6K quantization error for model.layers.9.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.14.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.716830e-4, Max Err: 1.222229e-2, Rel Err: 7.094147e-2
+    WARNING: High Q6K quantization error for model.layers.14.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.0.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 5.932238e-4, Max Err: 1.147461e-2, Rel Err: 7.062916e-2
+    WARNING: High Q6K quantization error for model.layers.0.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.0.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.697852e-3, Max Err: 4.861355e-2, Rel Err: 1.027632e0
+    WARNING: High Q4K quantization error for model.layers.0.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.16.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.018199e-3, Max Err: 3.890419e-2, Rel Err: 1.176728e0
+    WARNING: High Q4K quantization error for model.layers.16.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.18.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.705492e-4, Max Err: 9.216309e-3, Rel Err: 7.034941e-2
+    WARNING: High Q6K quantization error for model.layers.18.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.5.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.597205e-4, Max Err: 1.329041e-2, Rel Err: 7.034903e-2
+    WARNING: High Q6K quantization error for model.layers.5.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.6.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 8.007917e-4, Max Err: 2.795410e-2, Rel Err: 7.116637e-2
+    WARNING: High Q6K quantization error for model.layers.6.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.12.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.840977e-4, Max Err: 1.058960e-2, Rel Err: 7.031254e-2
+    WARNING: High Q6K quantization error for model.layers.12.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.12.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.956532e-3, Max Err: 4.191399e-2, Rel Err: 1.073553e0
+    WARNING: High Q4K quantization error for model.layers.12.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.10.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.939676e-3, Max Err: 4.795837e-2, Rel Err: 9.555630e-1
+    WARNING: High Q4K quantization error for model.layers.10.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.17.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.026695e-3, Max Err: 3.495407e-2, Rel Err: 9.815534e-1
+    WARNING: High Q4K quantization error for model.layers.17.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.3.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.124752e-4, Max Err: 2.148438e-2, Rel Err: 7.032351e-2
+    WARNING: High Q6K quantization error for model.layers.3.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.13.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.538978e-4, Max Err: 1.171875e-2, Rel Err: 7.096002e-2
+    WARNING: High Q6K quantization error for model.layers.13.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.6.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.244238e-4, Max Err: 1.191711e-2, Rel Err: 7.040820e-2
+    WARNING: High Q6K quantization error for model.layers.6.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.14.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 2.991589e-3, Max Err: 6.229782e-2, Rel Err: 1.166792e0
+    WARNING: High Q4K quantization error for model.layers.14.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.0.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 5.580213e-4, Max Err: 3.417969e-2, Rel Err: 9.777125e-2
+    WARNING: High Q6K quantization error for model.layers.0.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.14.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.187011e-4, Max Err: 1.599121e-2, Rel Err: 7.050159e-2
+    WARNING: High Q6K quantization error for model.layers.14.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.19.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 6.676699e-4, Max Err: 1.016235e-2, Rel Err: 7.022146e-2
+    WARNING: High Q6K quantization error for model.layers.19.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.2.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 4.963030e-4, Max Err: 1.916504e-2, Rel Err: 7.107518e-2
+    WARNING: High Q6K quantization error for model.layers.2.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.9.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 5.594771e-4, Max Err: 1.051331e-2, Rel Err: 7.044445e-2
+    WARNING: High Q6K quantization error for model.layers.9.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+Done in 24.99s. Q8K: 0, Q6K: 64, Q4K: 21, skipped: 43
+Output  : ./quantized-q6k
+Q6K     : policy q8k
+Permute : disabled (build without --features experimental-perm)
+Processing: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+  Tensors: 67
+quantizing Q4K model.layers.24.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.139270e-3, Max Err: 3.493404e-2, Rel Err: 1.072581e0
+    WARNING: High Q4K quantization error for model.layers.24.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.25.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.151126e-3, Max Err: 4.666519e-2, Rel Err: 7.981006e-1
+    WARNING: High Q4K quantization error for model.layers.25.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.25.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.870624e-4, Max Err: 9.674072e-3, Rel Err: 7.046253e-2
+    WARNING: High Q6K quantization error for model.layers.25.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.28.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.174860e-3, Max Err: 4.390144e-2, Rel Err: 8.903726e-1
+    WARNING: High Q4K quantization error for model.layers.28.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.21.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.086084e-3, Max Err: 3.879452e-2, Rel Err: 1.694872e0
+    WARNING: High Q4K quantization error for model.layers.21.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.26.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.381984e-4, Max Err: 1.409912e-2, Rel Err: 7.029816e-2
+    WARNING: High Q6K quantization error for model.layers.26.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.29.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 8.745824e-4, Max Err: 1.196289e-2, Rel Err: 7.022798e-2
+    WARNING: High Q6K quantization error for model.layers.29.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.24.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.641500e-4, Max Err: 1.367188e-2, Rel Err: 7.033880e-2
+    WARNING: High Q6K quantization error for model.layers.24.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.23.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.640689e-4, Max Err: 9.277344e-3, Rel Err: 7.029508e-2
+    WARNING: High Q6K quantization error for model.layers.23.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K lm_head.weight (32064 x 3072)
+  RMSE: 8.637134e-4, Max Err: 7.781982e-3, Rel Err: 6.996928e-2
+    WARNING: High Q6K quantization error for lm_head.weight
+  Q6K size: 77.06 MB  (72% of Q8K)
+quantizing Q6K model.layers.22.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.365756e-4, Max Err: 8.804321e-3, Rel Err: 7.030368e-2
+    WARNING: High Q6K quantization error for model.layers.22.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.24.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.195498e-4, Max Err: 1.428223e-2, Rel Err: 7.085430e-2
+    WARNING: High Q6K quantization error for model.layers.24.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.27.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 8.142763e-4, Max Err: 1.657915e-2, Rel Err: 7.020664e-2
+    WARNING: High Q6K quantization error for model.layers.27.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.30.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 8.814032e-4, Max Err: 1.586914e-2, Rel Err: 7.046455e-2
+    WARNING: High Q6K quantization error for model.layers.30.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.28.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.301355e-4, Max Err: 1.213074e-2, Rel Err: 7.088753e-2
+    WARNING: High Q6K quantization error for model.layers.28.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.31.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.114314e-3, Max Err: 7.800102e-2, Rel Err: 8.100213e-1
+    WARNING: High Q4K quantization error for model.layers.31.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.29.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.160609e-3, Max Err: 9.101868e-2, Rel Err: 7.940610e-1
+    WARNING: High Q4K quantization error for model.layers.29.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q4K model.layers.26.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.164911e-3, Max Err: 4.077530e-2, Rel Err: 1.041114e0
+    WARNING: High Q4K quantization error for model.layers.26.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.21.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.225951e-4, Max Err: 1.220703e-2, Rel Err: 7.086307e-2
+    WARNING: High Q6K quantization error for model.layers.21.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.27.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.404289e-4, Max Err: 1.855469e-2, Rel Err: 7.028764e-2
+    WARNING: High Q6K quantization error for model.layers.27.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.26.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 7.891838e-4, Max Err: 1.107788e-2, Rel Err: 7.029624e-2
+    WARNING: High Q6K quantization error for model.layers.26.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.31.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.188810e-4, Max Err: 2.185059e-2, Rel Err: 7.084659e-2
+    WARNING: High Q6K quantization error for model.layers.31.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.29.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.494686e-4, Max Err: 2.865601e-2, Rel Err: 7.043384e-2
+    WARNING: High Q6K quantization error for model.layers.29.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.31.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.687221e-4, Max Err: 1.971436e-2, Rel Err: 7.048195e-2
+    WARNING: High Q6K quantization error for model.layers.31.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.30.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.252766e-4, Max Err: 1.281738e-2, Rel Err: 7.085406e-2
+    WARNING: High Q6K quantization error for model.layers.30.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.22.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.305797e-4, Max Err: 9.277344e-3, Rel Err: 7.031966e-2
+    WARNING: High Q6K quantization error for model.layers.22.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.28.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 8.564417e-4, Max Err: 1.025391e-2, Rel Err: 7.041445e-2
+    WARNING: High Q6K quantization error for model.layers.28.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.31.self_attn.o_proj.weight (3072 x 3072)
+  RMSE: 8.723464e-4, Max Err: 2.929688e-2, Rel Err: 7.072373e-2
+    WARNING: High Q6K quantization error for model.layers.31.self_attn.o_proj.weight
+  Q6K size: 7.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.21.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.285161e-4, Max Err: 1.042175e-2, Rel Err: 7.035069e-2
+    WARNING: High Q6K quantization error for model.layers.21.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.23.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.122330e-3, Max Err: 5.363655e-2, Rel Err: 8.286905e-1
+    WARNING: High Q4K quantization error for model.layers.23.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.26.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.201188e-4, Max Err: 1.214600e-2, Rel Err: 7.080173e-2
+    WARNING: High Q6K quantization error for model.layers.26.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.22.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.211105e-4, Max Err: 1.416016e-2, Rel Err: 7.094571e-2
+    WARNING: High Q6K quantization error for model.layers.22.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.30.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.521149e-4, Max Err: 1.647949e-2, Rel Err: 7.044074e-2
+    WARNING: High Q6K quantization error for model.layers.30.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.27.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.177549e-3, Max Err: 4.800797e-2, Rel Err: 1.046567e0
+    WARNING: High Q4K quantization error for model.layers.27.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.25.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.186533e-4, Max Err: 1.586914e-2, Rel Err: 7.091457e-2
+    WARNING: High Q6K quantization error for model.layers.25.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.27.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.177081e-4, Max Err: 1.330566e-2, Rel Err: 7.091428e-2
+    WARNING: High Q6K quantization error for model.layers.27.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q4K model.layers.22.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.105530e-3, Max Err: 4.111481e-2, Rel Err: 1.709410e0
+    WARNING: High Q4K quantization error for model.layers.22.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.29.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.257687e-4, Max Err: 1.269531e-2, Rel Err: 7.082568e-2
+    WARNING: High Q6K quantization error for model.layers.29.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.28.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.424461e-4, Max Err: 1.171875e-2, Rel Err: 7.035583e-2
+    WARNING: High Q6K quantization error for model.layers.28.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.24.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.345313e-4, Max Err: 7.812500e-3, Rel Err: 7.030705e-2
+    WARNING: High Q6K quantization error for model.layers.24.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q4K model.layers.30.mlp.down_proj.weight (3072 x 8192)
+  RMSE: 3.119244e-3, Max Err: 6.088066e-2, Rel Err: 9.633663e-1
+    WARNING: High Q4K quantization error for model.layers.30.mlp.down_proj.weight
+  Q4K size: 13.50 MB  (49% of Q8K)
+quantizing Q6K model.layers.25.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.361296e-4, Max Err: 9.033203e-3, Rel Err: 7.028622e-2
+    WARNING: High Q6K quantization error for model.layers.25.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+quantizing Q6K model.layers.23.self_attn.qkv_proj.weight (9216 x 3072)
+  RMSE: 7.175080e-4, Max Err: 1.452637e-2, Rel Err: 7.091153e-2
+    WARNING: High Q6K quantization error for model.layers.23.self_attn.qkv_proj.weight
+  Q6K size: 22.15 MB  (72% of Q8K)
+quantizing Q6K model.layers.23.mlp.gate_up_proj.weight (16384 x 3072)
+  RMSE: 7.327230e-4, Max Err: 9.521484e-3, Rel Err: 7.032840e-2
+    WARNING: High Q6K quantization error for model.layers.23.mlp.gate_up_proj.weight
+  Q6K size: 39.38 MB  (72% of Q8K)
+Done in 12.77s. Q8K: 0, Q6K: 33, Q4K: 11, skipped: 23
+Packing Q8K/Q6K/Q4K model into single SafeTensors file
+=======================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00001-of-00002.safetensors
+Q8K Dir: ./quantized-q6k
+Output : ./packed-shard1-q6k.safetensors
+
+WARNING: No final layer norm found in original model!
+         Expected one of: model.norm.weight, model.final_layernorm.weight, norm.weight
+         Available norms:
+           - model.layers.13.input_layernorm.weight
+           - model.layers.6.post_attention_layernorm.weight
+           - model.layers.11.post_attention_layernorm.weight
+           - model.layers.15.post_attention_layernorm.weight
+           - model.layers.15.input_layernorm.weight
+           - model.layers.17.post_attention_layernorm.weight
+           - model.layers.19.post_attention_layernorm.weight
+           - model.layers.12.input_layernorm.weight
+           - model.layers.14.input_layernorm.weight
+           - model.layers.1.input_layernorm.weight
+           - model.layers.11.input_layernorm.weight
+           - model.layers.4.post_attention_layernorm.weight
+           - model.layers.8.input_layernorm.weight
+           - model.layers.9.post_attention_layernorm.weight
+           - model.layers.2.input_layernorm.weight
+           - model.layers.1.post_attention_layernorm.weight
+           - model.layers.2.post_attention_layernorm.weight
+           - model.layers.20.post_attention_layernorm.weight
+           - model.layers.0.post_attention_layernorm.weight
+           - model.layers.7.input_layernorm.weight
+           - model.layers.5.input_layernorm.weight
+           - model.layers.14.post_attention_layernorm.weight
+           - model.layers.3.post_attention_layernorm.weight
+           - model.layers.0.input_layernorm.weight
+           - model.layers.16.post_attention_layernorm.weight
+           - model.layers.18.input_layernorm.weight
+           - model.layers.4.input_layernorm.weight
+           - model.layers.16.input_layernorm.weight
+           - model.layers.18.post_attention_layernorm.weight
+           - model.layers.13.post_attention_layernorm.weight
+           - model.layers.10.post_attention_layernorm.weight
+           - model.layers.7.post_attention_layernorm.weight
+           - model.layers.9.input_layernorm.weight
+           - model.layers.17.input_layernorm.weight
+           - model.layers.19.input_layernorm.weight
+           - model.layers.12.post_attention_layernorm.weight
+           - model.layers.5.post_attention_layernorm.weight
+           - model.layers.6.input_layernorm.weight
+           - model.layers.3.input_layernorm.weight
+           - model.layers.10.input_layernorm.weight
+           - model.layers.8.post_attention_layernorm.weight
+           - model.layers.20.input_layernorm.weight
+         The model may not work correctly without a final norm.
+
+Preserved: model.layers.13.input_layernorm.weight [3072]
+Preserved: model.layers.6.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.3.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.11.post_attention_layernorm.weight [3072]
+Preserved: model.layers.15.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.2.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.15.input_layernorm.weight [3072]
+Q4K packed: model.layers.19.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.6.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.0.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.14.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.10.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.2.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.16.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.6.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.2.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.3.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.1.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.18.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.15.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.17.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.7.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.9.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.11.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.12.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.0.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.4.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.10.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.5.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.6.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.19.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.9.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.17.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.0.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.7.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.8.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.12.input_layernorm.weight [3072]
+Q6K packed: model.layers.17.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.14.input_layernorm.weight [3072]
+Q6K packed: model.layers.1.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.1.input_layernorm.weight [3072]
+Q6K packed: model.layers.15.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.11.input_layernorm.weight [3072]
+Q6K packed: model.layers.10.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.4.post_attention_layernorm.weight [3072]
+Preserved: model.layers.8.input_layernorm.weight [3072]
+Preserved: model.layers.9.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.21.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.3.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.16.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.2.input_layernorm.weight [3072]
+Preserved: model.layers.1.post_attention_layernorm.weight [3072]
+Preserved: model.layers.2.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.0.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.20.post_attention_layernorm.weight [3072]
+Preserved: model.layers.0.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.5.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.7.input_layernorm.weight [3072]
+Q6K packed: model.layers.10.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.17.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.5.input_layernorm.weight [3072]
+Preserved: model.layers.14.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.8.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.4.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.12.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.19.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.3.post_attention_layernorm.weight [3072]
+Preserved: model.layers.0.input_layernorm.weight [3072]
+Q6K packed: model.layers.13.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.14.self_attn.o_proj.weight [3072 x 3072]
+Q4K packed: model.layers.7.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.16.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.16.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.8.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.18.input_layernorm.weight [3072]
+Q4K packed: model.layers.5.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.1.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.12.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.20.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.4.input_layernorm.weight [3072]
+Q6K packed: model.layers.15.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.12.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.2.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.16.input_layernorm.weight [3072]
+Preserved: model.layers.18.post_attention_layernorm.weight [3072]
+Preserved: model.layers.13.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.16.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.20.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.11.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.20.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.4.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.13.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.5.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.10.post_attention_layernorm.weight [3072]
+Preserved: model.layers.7.post_attention_layernorm.weight [3072]
+Preserved: model.layers.9.input_layernorm.weight [3072]
+Q6K packed: model.layers.3.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.17.input_layernorm.weight [3072]
+Q6K packed: model.layers.14.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.7.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.17.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.13.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.18.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.1.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.19.input_layernorm.weight [3072]
+Preserved: model.layers.12.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.8.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.9.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.14.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.18.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.18.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.4.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.embed_tokens.weight [32064, 3072]
+Q6K packed: model.layers.11.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.5.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.11.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.6.input_layernorm.weight [3072]
+Q6K packed: model.layers.9.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.13.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.3.input_layernorm.weight [3072]
+Q4K packed: model.layers.15.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.19.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.19.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.10.input_layernorm.weight [3072]
+Preserved: model.layers.8.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.6.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.20.input_layernorm.weight [3072]
+Q4K packed: model.layers.20.mlp.down_proj.weight [3072 x 8192]
+
+ERROR: Final layer norm not included in packed model!
+       The model will likely fail during inference.
+
+
+Writing packed model...
+
+Done in 3.50s
+Statistics:
+   - Quantized weights : 85
+   - Preserved tensors : 43
+   - Total tensors     : 213
+   - Output size       : 1926.06 MB
+Packing Q8K/Q6K/Q4K model into single SafeTensors file
+=======================================================
+Input  : /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/model-00002-of-00002.safetensors
+Q8K Dir: ./quantized-q6k
+Output : ./packed-shard2-q6k.safetensors
+
+Q6K packed: lm_head.weight [32064 x 3072]
+Q4K packed: model.layers.28.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.29.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.23.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.24.input_layernorm.weight [3072]
+Q6K packed: model.layers.26.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.21.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.28.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.21.input_layernorm.weight [3072]
+Q6K packed: model.layers.26.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.23.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.29.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.23.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.25.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.27.input_layernorm.weight [3072]
+Q4K packed: model.layers.27.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.30.post_attention_layernorm.weight [3072]
+Preserved: model.layers.26.input_layernorm.weight [3072]
+Q6K packed: model.layers.30.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.22.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.22.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.29.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.24.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.24.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.25.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.28.input_layernorm.weight [3072]
+Q6K packed: model.layers.30.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.26.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.31.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.22.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.26.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.24.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.29.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.31.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.31.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.25.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.24.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.30.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.layers.22.input_layernorm.weight [3072]
+Q6K packed: model.layers.27.self_attn.o_proj.weight [3072 x 3072]
+Q6K packed: model.layers.28.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.29.input_layernorm.weight [3072]
+Preserved: model.layers.31.input_layernorm.weight [3072]
+Preserved: model.layers.23.post_attention_layernorm.weight [3072]
+Preserved: model.layers.24.post_attention_layernorm.weight [3072]
+Preserved: model.layers.30.input_layernorm.weight [3072]
+Q6K packed: model.layers.31.self_attn.qkv_proj.weight [9216 x 3072]
+Q6K packed: model.layers.27.self_attn.qkv_proj.weight [9216 x 3072]
+Q4K packed: model.layers.22.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.28.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.31.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.21.self_attn.qkv_proj.weight [9216 x 3072]
+Preserved: model.layers.25.input_layernorm.weight [3072]
+Preserved: model.layers.25.post_attention_layernorm.weight [3072]
+Q4K packed: model.layers.26.mlp.down_proj.weight [3072 x 8192]
+Preserved: model.layers.27.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.28.mlp.gate_up_proj.weight [16384 x 3072]
+Q6K packed: model.layers.29.self_attn.o_proj.weight [3072 x 3072]
+Preserved: model.layers.22.post_attention_layernorm.weight [3072]
+Q6K packed: model.layers.27.mlp.gate_up_proj.weight [16384 x 3072]
+Q4K packed: model.layers.25.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.23.mlp.down_proj.weight [3072 x 8192]
+Q4K packed: model.layers.30.mlp.down_proj.weight [3072 x 8192]
+Q6K packed: model.layers.21.mlp.gate_up_proj.weight [16384 x 3072]
+Preserved: model.norm.weight [3072]
+Preserved: model.layers.23.input_layernorm.weight [3072]
+Preserved: model.layers.21.post_attention_layernorm.weight [3072]
+
+Writing packed model...
+
+Done in 1.44s
+Statistics:
+   - Quantized weights : 44
+   - Preserved tensors : 23
+   - Total tensors     : 111
+   - Output size       : 976.29 MB

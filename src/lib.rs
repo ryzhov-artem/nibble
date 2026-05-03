@@ -13,6 +13,8 @@ pub mod generation;
 pub mod loader;
 pub mod model;
 pub mod quant_linear;
+#[cfg(feature = "experimental-q8k128")]
+pub mod quant_q8k_128;
 pub mod repl;
 pub mod scratch;
 pub mod types;

@@ -13,6 +13,7 @@ license = "MIT OR Apache-2.0"
 # experimenting with new strategies.
 default = []
 experimental-perm = []
+experimental-q8k128 = []
 
 [dependencies]
 candle = { git = "https://github.com/huggingface/candle", package = "candle-core", rev = "3b39794c1" }
@@ -43,6 +44,11 @@ path = "src/main.rs"
 [[bin]]
 name = "quantize_q8k"
 path = "src/bin/quantize_q8k.rs"
+
+[[bin]]
+name = "quantize_q8k128"
+path = "src/bin/quantize_q8k128.rs"
+required-features = ["experimental-q8k128"]
 
 [[bin]]
 name = "pack_q8k_safetensors"

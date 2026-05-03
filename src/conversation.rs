@@ -34,11 +34,17 @@ impl Conversation {
     }
 
     pub fn add_user_message(&mut self, content: String) {
-        self.messages.push(Message { role: MessageRole::User, content });
+        self.messages.push(Message {
+            role: MessageRole::User,
+            content,
+        });
     }
 
     pub fn add_assistant_message(&mut self, content: String) {
-        self.messages.push(Message { role: MessageRole::Assistant, content });
+        self.messages.push(Message {
+            role: MessageRole::Assistant,
+            content,
+        });
     }
 
     pub fn format_prompt(&self, _tokenizer: &Tokenizer) -> candle::Result<String> {
@@ -95,7 +101,11 @@ impl Conversation {
 
         let removed = self.messages.len() - kept_messages.len();
         if removed > 0 {
-            println!("\nContext trimmed: kept {} messages, removed {} old", kept_messages.len(), removed);
+            println!(
+                "\nContext trimmed: kept {} messages, removed {} old",
+                kept_messages.len(),
+                removed
+            );
         }
         self.messages = kept_messages;
         Ok(())

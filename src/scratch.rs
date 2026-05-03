@@ -34,13 +34,19 @@ impl Buf {
     #[inline]
     pub fn as_mut_slice(&mut self) -> &mut [f32] {
         // `unwrap()` is safe: `inner` is only taken in `Drop`.
-        let v = self.inner.as_mut().expect("scratch buffer already returned");
+        let v = self
+            .inner
+            .as_mut()
+            .expect("scratch buffer already returned");
         &mut v[..self.len]
     }
 
     #[inline]
     pub fn as_slice(&self) -> &[f32] {
-        let v = self.inner.as_ref().expect("scratch buffer already returned");
+        let v = self
+            .inner
+            .as_ref()
+            .expect("scratch buffer already returned");
         &v[..self.len]
     }
 }
@@ -75,7 +81,10 @@ pub fn take_f32(len: usize) -> Buf {
             vec![0.0f32; len]
         }
     });
-    Buf { inner: Some(v), len }
+    Buf {
+        inner: Some(v),
+        len,
+    }
 }
 
 #[cfg(test)]

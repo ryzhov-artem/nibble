@@ -1,12 +1,13 @@
-//! Standalone Q8_K / Q4_K quantizer for a single `model.safetensors` shard.
+//! Standalone Q8_K / Q6_K / Q4_K quantizer for a single `model.safetensors` shard.
 //!
 //! Usage:
 //!   cargo run --release -p tensor-tools --bin quantize_q8k \
 //!     <input.safetensors> <output_dir>
 //!
-//! Layer policy (compile-time):
+//! Layer policy:
 //!   mlp.down_proj  → Q4K  (50% smaller blocks, less sensitivity)
 //!   everything else → Q8K
+//!   set CANDLE_Q6K_POLICY=down|q8k|all to route selected layers to Q6K
 //!
 //! Permutation toggle (requires the `experimental-perm` Cargo feature):
 //!   cargo build --release --features experimental-perm
@@ -14,16 +15,19 @@
 //!
 //! Output files per layer:
 //!   <name>.q8k  + <name>.q8k_meta  (+ optional <name>.perm)
+//!   <name>.q6k  + <name>.q6k_meta
 //!   <name>.q4k  + <name>.q4k_meta
 use anyhow::{bail, Context, Result};
-use candle::quantized::k_quants::{matmul, BlockQ4K, BlockQ8K, GgmlType, QK_K};
+use candle::quantized::k_quants::{matmul, BlockQ4K, BlockQ6K, BlockQ8K, GgmlType, QK_K};
 use candle::Device;
 use half::{bf16, f16};
 #[cfg(feature = "experimental-perm")]
 use once_cell::sync::Lazy;
-use phi3_mixed_quant::types::{Q8KHeader, DTYPE_Q4K, DTYPE_Q8K, HEADER_VERSION, MAGIC_Q4K, MAGIC_Q8K};
 #[cfg(feature = "experimental-perm")]
 use phi3_mixed_quant::types::MAGIC_PERM;
+use phi3_mixed_quant::types::{
+    Q8KHeader, DTYPE_Q4K, DTYPE_Q6K, DTYPE_Q8K, HEADER_VERSION, MAGIC_Q4K, MAGIC_Q6K, MAGIC_Q8K,
+};
 #[cfg(feature = "experimental-perm")]
 use regex::Regex;
 use safetensors::tensor::{Dtype, SafeTensors};
@@ -47,6 +51,11 @@ static LAYER_PERM_CACHE: OnceLock<Mutex<LayerPermCache>> = OnceLock::new();
 static ATTN_PROJ_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"^model\.layers\.(\d+)\.self_attn\.(q|k|v|o)_proj\.weight$").unwrap());
 
+const _: () = assert!(std::mem::size_of::<Q8KHeader>() == 24);
+const _: () = assert!(std::mem::size_of::<BlockQ4K>() == 144);
+const _: () = assert!(std::mem::size_of::<BlockQ6K>() == 210);
+const _: () = assert!(std::mem::size_of::<BlockQ8K>() == 292);
+
 // ── layer routing ──────────────────────────────────────────────────────────
 
 fn is_target_weight(name: &str) -> bool {
@@ -64,6 +73,57 @@ fn is_target_weight(name: &str) -> bool {
 
 fn is_q4k_layer(name: &str) -> bool {
     name.contains("mlp.down_proj")
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum QuantFormat {
+    Q8K,
+    Q6K,
+    Q4K,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Q6KPolicy {
+    Off,
+    Down,
+    Q8K,
+    All,
+}
+
+impl Q6KPolicy {
+    fn from_env() -> Result<Self> {
+        let raw = std::env::var("CANDLE_Q6K_POLICY")
+            .unwrap_or_else(|_| "off".to_string())
+            .to_ascii_lowercase();
+        match raw.as_str() {
+            "off" | "0" | "false" => Ok(Self::Off),
+            "down" | "down_proj" => Ok(Self::Down),
+            "q8k" | "q8k-layers" | "non-down" => Ok(Self::Q8K),
+            "all" => Ok(Self::All),
+            other => {
+                bail!("unsupported CANDLE_Q6K_POLICY={other:?}; expected off, down, q8k, or all")
+            }
+        }
+    }
+
+    fn name(self) -> &'static str {
+        match self {
+            Self::Off => "off",
+            Self::Down => "down",
+            Self::Q8K => "q8k",
+            Self::All => "all",
+        }
+    }
+}
+
+fn choose_quant_format(name: &str, q6k_policy: Q6KPolicy) -> QuantFormat {
+    match q6k_policy {
+        Q6KPolicy::All => QuantFormat::Q6K,
+        Q6KPolicy::Down if is_q4k_layer(name) => QuantFormat::Q6K,
+        Q6KPolicy::Q8K if !is_q4k_layer(name) => QuantFormat::Q6K,
+        _ if is_q4k_layer(name) => QuantFormat::Q4K,
+        _ => QuantFormat::Q8K,
+    }
 }
 
 // ── Q8K helpers ────────────────────────────────────────────────────────────
@@ -98,7 +158,11 @@ fn validate_quantization_direct(original: &[f32], blocks: &[BlockQ8K], k: usize)
     let mut expected_output = vec![0f32; rows];
     for row in 0..rows {
         let row_data = &original[row * k..(row + 1) * k];
-        expected_output[row] = row_data.iter().zip(test_input.iter()).map(|(a, b)| a * b).sum();
+        expected_output[row] = row_data
+            .iter()
+            .zip(test_input.iter())
+            .map(|(a, b)| a * b)
+            .sum();
     }
     let mut actual_output = vec![0f32; rows];
     matmul::<BlockQ8K>((1, k, rows), &test_input, blocks, &mut actual_output)
@@ -151,6 +215,15 @@ fn quantize_rows_q8k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ8K
 }
 
 fn write_q8k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K]) -> Result<()> {
+    let expected_blocks = rows * (k / QK_K);
+    if blocks.len() != expected_blocks {
+        bail!(
+            "Q8K block count mismatch for {}: got {}, expected {}",
+            path.display(),
+            blocks.len(),
+            expected_blocks
+        );
+    }
     let header = Q8KHeader {
         magic: MAGIC_Q8K,
         version: HEADER_VERSION,
@@ -162,7 +235,81 @@ fn write_q8k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K]) -> Result<
     let mut w = BufWriter::new(fs::File::create(path)?);
     w.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, blocks.len() * mem::size_of::<BlockQ8K>())
+        std::slice::from_raw_parts(
+            blocks.as_ptr() as *const u8,
+            blocks.len() * mem::size_of::<BlockQ8K>(),
+        )
+    };
+    w.write_all(raw)?;
+    w.flush()?;
+    Ok(())
+}
+
+// ── Q6K helpers ────────────────────────────────────────────────────────────
+
+fn quantize_rows_q6k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ6K>> {
+    if k % QK_K != 0 {
+        bail!("inner dim {k} not multiple of {QK_K}");
+    }
+    let blocks_per_row = k / QK_K;
+    let mut blocks = vec![BlockQ6K::zeros(); rows * blocks_per_row];
+    for r in 0..rows {
+        let row = &data[r * k..(r + 1) * k];
+        let dst = &mut blocks[r * blocks_per_row..(r + 1) * blocks_per_row];
+        BlockQ6K::from_float(row, dst);
+    }
+    Ok(blocks)
+}
+
+fn validate_q6k(
+    original: &[f32],
+    blocks: &[BlockQ6K],
+    rows: usize,
+    k: usize,
+) -> Result<(f64, f64, f64)> {
+    let mut dequantized = vec![0f32; rows * k];
+    BlockQ6K::to_float(blocks, &mut dequantized);
+    let mut l2_error = 0f64;
+    let mut max_error = 0f64;
+    let mut relative_error_sum = 0f64;
+    for (&orig, &deq) in original.iter().zip(dequantized.iter()) {
+        let abs_err = (orig - deq).abs() as f64;
+        l2_error += abs_err * abs_err;
+        max_error = max_error.max(abs_err);
+        if orig.abs() > 1e-10 {
+            relative_error_sum += abs_err / orig.abs() as f64;
+        }
+    }
+    let rmse = (l2_error / (rows * k) as f64).sqrt();
+    let mean_relative_error = relative_error_sum / (rows * k) as f64;
+    Ok((rmse, max_error, mean_relative_error))
+}
+
+fn write_q6k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ6K]) -> Result<()> {
+    let expected_blocks = rows * (k / QK_K);
+    if blocks.len() != expected_blocks {
+        bail!(
+            "Q6K block count mismatch for {}: got {}, expected {}",
+            path.display(),
+            blocks.len(),
+            expected_blocks
+        );
+    }
+    let header = Q8KHeader {
+        magic: MAGIC_Q6K,
+        version: HEADER_VERSION,
+        out: rows as u32,
+        k: k as u32,
+        blocks_per_row: (k / QK_K) as u32,
+        dtype: DTYPE_Q6K,
+    };
+    let mut w = BufWriter::new(fs::File::create(path)?);
+    w.write_all(bytemuck::bytes_of(&header))?;
+    let raw = unsafe {
+        std::slice::from_raw_parts(
+            blocks.as_ptr() as *const u8,
+            blocks.len() * mem::size_of::<BlockQ6K>(),
+        )
     };
     w.write_all(raw)?;
     w.flush()?;
@@ -185,7 +332,12 @@ fn quantize_rows_q4k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ4K
     Ok(blocks)
 }
 
-fn validate_q4k(original: &[f32], blocks: &[BlockQ4K], rows: usize, k: usize) -> Result<(f64, f64, f64)> {
+fn validate_q4k(
+    original: &[f32],
+    blocks: &[BlockQ4K],
+    rows: usize,
+    k: usize,
+) -> Result<(f64, f64, f64)> {
     let mut dequantized = vec![0f32; rows * k];
     BlockQ4K::to_float(blocks, &mut dequantized);
     let mut l2_error = 0f64;
@@ -208,6 +360,15 @@ fn validate_q4k(original: &[f32], blocks: &[BlockQ4K], rows: usize, k: usize) ->
 /// The packer reads back only the raw block bytes (strips the header), matching
 /// what quant_linear.rs::load_q4k_from_packed_safetensors expects.
 fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<()> {
+    let expected_blocks = rows * (k / QK_K);
+    if blocks.len() != expected_blocks {
+        bail!(
+            "Q4K block count mismatch for {}: got {}, expected {}",
+            path.display(),
+            blocks.len(),
+            expected_blocks
+        );
+    }
     let header = Q8KHeader {
         magic: MAGIC_Q4K,
         version: HEADER_VERSION,
@@ -219,7 +380,10 @@ fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<
     let mut w = BufWriter::new(fs::File::create(path)?);
     w.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, blocks.len() * mem::size_of::<BlockQ4K>())
+        std::slice::from_raw_parts(
+            blocks.as_ptr() as *const u8,
+            blocks.len() * mem::size_of::<BlockQ4K>(),
+        )
     };
     w.write_all(raw)?;
     w.flush()?;
@@ -233,9 +397,18 @@ fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<
 
 fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
     Ok(match dtype {
-        Dtype::F32 => bytes.chunks_exact(4).map(|c| f32::from_le_bytes(c.try_into().unwrap())).collect(),
-        Dtype::F16 => bytes.chunks_exact(2).map(|c| f16::from_bits(u16::from_le_bytes(c.try_into().unwrap())).to_f32()).collect(),
-        Dtype::BF16 => bytes.chunks_exact(2).map(|c| bf16::from_bits(u16::from_le_bytes(c.try_into().unwrap())).to_f32()).collect(),
+        Dtype::F32 => bytes
+            .chunks_exact(4)
+            .map(|c| f32::from_le_bytes(c.try_into().unwrap()))
+            .collect(),
+        Dtype::F16 => bytes
+            .chunks_exact(2)
+            .map(|c| f16::from_bits(u16::from_le_bytes(c.try_into().unwrap())).to_f32())
+            .collect(),
+        Dtype::BF16 => bytes
+            .chunks_exact(2)
+            .map(|c| bf16::from_bits(u16::from_le_bytes(c.try_into().unwrap())).to_f32())
+            .collect(),
         other => bail!("unsupported dtype {other:?}"),
     })
 }
@@ -256,7 +429,11 @@ fn column_l2_norms(rows: usize, k: usize, data: &[f32]) -> Vec<f32> {
 #[cfg(feature = "experimental-perm")]
 fn build_column_permutation(norms: &[f32]) -> Vec<usize> {
     let mut idx: Vec<usize> = (0..norms.len()).collect();
-    idx.sort_by(|&a, &b| norms[b].partial_cmp(&norms[a]).unwrap_or(std::cmp::Ordering::Equal));
+    idx.sort_by(|&a, &b| {
+        norms[b]
+            .partial_cmp(&norms[a])
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
     idx
 }
 
@@ -274,12 +451,19 @@ fn build_block_wise_permutation(rows: usize, k: usize, data: &[f32]) -> Vec<usiz
         let block_start = block_idx * BLOCK_SIZE;
         let block_norms = &col_norms[block_start..block_start + BLOCK_SIZE];
         let mut local_idx: Vec<usize> = (0..BLOCK_SIZE).collect();
-        local_idx.sort_by(|&a, &b| block_norms[b].partial_cmp(&block_norms[a]).unwrap_or(std::cmp::Ordering::Equal));
+        local_idx.sort_by(|&a, &b| {
+            block_norms[b]
+                .partial_cmp(&block_norms[a])
+                .unwrap_or(std::cmp::Ordering::Equal)
+        });
         for i in 0..BLOCK_SIZE {
             global_perm[block_start + i] = block_start + local_idx[i];
         }
     }
-    println!("    Block-wise permutation: {} blocks of {}", num_blocks, BLOCK_SIZE);
+    println!(
+        "    Block-wise permutation: {} blocks of {}",
+        num_blocks, BLOCK_SIZE
+    );
     global_perm
 }
 
@@ -364,7 +548,9 @@ struct LayerPermCache {
 #[cfg(feature = "experimental-perm")]
 impl LayerPermCache {
     fn new() -> Self {
-        Self { map: HashMap::new() }
+        Self {
+            map: HashMap::new(),
+        }
     }
 
     fn get_or_compute(
@@ -425,7 +611,11 @@ fn svd_importance_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec
         *var /= rows as f64;
     }
     let mut idx: Vec<usize> = (0..k).collect();
-    idx.sort_by(|&a, &b| col_vars[b].partial_cmp(&col_vars[a]).unwrap_or(std::cmp::Ordering::Equal));
+    idx.sort_by(|&a, &b| {
+        col_vars[b]
+            .partial_cmp(&col_vars[a])
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
     println!("    SVD-importance: sorted by column variance");
     Ok(idx)
 }
@@ -441,7 +631,12 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
         k if k <= 2048 => k / 2,
         _ => (k / 4).max(256).min(512),
     };
-    println!("    QR pivot: processing {}/{} columns ({:.1}%)", qr_steps, k, (qr_steps as f64 / k as f64) * 100.0);
+    println!(
+        "    QR pivot: processing {}/{} columns ({:.1}%)",
+        qr_steps,
+        k,
+        (qr_steps as f64 / k as f64) * 100.0
+    );
     let mut col_norms: Vec<f64> = vec![0.0; k];
     for r in 0..rows {
         let row = &data[r * k..(r + 1) * k];
@@ -474,7 +669,11 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
     }
     if qr_steps < k {
         let mut remaining_idx: Vec<usize> = (qr_steps..k).collect();
-        remaining_idx.sort_by(|&a, &b| col_norms[b].partial_cmp(&col_norms[a]).unwrap_or(std::cmp::Ordering::Equal));
+        remaining_idx.sort_by(|&a, &b| {
+            col_norms[b]
+                .partial_cmp(&col_norms[a])
+                .unwrap_or(std::cmp::Ordering::Equal)
+        });
         for (i, &orig_idx) in remaining_idx.iter().enumerate() {
             perm[qr_steps + i] = perm[orig_idx];
         }
@@ -626,7 +825,16 @@ fn main() -> Result<()> {
     #[cfg(feature = "experimental-perm")]
     let perm_strategy = PermStrategy::from_env();
 
+    let q6k_policy = Q6KPolicy::from_env()?;
+
     println!("Output  : {}", out_dir.display());
+    println!("Q6K     : policy {}", q6k_policy.name());
+    #[cfg(feature = "experimental-perm")]
+    if use_permute && q6k_policy != Q6KPolicy::Off {
+        eprintln!(
+            "warning: CANDLE_Q8K_PERMUTE applies only to Q8K-routed layers; Q6K layers are not permuted"
+        );
+    }
     #[cfg(feature = "experimental-perm")]
     println!(
         "Permute : {}{}",
@@ -642,6 +850,7 @@ fn main() -> Result<()> {
 
     let t0 = Instant::now();
     let mut q8k_count = 0usize;
+    let mut q6k_count = 0usize;
     let mut q4k_count = 0usize;
     let mut skipped_count = 0usize;
 
@@ -652,107 +861,190 @@ fn main() -> Result<()> {
         println!("  Tensors: {}", st.len());
 
         for name in st.names() {
-        let t = st.tensor(name)?;
-        let shape = t.shape();
-        if shape.len() != 2 || !is_target_weight(name) {
-            skipped_count += 1;
-            continue;
-        }
-        let (rows, k) = (shape[0], shape[1]);
-        if k % QK_K != 0 {
-            println!("skip (k % {QK_K} != 0): {name} [{rows} x {k}]");
-            skipped_count += 1;
-            continue;
-        }
-
-        let data_f32 = tensor_to_f32(t.data(), t.dtype())?;
-
-        if is_q4k_layer(name) {
-            // ── Q4K path ───────────────────────────────────────────────────
-            println!("quantizing Q4K {name} ({rows} x {k})");
-            let blocks = quantize_rows_q4k(rows, k, &data_f32)?;
-            let (rmse, max_err, rel_err) = validate_q4k(&data_f32, &blocks, rows, k)?;
-            println!("  RMSE: {:.6e}, Max Err: {:.6e}, Rel Err: {:.6e}", rmse, max_err, rel_err);
-            if max_err > 1e-2 || rel_err > 0.01 {
-                println!("    WARNING: High Q4K quantization error for {name}");
+            let t = st.tensor(name)?;
+            let shape = t.shape();
+            if shape.len() != 2 || !is_target_weight(name) {
+                skipped_count += 1;
+                continue;
             }
-            let block_bytes = blocks.len() * mem::size_of::<BlockQ4K>();
-            println!("  Q4K size: {:.2} MB  ({:.0}% of Q8K)",
-                block_bytes as f64 / 1_048_576.0,
-                block_bytes as f64 / (blocks.len() * mem::size_of::<BlockQ8K>()) as f64 * 100.0);
-            let out_path = out_dir.join(format!("{name}.q4k"));
-            write_q4k(&out_path, rows, k, &blocks)?;
-            q4k_count += 1;
-        } else {
-            // ── Q8K path (with optional permutation) ─────────────
-            println!("quantizing Q8K {name} ({rows} x {k})");
+            let (rows, k) = (shape[0], shape[1]);
+            if k % QK_K != 0 {
+                println!("skip (k % {QK_K} != 0): {name} [{rows} x {k}]");
+                skipped_count += 1;
+                continue;
+            }
 
-            #[cfg(feature = "experimental-perm")]
-            let (data_for_quant, maybe_perm): (Vec<f32>, Option<Vec<usize>>) = if use_permute {
-                if let Some((layer_id, kind)) = parse_attention_proj(name) {
-                    if kind == "o" {
-                        (data_f32, None)
-                    } else {
-                        let perm = {
-                            let mut cache = LAYER_PERM_CACHE
-                                .get_or_init(|| Mutex::new(LayerPermCache::new()))
-                                .lock()
-                                .unwrap();
-                            cache.get_or_compute(perm_strategy, layer_id, rows, k, &data_f32)?
-                        };
-                        let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
-                        (permuted, Some(perm))
+            let data_f32 = tensor_to_f32(t.data(), t.dtype())?;
+
+            match choose_quant_format(name, q6k_policy) {
+                QuantFormat::Q4K => {
+                    // ── Q4K path ───────────────────────────────────────────────────
+                    println!("quantizing Q4K {name} ({rows} x {k})");
+                    let blocks = quantize_rows_q4k(rows, k, &data_f32)?;
+                    let (rmse, max_err, rel_err) = validate_q4k(&data_f32, &blocks, rows, k)?;
+                    println!(
+                        "  RMSE: {:.6e}, Max Err: {:.6e}, Rel Err: {:.6e}",
+                        rmse, max_err, rel_err
+                    );
+                    if max_err > 1e-2 || rel_err > 0.01 {
+                        println!("    WARNING: High Q4K quantization error for {name}");
                     }
-                } else {
-                    let perm = perm_strategy.build(rows, k, &data_f32)?;
-                    let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
-                    (permuted, Some(perm))
+                    let block_bytes = blocks.len() * mem::size_of::<BlockQ4K>();
+                    println!(
+                        "  Q4K size: {:.2} MB  ({:.0}% of Q8K)",
+                        block_bytes as f64 / 1_048_576.0,
+                        block_bytes as f64 / (blocks.len() * mem::size_of::<BlockQ8K>()) as f64
+                            * 100.0
+                    );
+                    let out_path = out_dir.join(format!("{name}.q4k"));
+                    write_q4k(&out_path, rows, k, &blocks)?;
+                    q4k_count += 1;
                 }
-            } else {
-                (data_f32, None)
-            };
+                QuantFormat::Q6K => {
+                    // ── Q6K path ───────────────────────────────────────────────────
+                    println!("quantizing Q6K {name} ({rows} x {k})");
+                    let blocks = quantize_rows_q6k(rows, k, &data_f32)?;
+                    let (rmse, max_err, rel_err) = validate_q6k(&data_f32, &blocks, rows, k)?;
+                    println!(
+                        "  RMSE: {:.6e}, Max Err: {:.6e}, Rel Err: {:.6e}",
+                        rmse, max_err, rel_err
+                    );
+                    if max_err > 1e-2 || rel_err > 0.01 {
+                        println!("    WARNING: High Q6K quantization error for {name}");
+                    }
+                    let block_bytes = blocks.len() * mem::size_of::<BlockQ6K>();
+                    println!(
+                        "  Q6K size: {:.2} MB  ({:.0}% of Q8K)",
+                        block_bytes as f64 / 1_048_576.0,
+                        block_bytes as f64 / (blocks.len() * mem::size_of::<BlockQ8K>()) as f64
+                            * 100.0
+                    );
+                    let out_path = out_dir.join(format!("{name}.q6k"));
+                    write_q6k(&out_path, rows, k, &blocks)?;
+                    q6k_count += 1;
+                }
+                QuantFormat::Q8K => {
+                    // ── Q8K path (with optional permutation) ─────────────
+                    println!("quantizing Q8K {name} ({rows} x {k})");
 
-            #[cfg(not(feature = "experimental-perm"))]
-            let (data_for_quant, maybe_perm): (Vec<f32>, Option<Vec<usize>>) = (data_f32, None);
+                    #[cfg(feature = "experimental-perm")]
+                    let (data_for_quant, maybe_perm): (
+                        Vec<f32>,
+                        Option<Vec<usize>>,
+                    ) = if use_permute {
+                        if let Some((layer_id, kind)) = parse_attention_proj(name) {
+                            if kind == "o" {
+                                (data_f32, None)
+                            } else {
+                                let perm = {
+                                    let mut cache = LAYER_PERM_CACHE
+                                        .get_or_init(|| Mutex::new(LayerPermCache::new()))
+                                        .lock()
+                                        .unwrap();
+                                    cache.get_or_compute(
+                                        perm_strategy,
+                                        layer_id,
+                                        rows,
+                                        k,
+                                        &data_f32,
+                                    )?
+                                };
+                                let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
+                                (permuted, Some(perm))
+                            }
+                        } else {
+                            let perm = perm_strategy.build(rows, k, &data_f32)?;
+                            let permuted = apply_column_permutation(rows, k, &data_f32, &perm);
+                            (permuted, Some(perm))
+                        }
+                    } else {
+                        (data_f32, None)
+                    };
 
-            let blocks = quantize_rows_q8k(rows, k, &data_for_quant)?;
+                    #[cfg(not(feature = "experimental-perm"))]
+                    let (data_for_quant, maybe_perm): (
+                        Vec<f32>,
+                        Option<Vec<usize>>,
+                    ) = (data_f32, None);
 
-            let mse_matmul = validate_quantization(&data_for_quant, &blocks, k)?;
-            let mse_direct = validate_quantization_direct(&data_for_quant, &blocks, k)?;
-            let (rmse, max_err, rel_err) = compute_quantization_error_detailed(&data_for_quant, &blocks, rows, k)?;
+                    let blocks = quantize_rows_q8k(rows, k, &data_for_quant)?;
 
-            println!("  MSE (matmul): {:.6e}", mse_matmul);
-            println!("  MSE (direct): {:.6e}", mse_direct);
-            println!("  RMSE: {:.6e}, Max Err: {:.6e}, Rel Err: {:.6e}", rmse, max_err, rel_err);
+                    let mse_matmul = validate_quantization(&data_for_quant, &blocks, k)?;
+                    let mse_direct = validate_quantization_direct(&data_for_quant, &blocks, k)?;
+                    let (rmse, max_err, rel_err) =
+                        compute_quantization_error_detailed(&data_for_quant, &blocks, rows, k)?;
 
-            if max_err > 1e-2 || rel_err > 0.01 {
-                println!("    WARNING: High quantization error detected!");
-                println!("       Consider using block-wise permutation or reducing compression");
+                    println!("  MSE (matmul): {:.6e}", mse_matmul);
+                    println!("  MSE (direct): {:.6e}", mse_direct);
+                    println!(
+                        "  RMSE: {:.6e}, Max Err: {:.6e}, Rel Err: {:.6e}",
+                        rmse, max_err, rel_err
+                    );
+
+                    if max_err > 1e-2 || rel_err > 0.01 {
+                        println!("    WARNING: High quantization error detected!");
+                        println!(
+                            "       Consider using block-wise permutation or reducing compression"
+                        );
+                    }
+                    let diff = (mse_matmul - mse_direct).abs();
+                    if diff > 1e-6 {
+                        println!("    [INFO] Validation methods differ by {:.8e}", diff);
+                    }
+                    if mse_matmul > 1e-2 || mse_direct > 1e-2 {
+                        println!("    [WARN] High MSE detected - quantization may be lossy");
+                    }
+
+                    let out_path = out_dir.join(format!("{name}.q8k"));
+                    write_q8k(&out_path, rows, k, &blocks)?;
+                    #[cfg(feature = "experimental-perm")]
+                    if let Some(perm) = &maybe_perm {
+                        write_perm(&out_path, perm)?;
+                    }
+                    #[cfg(not(feature = "experimental-perm"))]
+                    let _ = &maybe_perm;
+                    q8k_count += 1;
+                }
             }
-            let diff = (mse_matmul - mse_direct).abs();
-            if diff > 1e-6 {
-                println!("    [INFO] Validation methods differ by {:.8e}", diff);
-            }
-            if mse_matmul > 1e-2 || mse_direct > 1e-2 {
-                println!("    [WARN] High MSE detected - quantization may be lossy");
-            }
-
-            let out_path = out_dir.join(format!("{name}.q8k"));
-            write_q8k(&out_path, rows, k, &blocks)?;
-            #[cfg(feature = "experimental-perm")]
-            if let Some(perm) = &maybe_perm {
-                write_perm(&out_path, perm)?;
-            }
-            #[cfg(not(feature = "experimental-perm"))]
-            let _ = &maybe_perm;
-            q8k_count += 1;
         }
-    }
     }
 
     println!(
-        "Done in {:.2}s. Q8K: {q8k_count}, Q4K: {q4k_count}, skipped: {skipped_count}",
+        "Done in {:.2}s. Q8K: {q8k_count}, Q6K: {q6k_count}, Q4K: {q4k_count}, skipped: {skipped_count}",
         t0.elapsed().as_secs_f32()
     );
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{choose_quant_format, Q6KPolicy, QuantFormat};
+
+    #[test]
+    fn q6k_policy_off_keeps_baseline_routing() {
+        assert_eq!(
+            choose_quant_format("model.layers.0.mlp.down_proj.weight", Q6KPolicy::Off),
+            QuantFormat::Q4K
+        );
+        assert_eq!(
+            choose_quant_format("model.layers.0.self_attn.qkv_proj.weight", Q6KPolicy::Off),
+            QuantFormat::Q8K
+        );
+    }
+
+    #[test]
+    fn q6k_policy_can_target_q8k_or_down_layers() {
+        assert_eq!(
+            choose_quant_format("model.layers.0.mlp.down_proj.weight", Q6KPolicy::Down),
+            QuantFormat::Q6K
+        );
+        assert_eq!(
+            choose_quant_format("model.layers.0.self_attn.qkv_proj.weight", Q6KPolicy::Q8K),
+            QuantFormat::Q6K
+        );
+        assert_eq!(
+            choose_quant_format("model.layers.0.mlp.down_proj.weight", Q6KPolicy::Q8K),
+            QuantFormat::Q4K
+        );
+    }
 }

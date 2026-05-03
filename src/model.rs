@@ -33,7 +33,12 @@ pub struct CausalSelfAttention {
 }
 
 impl CausalSelfAttention {
-    fn apply_rotary_emb(&self, x: &Tensor, index_pos: usize, cache: &Cache) -> candle::Result<Tensor> {
+    fn apply_rotary_emb(
+        &self,
+        x: &Tensor,
+        index_pos: usize,
+        cache: &Cache,
+    ) -> candle::Result<Tensor> {
         let (_b_sz, _n_head, seq_len, _head_dim) = x.dims4()?;
         let cos = cache.cos.narrow(0, index_pos, seq_len)?;
         let sin = cache.sin.narrow(0, index_pos, seq_len)?;
@@ -68,11 +73,16 @@ impl CausalSelfAttention {
         let k = qkv.narrow(D::Minus1, q_size, kv_size)?;
         let v = qkv.narrow(D::Minus1, q_size + kv_size, kv_size)?;
 
-        let q = q.reshape((b_sz, seq_len, self.num_attention_heads, self.head_dim))?
-            .transpose(1, 2)?.contiguous()?;
-        let k = k.reshape((b_sz, seq_len, self.num_key_value_heads, self.head_dim))?
-            .transpose(1, 2)?.contiguous()?;
-        let mut v = v.reshape((b_sz, seq_len, self.num_key_value_heads, self.head_dim))?
+        let q = q
+            .reshape((b_sz, seq_len, self.num_attention_heads, self.head_dim))?
+            .transpose(1, 2)?
+            .contiguous()?;
+        let k = k
+            .reshape((b_sz, seq_len, self.num_key_value_heads, self.head_dim))?
+            .transpose(1, 2)?
+            .contiguous()?;
+        let mut v = v
+            .reshape((b_sz, seq_len, self.num_key_value_heads, self.head_dim))?
             .transpose(1, 2)?;
 
         let q = self.apply_rotary_emb(&q, index_pos, cache)?;
@@ -164,7 +174,12 @@ pub struct Phi3 {
 }
 
 impl Phi3 {
-    pub fn forward(&self, x: &Tensor, index_pos: usize, cache: &mut Cache) -> candle::Result<Tensor> {
+    pub fn forward(
+        &self,
+        x: &Tensor,
+        index_pos: usize,
+        cache: &mut Cache,
+    ) -> candle::Result<Tensor> {
         let (b_sz, seq_len) = x.dims2()?;
         let hidden = self.wte.dim(1)?;
 

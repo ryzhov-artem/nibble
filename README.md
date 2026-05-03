@@ -1,13 +1,13 @@
 # phi3-mixed-quant
 
-Mixed-precision Q8K/Q4K quantized inference for Phi-3 Mini 3.8B on CPU.
+Mixed-precision Q8K/Q6K/Q4K quantized inference for Phi-3 Mini 3.8B on CPU.
 Built on top of [candle](https://github.com/huggingface/candle) and its GGML-compatible quantization system.
 
 ## What It Does
 
 Three-stage pipeline that takes a full-precision Phi-3 model, quantizes it with a per-layer mixed strategy, packs the result into a single SafeTensors file, and runs interactive chat inference -- all on CPU, no GPU required.
 
-**Stage 1 -- Quantize.** Reads BF16/F16/F32 SafeTensors (local file or HuggingFace Hub model ID). Routes each weight tensor to Q8K or Q4K format based on layer sensitivity. Attention projections and MLP gate/up layers get Q8K (8-bit). MLP down projections get Q4K (4-bit). Embeddings and layer norms stay unquantized.
+**Stage 1 -- Quantize.** Reads BF16/F16/F32 SafeTensors (local file or HuggingFace Hub model ID). Routes each weight tensor to Q8K or Q4K format by default. Attention projections and MLP gate/up layers get Q8K (8-bit). MLP down projections get Q4K (4-bit). Embeddings and layer norms stay unquantized. Q6K can be enabled with `CANDLE_Q6K_POLICY`; experimental Q8K128 can be enabled with `--features experimental-q8k128`.
 
 **Stage 2 -- Pack.** Combines per-layer quantized blocks, metadata, optional permutation indices, and unquantized tensors into a single packed SafeTensors file ready for inference.
 
@@ -20,6 +20,8 @@ Three-stage pipeline that takes a full-precision Phi-3 model, quantizes it with 
 | Attention Q/K/V/O | Q8K | 8 | High information density |
 | MLP gate_proj, up_proj | Q8K | 8 | Activation-critical |
 | MLP down_proj | Q4K | 4 | Less sensitive, 50% block size reduction |
+| Optional experiment | Q6K | 6 | `CANDLE_Q6K_POLICY=down`, `q8k`, or `all` |
+| Optional experiment | Q8K128 | 8 | `CANDLE_Q8K128_POLICY=layer0-qkv`, `early-qkv`, `qkv`, `attn`, `q8k`, or `all` |
 | Embeddings, norms | F32 | 32 | Preserved unquantized |
 
 Result: BF16 model (~7.6 GB) compresses to roughly 2 GB packed SafeTensors while retaining high output quality on attention-critical paths.
@@ -60,12 +62,27 @@ quantize_q8k microsoft/Phi-3-mini-4k-instruct ./quantized
 
 # Specific shard
 quantize_q8k microsoft/Phi-3-mini-4k-instruct ./quantized --file model-00001-of-00002.safetensors
+
+# Q6K experiment: replace layers that would normally be Q8K with Q6K
+CANDLE_Q6K_POLICY=q8k quantize_q8k model.safetensors ./quantized-q6k
+
+# Q8K128 experiment: default targets layer-0 qkv_proj, based on histogram results
+cargo build --release --features experimental-q8k128 \
+  --bin quantize_q8k128 --bin pack_q8k_safetensors --bin perplexity
+CANDLE_Q8K128_POLICY=layer0-qkv ./target/release/quantize_q8k128 \
+  model.safetensors ./quantized-q8k128-layer0-qkv
 ```
+
+Use a fresh output directory per quantization policy. The packer fails loudly if it finds multiple quantized formats for the same tensor, which prevents stale `.q4k`/`.q6k`/`.q8k` files from silently contaminating a PPL run.
 
 ### Pack
 
 ```bash
-pack_q8k_safetensors model.safetensors ./quantized model-q8k-packed.safetensors
+pack_q8k_safetensors model.safetensors ./quantized model-packed.safetensors
+
+# Q8K128 packed files require the same feature in the packer and loader.
+./target/release/pack_q8k_safetensors \
+  model.safetensors ./quantized-q8k128-layer0-qkv model-q8k128-packed.safetensors
 ```
 
 ### Run
@@ -87,6 +104,7 @@ cargo build --release
 ```
 
 Binaries appear in `target/release/`: `phi3-mixed-quant`, `quantize_q8k`, `pack_q8k_safetensors`.
+The experimental `quantize_q8k128` binary is built only with `--features experimental-q8k128`.
 
 ## Project Structure
 
@@ -97,10 +115,12 @@ src/
   conversation.rs      -- Message history, sliding window, Phi-3 prompt format
   loader.rs            -- SafeTensors loader, HF Hub tokenizer, multi-shard
   model.rs             -- Phi-3 transformer: attention, MLP, RMSNorm
-  quant_linear.rs      -- Q8K/Q4K dispatch, permutation, dequant matmul
+  quant_linear.rs      -- Q8K128/Q8K/Q6K/Q4K dispatch, permutation, dequant matmul
+  quant_q8k_128.rs     -- Experimental scalar Q8K128 block implementation
   types.rs             -- Phi3Config, Q8KHeader, type conversions
   bin/
     quantize_q8k.rs    -- Stage 1: quantizer with HF Hub download
+    quantize_q8k128.rs -- Experimental Stage 1: Q8K128 routing policies
     pack_q8k_safetensors.rs -- Stage 2: packer into single SafeTensors
 ```
 
@@ -124,7 +144,7 @@ Core: [candle-core](https://github.com/huggingface/candle), candle-nn, candle-tr
 
 ## Acknowledgments
 
-This project relies on [candle](https://github.com/huggingface/candle) by Hugging Face for tensor operations and the GGML-compatible quantization primitives (Q8K, Q4K block formats, `from_float` conversions). The quantization block structures and dequantization kernels originate from candle's `quantized` module.
+This project relies on [candle](https://github.com/huggingface/candle) by Hugging Face for tensor operations and the GGML-compatible quantization primitives (Q8K, Q6K, Q4K block formats, `from_float` conversions). The quantization block structures and dequantization kernels originate from candle's `quantized` module.
 
 ## License
 

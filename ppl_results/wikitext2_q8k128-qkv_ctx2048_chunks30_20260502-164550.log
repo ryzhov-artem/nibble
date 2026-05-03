@@ -1,0 +1,175 @@
+Using config.json: /Users/artemrizhov/.cache/huggingface/hub/models--microsoft--Phi-3-mini-4k-instruct/snapshots/0a67737cc96d2554230f90338b163bc6380a2a85/config.json
+Loading from 2 shards...
+  Shard 1: ./packed-shard1-q8k128-qkv.safetensors
+  Shard 2: ./packed-shard2-q8k128-qkv.safetensors
+loaded Q8K128: model.layers.0.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.0.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.0.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.0.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.1.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.1.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.1.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.1.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.2.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.2.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.2.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.2.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.3.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.3.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.3.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.3.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.4.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.4.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.4.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.4.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.5.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.5.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.5.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.5.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.6.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.6.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.6.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.6.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.7.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.7.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.7.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.7.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.8.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.8.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.8.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.8.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.9.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.9.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.9.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.9.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.10.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.10.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.10.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.10.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.11.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.11.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.11.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.11.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.12.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.12.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.12.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.12.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.13.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.13.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.13.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.13.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.14.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.14.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.14.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.14.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.15.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.15.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.15.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.15.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.16.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.16.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.16.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.16.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.17.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.17.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.17.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.17.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.18.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.18.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.18.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.18.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.19.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.19.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.19.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.19.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.20.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.20.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.20.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.20.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.21.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.21.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.21.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.21.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.22.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.22.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.22.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.22.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.23.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.23.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.23.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.23.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.24.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.24.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.24.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.24.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.25.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.25.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.25.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.25.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.26.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.26.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.26.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.26.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.27.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.27.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.27.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.27.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.28.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.28.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.28.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.28.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.29.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.29.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.29.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.29.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.30.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.30.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.30.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.30.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K128: model.layers.31.self_attn.qkv_proj.weight [9216 x 3072], blocks=221184, bytes=32735232
+loaded Q8K: model.layers.31.self_attn.o_proj.weight [3072 x 3072], blocks=36864, bytes=10764312
+loaded Q8K: model.layers.31.mlp.gate_up_proj.weight [16384 x 3072], blocks=196608, bytes=57409560
+loaded Q4K: model.layers.31.mlp.down_proj.weight [3072 x 8192], blocks=98304, bytes=14155776
+loaded Q8K: lm_head.weight [32064 x 3072], blocks=384768, bytes=112352280
+Corpus: /tmp/wt2.txt (1256449 bytes)
+Tokens: 337885
+Eval : ctx=2048 stride=2048 max_chunks=Some(30)
+  chunk 1 | tokens scored 2047 | running PPL = 5.2518 | NLL = 1.6586
+  chunk 2 | tokens scored 4094 | running PPL = 6.5876 | NLL = 1.8852
+  chunk 3 | tokens scored 6141 | running PPL = 7.6284 | NLL = 2.0319
+  chunk 4 | tokens scored 8188 | running PPL = 7.6440 | NLL = 2.0339
+  chunk 5 | tokens scored 10235 | running PPL = 7.2680 | NLL = 1.9835
+  chunk 6 | tokens scored 12282 | running PPL = 7.0947 | NLL = 1.9593
+  chunk 7 | tokens scored 14329 | running PPL = 6.7203 | NLL = 1.9051
+  chunk 8 | tokens scored 16376 | running PPL = 6.3935 | NLL = 1.8553
+  chunk 9 | tokens scored 18423 | running PPL = 6.4370 | NLL = 1.8621
+  chunk 10 | tokens scored 20470 | running PPL = 6.5283 | NLL = 1.8761
+  chunk 11 | tokens scored 22517 | running PPL = 6.6622 | NLL = 1.8964
+  chunk 12 | tokens scored 24564 | running PPL = 6.7544 | NLL = 1.9102
+  chunk 13 | tokens scored 26611 | running PPL = 6.6342 | NLL = 1.8922
+  chunk 14 | tokens scored 28658 | running PPL = 6.7295 | NLL = 1.9065
+  chunk 15 | tokens scored 30705 | running PPL = 6.8171 | NLL = 1.9194
+  chunk 16 | tokens scored 32752 | running PPL = 6.9076 | NLL = 1.9326
+  chunk 17 | tokens scored 34799 | running PPL = 7.0075 | NLL = 1.9470
+  chunk 18 | tokens scored 36846 | running PPL = 7.1289 | NLL = 1.9642
+  chunk 19 | tokens scored 38893 | running PPL = 7.2298 | NLL = 1.9782
+  chunk 20 | tokens scored 40940 | running PPL = 7.2744 | NLL = 1.9844
+  chunk 21 | tokens scored 42987 | running PPL = 7.2464 | NLL = 1.9805
+  chunk 22 | tokens scored 45034 | running PPL = 7.1396 | NLL = 1.9657
+  chunk 23 | tokens scored 47081 | running PPL = 7.0710 | NLL = 1.9560
+  chunk 24 | tokens scored 49128 | running PPL = 7.1161 | NLL = 1.9624
+  chunk 25 | tokens scored 51175 | running PPL = 7.1000 | NLL = 1.9601
+  chunk 26 | tokens scored 53222 | running PPL = 7.1529 | NLL = 1.9675
+  chunk 27 | tokens scored 55269 | running PPL = 7.1566 | NLL = 1.9680
+  chunk 28 | tokens scored 57316 | running PPL = 7.1854 | NLL = 1.9721
+  chunk 29 | tokens scored 59363 | running PPL = 7.2205 | NLL = 1.9769
+  chunk 30 | tokens scored 61410 | running PPL = 7.2670 | NLL = 1.9833
+Reached PHI3_PPL_MAX_CHUNKS=30, stopping.
+
+Result:
+  chunks scored : 30
+  tokens scored : 61410
+  mean NLL      : 1.983343
+  perplexity    : 7.2670
+  wall time     : 30712.50 s
+  throughput    : 2.0 tok/s
