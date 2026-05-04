@@ -4,7 +4,7 @@
 //!   cargo build --release --features experimental-q8k128 --bin quantize_q8k128
 //!
 //! Routing:
-//!   CANDLE_Q8K128_POLICY=layer0-qkv  (default)
+//!   CANDLE_Q8K128_POLICY=layer0-qkv  (default) because kept biggest outlier
 //!   CANDLE_Q8K128_POLICY=early-qkv   (layers 0..3 qkv_proj)
 //!   CANDLE_Q8K128_POLICY=qkv         (all qkv_proj)
 //!   CANDLE_Q8K128_POLICY=attn        (all self_attn qkv/o projections)
