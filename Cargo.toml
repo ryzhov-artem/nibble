@@ -15,6 +15,15 @@ default = []
 experimental-perm = []
 experimental-q8k128 = []
 
+[profile.release]
+lto = "thin"
+codegen-units = 1
+
+[profile.profiling]
+inherits = "release"
+debug = "line-tables-only"
+strip = "none"
+
 [dependencies]
 candle = { git = "https://github.com/huggingface/candle", package = "candle-core", rev = "3b39794c1" }
 candle-nn = { git = "https://github.com/huggingface/candle", rev = "3b39794c1" }
