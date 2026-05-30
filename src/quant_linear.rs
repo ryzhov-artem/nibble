@@ -557,7 +557,7 @@ fn validate_raw_quant_dims(
     if out == 0 || k == 0 {
         candle::bail!("{format} invalid dimensions for {name}: out={out}, k={k}");
     }
-    if k % block_size != 0 {
+    if !k.is_multiple_of(block_size) {
         candle::bail!("{format} k mismatch for {name}: {k} is not divisible by {block_size}");
     }
     Ok(())

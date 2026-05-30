@@ -162,6 +162,7 @@ pub fn build_model(
     if !is_packed_format(&st) {
         candle::bail!("Only packed format supported. Run pack_q8k_safetensors first.");
     }
+    let tensor_names = st.names();
 
     let embed_view = st.tensor("model.embed_tokens.weight")?;
     let wte = Tensor::from_vec(
@@ -170,19 +171,15 @@ pub fn build_model(
         device,
     )?;
 
-    let norm_name = if st.names().iter().any(|n| *n == "model.norm.weight") {
+    let norm_name = if tensor_names.contains(&"model.norm.weight") {
         "model.norm.weight"
-    } else if st
-        .names()
-        .iter()
-        .any(|n| *n == "model.final_layernorm.weight")
-    {
+    } else if tensor_names.contains(&"model.final_layernorm.weight") {
         "model.final_layernorm.weight"
-    } else if st.names().iter().any(|n| *n == "norm.weight") {
+    } else if tensor_names.contains(&"norm.weight") {
         "norm.weight"
     } else {
         println!("Available norm tensors:");
-        for name in st.names() {
+        for name in &tensor_names {
             if name.contains("norm") {
                 println!("  - {}", name);
             }
@@ -208,16 +205,16 @@ pub fn build_model(
         #[cfg(feature = "experimental-q8k128")]
         {
             let q8k128_meta = format!("{}.q8k128_meta", name);
-            if st.names().iter().any(|n| **n == q8k128_meta) {
+            if tensor_names.contains(&q8k128_meta.as_str()) {
                 return QuantLinear::load_q8k128_from_packed_safetensors(&st, name);
             }
         }
         let q6k_meta = format!("{}.q6k_meta", name);
         let q4k_meta = format!("{}.q4k_meta", name);
-        if st.names().iter().any(|n| **n == q6k_meta) {
+        if tensor_names.contains(&q6k_meta.as_str()) {
             return QuantLinear::load_q6k_from_packed_safetensors(&st, name);
         }
-        if st.names().iter().any(|n| **n == q4k_meta) {
+        if tensor_names.contains(&q4k_meta.as_str()) {
             return QuantLinear::load_q4k_from_packed_safetensors(&st, name);
         }
         QuantLinear::load_from_packed_safetensors(&st, name)
@@ -252,6 +249,8 @@ pub fn build_model_multi_shard(
     if !is_packed_format(&st1) || !is_packed_format(&st2) {
         candle::bail!("Both shards must be in packed format");
     }
+    let st1_names = st1.names();
+    let st2_names = st2.names();
 
     let load_t = |name: &str| -> candle::Result<Vec<f32>> {
         if let Ok(v) = st1.tensor(name) {
@@ -266,32 +265,32 @@ pub fn build_model_multi_shard(
         #[cfg(feature = "experimental-q8k128")]
         {
             let q8k128_meta = format!("{}.q8k128_meta", name);
-            if st1.names().iter().any(|n| **n == q8k128_meta) {
+            if st1_names.contains(&q8k128_meta.as_str()) {
                 return QuantLinear::load_q8k128_from_packed_safetensors(&st1, name);
             }
-            if st2.names().iter().any(|n| **n == q8k128_meta) {
+            if st2_names.contains(&q8k128_meta.as_str()) {
                 return QuantLinear::load_q8k128_from_packed_safetensors(&st2, name);
             }
         }
         let q6k_meta = format!("{}.q6k_meta", name);
         let q4k_meta = format!("{}.q4k_meta", name);
         let q8k_meta = format!("{}.q8k_meta", name);
-        if st1.names().iter().any(|n| **n == q6k_meta) {
+        if st1_names.contains(&q6k_meta.as_str()) {
             return QuantLinear::load_q6k_from_packed_safetensors(&st1, name);
         }
-        if st2.names().iter().any(|n| **n == q6k_meta) {
+        if st2_names.contains(&q6k_meta.as_str()) {
             return QuantLinear::load_q6k_from_packed_safetensors(&st2, name);
         }
-        if st1.names().iter().any(|n| **n == q4k_meta) {
+        if st1_names.contains(&q4k_meta.as_str()) {
             return QuantLinear::load_q4k_from_packed_safetensors(&st1, name);
         }
-        if st2.names().iter().any(|n| **n == q4k_meta) {
+        if st2_names.contains(&q4k_meta.as_str()) {
             return QuantLinear::load_q4k_from_packed_safetensors(&st2, name);
         }
-        if st1.names().iter().any(|n| **n == q8k_meta) {
+        if st1_names.contains(&q8k_meta.as_str()) {
             return QuantLinear::load_from_packed_safetensors(&st1, name);
         }
-        if st2.names().iter().any(|n| **n == q8k_meta) {
+        if st2_names.contains(&q8k_meta.as_str()) {
             return QuantLinear::load_from_packed_safetensors(&st2, name);
         }
         candle::bail!("Quantized tensor {} not found in either shard", name)

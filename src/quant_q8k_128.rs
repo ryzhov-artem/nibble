@@ -4,8 +4,6 @@
 //! GGML's 256 values to 128. It is scalar-only for now; use it for PPL and
 //! reconstruction-error experiments before adding SIMD.
 
-#![cfg(feature = "experimental-q8k128")]
-
 use bytemuck::{Pod, Zeroable};
 
 use crate::types::QK_Q8K_128;
@@ -63,7 +61,7 @@ const _: () = assert!(std::mem::size_of::<BlockQ8K128>() == 148);
 const _: () = assert!(std::mem::align_of::<BlockQ8K128>() == 4);
 
 pub fn quantize_rows(rows: usize, k: usize, src: &[f32]) -> candle::Result<Vec<BlockQ8K128>> {
-    if k % BlockQ8K128::QK != 0 {
+    if !k.is_multiple_of(BlockQ8K128::QK) {
         candle::bail!(
             "Q8K128 inner dim {k} is not divisible by {}",
             BlockQ8K128::QK
@@ -97,7 +95,7 @@ pub fn dequantize_rows(
     k: usize,
     dst: &mut [f32],
 ) -> candle::Result<()> {
-    if k % BlockQ8K128::QK != 0 {
+    if !k.is_multiple_of(BlockQ8K128::QK) {
         candle::bail!(
             "Q8K128 inner dim {k} is not divisible by {}",
             BlockQ8K128::QK
@@ -138,7 +136,7 @@ pub fn matmul_scalar(
     y: &mut [f32],
 ) -> candle::Result<()> {
     let (batch, k, out) = dims;
-    if k % BlockQ8K128::QK != 0 {
+    if !k.is_multiple_of(BlockQ8K128::QK) {
         candle::bail!(
             "Q8K128 matmul k={} is not divisible by {}",
             k,

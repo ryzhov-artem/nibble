@@ -26,7 +26,6 @@ use safetensors::tensor::{Dtype, SafeTensors};
 use std::{
     fs,
     io::{BufWriter, Write},
-    mem,
     path::{Path, PathBuf},
     time::Instant,
 };
@@ -127,7 +126,7 @@ fn choose_quant_format(name: &str, policy: Q8K128Policy) -> QuantFormat {
 }
 
 fn quantize_rows_q8k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ8K>> {
-    if k % QK_K != 0 {
+    if !k.is_multiple_of(QK_K) {
         bail!("Q8K inner dim {k} is not multiple of {QK_K}");
     }
     if data.len() != rows * k {
@@ -148,7 +147,7 @@ fn quantize_rows_q8k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ8K
 }
 
 fn quantize_rows_q4k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ4K>> {
-    if k % QK_K != 0 {
+    if !k.is_multiple_of(QK_K) {
         bail!("Q4K inner dim {k} is not multiple of {QK_K}");
     }
     if data.len() != rows * k {
@@ -282,7 +281,7 @@ fn validate_q8k_matmul(
 }
 
 fn write_q8k128(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K128]) -> Result<()> {
-    if k % QK_Q8K_128 != 0 {
+    if !k.is_multiple_of(QK_Q8K_128) {
         bail!("Q8K128 inner dim {k} is not multiple of {QK_Q8K_128}");
     }
     let expected_blocks = rows * (k / QK_Q8K_128);
@@ -305,10 +304,7 @@ fn write_q8k128(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K128]) -> R
     let mut writer = BufWriter::new(fs::File::create(path)?);
     writer.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(
-            blocks.as_ptr() as *const u8,
-            blocks.len() * mem::size_of::<BlockQ8K128>(),
-        )
+        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, std::mem::size_of_val(blocks))
     };
     writer.write_all(raw)?;
     writer.flush()?;
@@ -371,7 +367,7 @@ fn write_blocks<T>(path: &Path, header: &Q8KHeader, blocks: &[T]) -> Result<()> 
 fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
     Ok(match dtype {
         Dtype::F32 => {
-            if bytes.len() % 4 != 0 {
+            if !bytes.len().is_multiple_of(4) {
                 bail!("F32 byte length {} is not divisible by 4", bytes.len());
             }
             bytes
@@ -380,7 +376,7 @@ fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
                 .collect()
         }
         Dtype::F16 => {
-            if bytes.len() % 2 != 0 {
+            if !bytes.len().is_multiple_of(2) {
                 bail!("F16 byte length {} is not divisible by 2", bytes.len());
             }
             bytes
@@ -389,7 +385,7 @@ fn tensor_to_f32(bytes: &[u8], dtype: Dtype) -> Result<Vec<f32>> {
                 .collect()
         }
         Dtype::BF16 => {
-            if bytes.len() % 2 != 0 {
+            if !bytes.len().is_multiple_of(2) {
                 bail!("BF16 byte length {} is not divisible by 2", bytes.len());
             }
             bytes
@@ -524,7 +520,7 @@ fn main() -> Result<()> {
                 QuantFormat::Q8K128 => QK_Q8K_128,
                 QuantFormat::Q8K | QuantFormat::Q4K => QK_K,
             };
-            if k % required_block != 0 {
+            if !k.is_multiple_of(required_block) {
                 println!("skip (k % {required_block} != 0): {name} [{rows} x {k}]");
                 skipped_count += 1;
                 continue;

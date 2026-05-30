@@ -177,7 +177,7 @@ fn validate_header(
             hdr.k
         );
     }
-    if hdr.k as usize % block_elems != 0 {
+    if !(hdr.k as usize).is_multiple_of(block_elems) {
         bail!(
             "{format} k mismatch in {}: {} is not divisible by {}",
             path.display(),
@@ -248,14 +248,19 @@ fn main() -> Result<()> {
     #[cfg(not(feature = "experimental-q8k128"))]
     let mut q8k128_skipped = 0usize;
 
-    let has_final_norm = st.names().iter().any(|n| {
-        *n == "model.norm.weight" || *n == "model.final_layernorm.weight" || *n == "norm.weight"
-    });
+    let tensor_names = st.names();
+    let has_final_norm = [
+        "model.norm.weight",
+        "model.final_layernorm.weight",
+        "norm.weight",
+    ]
+    .iter()
+    .any(|name| tensor_names.contains(name));
     if !has_final_norm {
         println!("WARNING: No final layer norm found in original model!");
         println!("         Expected one of: model.norm.weight, model.final_layernorm.weight, norm.weight");
         println!("         Available norms:");
-        for name in st.names() {
+        for name in &tensor_names {
             if name.contains("norm") {
                 println!("           - {}", name);
             }
@@ -352,7 +357,7 @@ fn main() -> Result<()> {
                 let blocks_bytes = unsafe {
                     std::slice::from_raw_parts(
                         blocks.as_ptr() as *const u8,
-                        blocks.len() * std::mem::size_of::<BlockQ8K>(),
+                        std::mem::size_of_val(blocks.as_slice()),
                     )
                 }
                 .to_vec();

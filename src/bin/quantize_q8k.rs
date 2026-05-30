@@ -152,8 +152,8 @@ fn validate_quantization(original: &[f32], blocks: &[BlockQ8K], k: usize) -> Res
 fn validate_quantization_direct(original: &[f32], blocks: &[BlockQ8K], k: usize) -> Result<f32> {
     let rows = original.len() / k;
     let mut test_input = vec![0f32; k];
-    for i in 0..k {
-        test_input[i] = (i as f32 + 1.0) / k as f32;
+    for (i, value) in test_input.iter_mut().enumerate() {
+        *value = (i as f32 + 1.0) / k as f32;
     }
     let mut expected_output = vec![0f32; rows];
     for row in 0..rows {
@@ -201,7 +201,7 @@ fn compute_quantization_error_detailed(
 }
 
 fn quantize_rows_q8k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ8K>> {
-    if k % QK_K != 0 {
+    if !k.is_multiple_of(QK_K) {
         bail!("inner dim {k} not multiple of {QK_K}");
     }
     let blocks_per_row = k / QK_K;
@@ -235,10 +235,7 @@ fn write_q8k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K]) -> Result<
     let mut w = BufWriter::new(fs::File::create(path)?);
     w.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(
-            blocks.as_ptr() as *const u8,
-            blocks.len() * mem::size_of::<BlockQ8K>(),
-        )
+        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, std::mem::size_of_val(blocks))
     };
     w.write_all(raw)?;
     w.flush()?;
@@ -248,7 +245,7 @@ fn write_q8k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ8K]) -> Result<
 // ── Q6K helpers ────────────────────────────────────────────────────────────
 
 fn quantize_rows_q6k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ6K>> {
-    if k % QK_K != 0 {
+    if !k.is_multiple_of(QK_K) {
         bail!("inner dim {k} not multiple of {QK_K}");
     }
     let blocks_per_row = k / QK_K;
@@ -306,10 +303,7 @@ fn write_q6k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ6K]) -> Result<
     let mut w = BufWriter::new(fs::File::create(path)?);
     w.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(
-            blocks.as_ptr() as *const u8,
-            blocks.len() * mem::size_of::<BlockQ6K>(),
-        )
+        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, std::mem::size_of_val(blocks))
     };
     w.write_all(raw)?;
     w.flush()?;
@@ -319,7 +313,7 @@ fn write_q6k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ6K]) -> Result<
 // ── Q4K helpers ────────────────────────────────────────────────────────────
 
 fn quantize_rows_q4k(rows: usize, k: usize, data: &[f32]) -> Result<Vec<BlockQ4K>> {
-    if k % QK_K != 0 {
+    if !k.is_multiple_of(QK_K) {
         bail!("inner dim {k} not multiple of {QK_K}");
     }
     let blocks_per_row = k / QK_K;
@@ -380,10 +374,7 @@ fn write_q4k(path: &Path, rows: usize, k: usize, blocks: &[BlockQ4K]) -> Result<
     let mut w = BufWriter::new(fs::File::create(path)?);
     w.write_all(bytemuck::bytes_of(&header))?;
     let raw = unsafe {
-        std::slice::from_raw_parts(
-            blocks.as_ptr() as *const u8,
-            blocks.len() * mem::size_of::<BlockQ4K>(),
-        )
+        std::slice::from_raw_parts(blocks.as_ptr() as *const u8, std::mem::size_of_val(blocks))
     };
     w.write_all(raw)?;
     w.flush()?;
@@ -441,7 +432,7 @@ fn build_column_permutation(norms: &[f32]) -> Vec<usize> {
 fn build_block_wise_permutation(rows: usize, k: usize, data: &[f32]) -> Vec<usize> {
     const BLOCK_SIZE: usize = 64;
     let num_blocks = k / BLOCK_SIZE;
-    if k % BLOCK_SIZE != 0 {
+    if !k.is_multiple_of(BLOCK_SIZE) {
         let norms = column_l2_norms(rows, k, data);
         return build_column_permutation(&norms);
     }
@@ -629,7 +620,7 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
         k if k <= 512 => (k * 3) / 4,
         k if k <= 1024 => (k * 2) / 3,
         k if k <= 2048 => k / 2,
-        _ => (k / 4).max(256).min(512),
+        _ => (k / 4).clamp(256, 512),
     };
     println!(
         "    QR pivot: processing {}/{} columns ({:.1}%)",
@@ -651,9 +642,9 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
     for step in 0..qr_steps.min(rows).min(k) {
         let mut max_norm = col_norms[step];
         let mut max_idx = step;
-        for j in (step + 1)..k {
-            if col_norms[j] > max_norm {
-                max_norm = col_norms[j];
+        for (j, &norm) in col_norms.iter().enumerate().skip(step + 1) {
+            if norm > max_norm {
+                max_norm = norm;
                 max_idx = j;
             }
         }
@@ -662,8 +653,8 @@ fn qr_pivot_permutation(rows: usize, k: usize, data: &[f32]) -> Result<Vec<usize
             col_norms.swap(step, max_idx);
         }
         if col_norms[step] > 1e-10 {
-            for j in (step + 1)..k {
-                col_norms[j] *= 0.99;
+            for norm in col_norms.iter_mut().skip(step + 1) {
+                *norm *= 0.99;
             }
         }
     }
@@ -725,12 +716,6 @@ fn download_safetensors(model_id: &str, filename: Option<&str>) -> Result<Vec<Pa
                 // Try sharded format: model-00001-of-NNNNN.safetensors
                 println!("  No single model.safetensors, trying sharded format...");
                 let mut paths = Vec::new();
-                for i in 1..=100 {
-                    let shard_name = format!("model-{i:05}-of-{:05}.safetensors", 0);
-                    // We don't know total count yet; try to get index file first
-                    let _ = shard_name; // placeholder
-                    break;
-                }
                 // Use the model index to find all shards
                 let index_path = repo
                     .get("model.safetensors.index.json")
@@ -868,7 +853,7 @@ fn main() -> Result<()> {
                 continue;
             }
             let (rows, k) = (shape[0], shape[1]);
-            if k % QK_K != 0 {
+            if !k.is_multiple_of(QK_K) {
                 println!("skip (k % {QK_K} != 0): {name} [{rows} x {k}]");
                 skipped_count += 1;
                 continue;

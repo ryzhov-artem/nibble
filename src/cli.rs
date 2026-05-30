@@ -20,11 +20,11 @@ pub struct CliArgs {
 impl CliArgs {
     /// Parse `std::env::args()`, skipping the binary name.
     pub fn parse() -> candle::Result<Self> {
-        Self::from_iter(std::env::args().skip(1))
+        Self::parse_from(std::env::args().skip(1))
     }
 
     /// Parse from any iterator of arguments (handy for tests).
-    pub fn from_iter<I, S>(args: I) -> candle::Result<Self>
+    pub fn parse_from<I, S>(args: I) -> candle::Result<Self>
     where
         I: IntoIterator<Item = S>,
         S: Into<String>,
@@ -45,19 +45,19 @@ mod tests {
 
     #[test]
     fn parses_single_shard() {
-        let a = CliArgs::from_iter(["model.safetensors"]).unwrap();
+        let a = CliArgs::parse_from(["model.safetensors"]).unwrap();
         assert_eq!(a.shard1, PathBuf::from("model.safetensors"));
         assert!(a.shard2.is_none());
     }
 
     #[test]
     fn parses_two_shards() {
-        let a = CliArgs::from_iter(["a.st", "b.st"]).unwrap();
+        let a = CliArgs::parse_from(["a.st", "b.st"]).unwrap();
         assert_eq!(a.shard2, Some(PathBuf::from("b.st")));
     }
 
     #[test]
     fn rejects_empty() {
-        assert!(CliArgs::from_iter(std::iter::empty::<String>()).is_err());
+        assert!(CliArgs::parse_from(std::iter::empty::<String>()).is_err());
     }
 }

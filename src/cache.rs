@@ -76,11 +76,9 @@ impl Cache {
 
     pub fn memory_mb(&self) -> f32 {
         let mut total_bytes = 0;
-        for kv in &self.kvs {
-            if let Some((k, v)) = kv {
-                total_bytes += k.elem_count() * 4;
-                total_bytes += v.elem_count() * 4;
-            }
+        for (k, v) in self.kvs.iter().flatten() {
+            total_bytes += k.elem_count() * 4;
+            total_bytes += v.elem_count() * 4;
         }
         total_bytes as f32 / (1024.0 * 1024.0)
     }
